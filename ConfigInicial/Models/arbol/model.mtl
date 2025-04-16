@@ -1,0 +1,9 @@
+# exported by https://3dviewer.net
+newmtl Bark_Japanese-larch
+Kd 1 1 1
+d 1
+map_Kd Binary_1.png
+newmtl Leaf_Japanese-larch
+Kd 1 1 1
+d 1
+map_Kd Binary_3.png
