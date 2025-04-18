@@ -179,6 +179,7 @@ int main()
 	Model Dog((char*)"Models/RedDog.obj");
 	Model Piso((char*)"Models/piso.obj");
 	Model Ball((char*)"Models/ball.obj");
+	Model Sentar((char*)"Models/Typing.fbx");
 
 
 
@@ -360,6 +361,11 @@ int main()
 		glDrawArrays(GL_TRIANGLES, 0, 36);
 
 		glBindVertexArray(0);
+
+		/////Animacion
+		model = glm::mat4(1.0f);
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		Sentar.Draw(lightingShader);
 
 
 
