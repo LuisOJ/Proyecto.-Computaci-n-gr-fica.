@@ -45,15 +45,19 @@ glm::vec3 lightPos(0.0f, 0.0f, 0.0f);
 bool active;
 
 // Animación del dron
-glm::vec3 dronPos(0.0f, 9.0f, 0.0f); // Posición inicial del dron
+glm::vec3 dronPos(-15.0f, 9.0f, -24.0f); // Posición inicial del dron (igual al primer waypoint)
+
 glm::vec3 waypoints[4] = {
-	glm::vec3(0.0f, 9.0f, 0.0f),   // Punto A
-	glm::vec3(5.0f, 9.0f, 0.0f),   // Punto B
-	glm::vec3(5.0f, 9.0f, 5.0f),   // Punto C
-	glm::vec3(0.0f, 9.0f, 5.0f)    // Punto D
+	glm::vec3(-15.0f, 9.0f, -24.0f),  // Esquina inferior-izquierda (A)
+	glm::vec3(15.0f, 9.0f, -24.0f),   // Esquina inferior-derecha (B)
+	glm::vec3(15.0f, 9.0f, 20.0f),    // Esquina superior-derecha (C) <- Corregido
+	glm::vec3(-15.0f, 9.0f, 20.0f)    // Esquina superior-izquierda (D) <- Corregido
 };
+
+
+
 int currentWaypoint = 0;
-float speed = 1.5f; // Velocidad de movimiento
+float speed = 2.5f; // Velocidad de movimiento
 bool moveDron = false; // Control de movimiento
 // 
 bool sinusoidalMode = false;        // Modo sinusoidal activo/desactivado
@@ -525,7 +529,6 @@ void Animation() {
 void MouseCallback(GLFWwindow* window, double xPos, double yPos)
 {
 	if (firstMouse)
-	{
 	{
 		lastX = xPos;
 		lastY = yPos;
