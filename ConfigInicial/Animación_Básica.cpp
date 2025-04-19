@@ -1,9 +1,3 @@
-// Práctica 10 animación básica
-// Olivos Jimenez Luis Mario
-// 319284085
-// 11/04/2025
-
-
 #include <iostream>
 #include <cmath>
 
@@ -30,11 +24,6 @@
 #include "Camera.h"
 #include "Model.h"
 
-
-
-glm::mat4 modelTemp(1.0f);  // Matriz temporal para transformaciones del modelo
-
-
 // Function prototypes
 void KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mode);
 void MouseCallback(GLFWwindow* window, double xPos, double yPos);
@@ -42,7 +31,7 @@ void DoMovement();
 void Animation();
 
 // Window dimensions
-const GLuint WIDTH = 800, HEIGHT = 600;
+const GLuint WIDTH = 1000, HEIGHT = 800;
 int SCREEN_WIDTH, SCREEN_HEIGHT;
 
 // Camera
@@ -55,9 +44,27 @@ bool firstMouse = true;
 glm::vec3 lightPos(0.0f, 0.0f, 0.0f);
 bool active;
 
+// Animación del dron
+glm::vec3 dronPos(0.0f, 0.0f, 0.0f); // Posición inicial del dron
+glm::vec3 waypoints[4] = {
+	glm::vec3(0.0f, 0.0f, 0.0f),   // Punto A
+	glm::vec3(5.0f, 0.0f, 0.0f),   // Punto B
+	glm::vec3(5.0f, 0.0f, 5.0f),   // Punto C
+	glm::vec3(0.0f, 0.0f, 5.0f)    // Punto D
+};
+int currentWaypoint = 0;
+float speed = 1.5f; // Velocidad de movimiento
+bool moveDron = false; // Control de movimiento
+// 
+bool sinusoidalMode = false;        // Modo sinusoidal activo/desactivado
+float sineAmplitude = 1.0f;        // Altura de la onda
+float sineFrequency = 2.0f;        // Velocidad de oscilación
+float sineTime = 0.0f;             // Tiempo acumulado para el cálculo de la onda
+glm::vec3 initialSinePos;          // Posición inicial al activar el modo sinusoidal
+
 // Positions of the point lights
 glm::vec3 pointLightPositions[] = {
-	glm::vec3(0.0f,1.6f, 0.0f),
+	glm::vec3(0.0f,2.0f, 0.0f),
 	glm::vec3(0.0f,0.0f, 0.0f),
 	glm::vec3(0.0f,0.0f,  0.0f),
 	glm::vec3(0.0f,0.0f, 0.0f)
@@ -110,15 +117,9 @@ float vertices[] = {
 
 
 glm::vec3 Light1 = glm::vec3(0);
-
-
-//Animacion
-float rotBall = -50;
-float rotDog = 0.0;
+//Anim
+float rotBall = 0;
 bool AnimBall = false;
-float salto = 0.0f;       // Controla el movimiento vertical (salto)
-float rot = 0.0f;         // Controla la rotación adicional
-
 
 
 // Deltatime
@@ -137,7 +138,7 @@ int main()
 	glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);*/
 
 	// Create a GLFWwindow object that we can use for GLFW's functions
-	GLFWwindow* window = glfwCreateWindow(WIDTH, HEIGHT, "Practica 10 animacion basica , Olivos Jimenez Luis Mario, 11/04/2025, 319284085", nullptr, nullptr);
+	GLFWwindow* window = glfwCreateWindow(WIDTH, HEIGHT, "Animacion basica", nullptr, nullptr);
 
 	if (nullptr == window)
 	{
@@ -179,7 +180,9 @@ int main()
 	Model Dog((char*)"Models/RedDog.obj");
 	Model Piso((char*)"Models/piso.obj");
 	Model Ball((char*)"Models/ball.obj");
-	Model Sentar((char*)"Models/Typing.fbx");
+	Model dron((char*)"Models/dron/model.obj");
+	Model full((char*)"Models/salon/salonnn.obj");
+
 
 
 
@@ -303,39 +306,31 @@ int main()
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 		Piso.Draw(lightingShader);
 
-		//Perro
-		glEnable(GL_BLEND);//Avtiva la funcionalidad para trabajar el canal alfa
-		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		/////Salon
+		view = camera.GetViewMatrix();
 		model = glm::mat4(1);
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		full.Draw(lightingShader);
 
-		modelTemp = model = glm::translate(model, glm::vec3(0.0f, salto / 2, 0.0f));
-		modelTemp = glm::rotate(modelTemp, glm::radians(rotBall), glm::vec3(0.0f, 1.0f, 0.0f));
-		model = glm::translate(modelTemp, glm::vec3(2.0f, 0.0f, 0.0f));
-
-		model = glm::rotate(model, glm::radians((salto) + rot), glm::vec3(1.0f, 0.0f, 0.0f));
+		model = glm::mat4(1);
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 		glUniform1i(glGetUniformLocation(lightingShader.Program, "transparency"), 0);
-		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 		Dog.Draw(lightingShader);
-		glBindVertexArray(0);
 
-		///////////Pelota
 		model = glm::mat4(1);
-		glEnable(GL_BLEND);//Avtiva la funcionalidad para trabajar el canal alfa
-		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		//glEnable(GL_BLEND);//Avtiva la funcionalidad para trabajar el canal alfa
+		//glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		glUniform1i(glGetUniformLocation(lightingShader.Program, "transparency"), 1);
-
-		modelTemp = model = glm::translate(model, glm::vec3(0.0f, (-salto) + 1.5f, 0.0f));
-		modelTemp = glm::rotate(modelTemp, glm::radians(rotBall - 30), glm::vec3(0.0f, -1.0f, 0.0f));
-		model = glm::translate(modelTemp, glm::vec3(2.0f, 0.0f, 0.0f));
-
+		glUniform1i(glGetUniformLocation(lightingShader.Program, "transparency"), 0);
+		model = glm::mat4(1);
+		model = glm::translate(model, dronPos); // Aplicar posición actual
+		model = glm::scale(model, glm::vec3(0.2f));
+		model = glm::rotate(model, glm::radians(rotBall), glm::vec3(0.0f, 1.0f, 0.0f)); // Rotación en Y
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		Ball.Draw(lightingShader);
-		glDisable(GL_BLEND);  //Desactiva el canal alfa 
+		dron.Draw(lightingShader);
+		//glDisable(GL_BLEND);  //Desactiva el canal alfa 
 		glBindVertexArray(0);
-		
-		
+
 
 		// Also draw the lamp object, again binding the appropriate shader
 		lampShader.Use();
@@ -361,11 +356,6 @@ int main()
 		glDrawArrays(GL_TRIANGLES, 0, 36);
 
 		glBindVertexArray(0);
-
-		/////Animacion
-		model = glm::mat4(1.0f);
-		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		Sentar.Draw(lightingShader);
 
 
 
@@ -481,67 +471,37 @@ void KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mode
 		AnimBall = !AnimBall;
 
 	}
+	if (key == GLFW_KEY_M && action == GLFW_PRESS) {
+		sinusoidalMode = !sinusoidalMode;
+		if (sinusoidalMode) {
+			initialSinePos = dronPos;  // Guarda la posición actual del dron
+			sineTime = 0.0f;           // Reinicia el tiempo de la onda
+		}
+	}
 }
 
 void Animation() {
 	if (AnimBall) {
-		// Rotación base
-		rotBall -= 0.10f;
+		if (sinusoidalMode) {
+			// Movimiento sinusoidal en X y avance continuo en Z
+			sineTime += deltaTime;  // Actualizar tiempo acumulado
 
-		// Resetear ángulo cuando completa un círculo
-		if (rotBall < -360.0f) {
-			rotBall = 0.0f;
-		}
+			// Calcular nuevas posiciones
+			dronPos.x = initialSinePos.x + sin(sineTime * sineFrequency) * sineAmplitude;
+			dronPos.z = initialSinePos.z + speed * sineTime;
 
-		// Rotación del perro sincronizada pero más lenta
-		rotDog = -rotBall * 0.8f;
-
-		// Control de movimientos adicionales cuando están alineados
-		// Primer encuentro (parte superior)
-		if (rotBall <= -150 && rotBall > -210) {
-			// Movimiento de salto
-			float progress = (rotBall + 150.0f) / -60.0f; // Normalizado 0-1
-			salto = sin(progress * glm::pi<float>()) * 0.9f;
-
-			// Pequeña rotación adicional
-			rot = sin(progress * glm::pi<float>()) * 35.0f;
-		}
-		// Segundo encuentro (parte inferior)
-		else if (rotBall <= -330 && rotBall > -360) {
-
-			// Movimiento de salto
-			float progress;
-
-			progress = (rotBall + 330.0f) / -60.0f;
-			salto = sin(progress * glm::pi<float>()) * 0.9f;
-
-			// Pequeña rotación adicional
-			rot = sin(progress * glm::pi<float>()) * 35.0f;
-
-		}
-		else if (rotBall <= 0 && rotBall > -30) {
-
-			// Movimiento de salto
-			float progress;
-
-			progress = (rotBall + 330.0f) / -60.0f;
-
-			salto = sin(progress * glm::pi<float>()) * 0.9f;
-
-			// Pequeña rotación adicional
-			rot = sin(progress * glm::pi<float>()) * 35.0f;
+			// Calcular ángulo de rotación basado en la velocidad instantánea
+			float velocityX = cos(sineTime * sineFrequency) * sineFrequency * sineAmplitude; // Derivada de la posición X
+			float velocityZ = speed;
+			float angle = atan2(velocityX, velocityZ);
+			rotBall = glm::degrees(angle);
 
 		}
 		else {
-			salto = 0.0f;
-			rot = 0.0f;
+			// [Código existente del movimiento rectangular...]
 		}
-
-		// Debug: Imprimir valores actuales
-		printf("RotBall: %.2f, Salto: %.3f, Rot: %.2f\n", rotBall, salto, rot);
 	}
 }
-
 
 void MouseCallback(GLFWwindow* window, double xPos, double yPos)
 {
