@@ -45,12 +45,12 @@ glm::vec3 lightPos(0.0f, 0.0f, 0.0f);
 bool active;
 
 // Animación del dron
-glm::vec3 dronPos(0.0f, 0.0f, 0.0f); // Posición inicial del dron
+glm::vec3 dronPos(0.0f, 9.0f, 0.0f); // Posición inicial del dron
 glm::vec3 waypoints[4] = {
-	glm::vec3(0.0f, 0.0f, 0.0f),   // Punto A
-	glm::vec3(5.0f, 0.0f, 0.0f),   // Punto B
-	glm::vec3(5.0f, 0.0f, 5.0f),   // Punto C
-	glm::vec3(0.0f, 0.0f, 5.0f)    // Punto D
+	glm::vec3(0.0f, 9.0f, 0.0f),   // Punto A
+	glm::vec3(5.0f, 9.0f, 0.0f),   // Punto B
+	glm::vec3(5.0f, 9.0f, 5.0f),   // Punto C
+	glm::vec3(0.0f, 9.0f, 5.0f)    // Punto D
 };
 int currentWaypoint = 0;
 float speed = 1.5f; // Velocidad de movimiento
@@ -309,6 +309,7 @@ int main()
 		/////Salon
 		view = camera.GetViewMatrix();
 		model = glm::mat4(1);
+		model = glm::translate(model, glm::vec3(-9.0f, -1.0f, 25.0f)); // Ajusta X,Y,Z
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 		full.Draw(lightingShader);
 
@@ -324,7 +325,7 @@ int main()
 		glUniform1i(glGetUniformLocation(lightingShader.Program, "transparency"), 0);
 		model = glm::mat4(1);
 		model = glm::translate(model, dronPos); // Aplicar posición actual
-		model = glm::scale(model, glm::vec3(0.2f));
+		model = glm::scale(model, glm::vec3(0.8f));
 		model = glm::rotate(model, glm::radians(rotBall), glm::vec3(0.0f, 1.0f, 0.0f)); // Rotación en Y
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 		dron.Draw(lightingShader);
@@ -474,31 +475,49 @@ void KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mode
 	if (key == GLFW_KEY_M && action == GLFW_PRESS) {
 		sinusoidalMode = !sinusoidalMode;
 		if (sinusoidalMode) {
-			initialSinePos = dronPos;  // Guarda la posición actual del dron
-			sineTime = 0.0f;           // Reinicia el tiempo de la onda
+			initialSinePos = dronPos;
+			sineTime = 0.0f;
+		}
+		else {
+			currentWaypoint = 0; // Reiniciar al primer waypoint
+			dronPos = waypoints[0]; // Opcional: posicionar dron en el inicio
 		}
 	}
+
 }
 
 void Animation() {
 	if (AnimBall) {
 		if (sinusoidalMode) {
-			// Movimiento sinusoidal en X y avance continuo en Z
-			sineTime += deltaTime;  // Actualizar tiempo acumulado
+			// --- Código sinusoidal ---
+			sineTime += deltaTime; // Actualizar tiempo acumulado
 
-			// Calcular nuevas posiciones
+			// Calcular posición en X (oscilación) y Z (avance)
 			dronPos.x = initialSinePos.x + sin(sineTime * sineFrequency) * sineAmplitude;
 			dronPos.z = initialSinePos.z + speed * sineTime;
 
-			// Calcular ángulo de rotación basado en la velocidad instantánea
-			float velocityX = cos(sineTime * sineFrequency) * sineFrequency * sineAmplitude; // Derivada de la posición X
+			// Calcular rotación basada en la dirección del movimiento
+			float velocityX = cos(sineTime * sineFrequency) * sineFrequency * sineAmplitude;
 			float velocityZ = speed;
 			float angle = atan2(velocityX, velocityZ);
 			rotBall = glm::degrees(angle);
-
+			// --- Fin código sinusoidal ---
 		}
 		else {
-			// [Código existente del movimiento rectangular...]
+			// Código del movimiento rectangular
+			glm::vec3 target = waypoints[currentWaypoint];
+			glm::vec3 direction = target - dronPos;
+			float distanceToTarget = glm::length(direction);
+
+			if (distanceToTarget > 0.1f) {
+				direction = glm::normalize(direction);
+				dronPos += direction * speed * deltaTime;
+				float angle = atan2(direction.x, direction.z);
+				rotBall = glm::degrees(angle);
+			}
+			else {
+				currentWaypoint = (currentWaypoint + 1) % 4;
+			}
 		}
 	}
 }
@@ -506,6 +525,7 @@ void Animation() {
 void MouseCallback(GLFWwindow* window, double xPos, double yPos)
 {
 	if (firstMouse)
+	{
 	{
 		lastX = xPos;
 		lastY = yPos;
