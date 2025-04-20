@@ -50,8 +50,8 @@ glm::vec3 dronPos(-15.0f, 9.0f, -24.0f); // Posición inicial del dron (igual al 
 glm::vec3 waypoints[4] = {
 	glm::vec3(-15.0f, 9.0f, -24.0f),  // Esquina inferior-izquierda (A)
 	glm::vec3(15.0f, 9.0f, -24.0f),   // Esquina inferior-derecha (B)
-	glm::vec3(15.0f, 9.0f, 20.0f),    // Esquina superior-derecha (C) <- Corregido
-	glm::vec3(-15.0f, 9.0f, 20.0f)    // Esquina superior-izquierda (D) <- Corregido
+	glm::vec3(15.0f, 9.0f, 20.0f),    // Esquina superior-derecha (C) 
+	glm::vec3(-15.0f, 9.0f, 20.0f)    // Esquina superior-izquierda (D) 
 };
 
 
