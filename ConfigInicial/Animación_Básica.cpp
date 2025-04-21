@@ -1003,17 +1003,18 @@ int main()
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 		escritorionuevo.Draw(lightingShader);
 
-		//
+		/////////////////////////////////////////////////////////////Modelos de iMac////////////////////////////////////////////////////////////////////////////////////
 
 		//Modelo de iMac
 		view = camera.GetViewMatrix();
 		model = glm::mat4(1);
-		model = glm::scale(model, glm::vec3(0.1f, 0.1f, 0.1f));
-		//model = glm::translate(model, glm::vec3(15.1f, -0.1f, 14.7f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+		model = glm::scale(model, glm::vec3(1.15f, 1.15f, 1.15f));
+		model = glm::translate(model, glm::vec3(10.8f, 2.4f, -19.9f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+		model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 		imac.Draw(lightingShader);
 
-		//Modelo de logo
+		//////////////////////////////////////////////////////////////////Modelo de logos////////////////////////////////////////////////////////////////////////////////////////////////////
 		view = camera.GetViewMatrix();
 		model = glm::mat4(1);
 		model = glm::scale(model, glm::vec3(27.0f, 27.0f, 27.0f));
