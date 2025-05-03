@@ -193,6 +193,8 @@ int main()
 	Model escritorioviejo((char*)"Models/texturas_Salon_viejo/Tex_escritorio.obj");
 	Model pcvieja((char*)"Models/texturas_Salon_viejo/Tex_electricos.obj");
 	Model sillavieja((char*)"Models/texturas_Salon_viejo/Tex_silla.obj");
+	Model lava((char*)"Models/lava/lava.obj");
+
 
 
 
@@ -317,14 +319,1062 @@ int main()
 		//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 		//Piso.Draw(lightingShader);
 
-		///Salon
+		/////Salon con mesas, sillas y computadoras
+		//view = camera.GetViewMatrix();
+		//model = glm::mat4(1);
+		//model = glm::translate(model, glm::vec3(-9.0f, -1.0f, 25.0f)); // Ajusta X,Y,Z
+		//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		//full.Draw(lightingShader);
+
+
+
+
+		///////////////Modelo de Lava/////////////////////////
 		view = camera.GetViewMatrix();
 		model = glm::mat4(1);
-		model = glm::translate(model, glm::vec3(-9.0f, -1.0f, 25.0f)); // Ajusta X,Y,Z
+		model = glm::scale(model, glm::vec3(0.09f, 0.09f, 0.09f));
+		model = glm::translate(model, glm::vec3(15.6f, -1.5f, -22.9f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		full.Draw(lightingShader);
+		lava.Draw(lightingShader);
 
-		/////Salón Nueevoooo
+
+		/////////////////////////////////////////////////////////////Modelos de iMac viejas////////////////////////////////////////////////////////////////////////////////////
+		////////////////////////////////////////////////////////////Primer mesa de la derecha///////////////////////////////////////////////////////////////////////////////////
+		view = camera.GetViewMatrix();
+		model = glm::mat4(1);
+		model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
+		model = glm::translate(model, glm::vec3(15.6f, -0.9f, -22.9f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		pcvieja.Draw(lightingShader);
+
+		view = camera.GetViewMatrix();
+		model = glm::mat4(1);
+		model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
+		model = glm::translate(model, glm::vec3(12.6f, -0.9f, -22.9f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		pcvieja.Draw(lightingShader);
+
+		view = camera.GetViewMatrix();
+		model = glm::mat4(1);
+		model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
+		model = glm::translate(model, glm::vec3(9.7f, -0.9f, -22.9f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		pcvieja.Draw(lightingShader);
+
+		view = camera.GetViewMatrix();
+		model = glm::mat4(1);
+		model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
+		model = glm::translate(model, glm::vec3(6.7f, -0.9f, -22.9f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		pcvieja.Draw(lightingShader);
+
+		////////////////////////////////////////////////////////////Segunda mesa de la derecha///////////////////////////////////////////////////////////////////////////////////
+		view = camera.GetViewMatrix();
+		model = glm::mat4(1);
+		model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
+		model = glm::translate(model, glm::vec3(15.6f, -0.9f, -16.4f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		pcvieja.Draw(lightingShader);
+
+		view = camera.GetViewMatrix();
+		model = glm::mat4(1);
+		model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
+		model = glm::translate(model, glm::vec3(12.6f, -0.9f, -16.4f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		pcvieja.Draw(lightingShader);
+
+		view = camera.GetViewMatrix();
+		model = glm::mat4(1);
+		model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
+		model = glm::translate(model, glm::vec3(9.7f, -0.9f, -16.4f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		pcvieja.Draw(lightingShader);
+
+		view = camera.GetViewMatrix();
+		model = glm::mat4(1);
+		model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
+		model = glm::translate(model, glm::vec3(6.7f, -0.9f, -16.4f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		pcvieja.Draw(lightingShader);
+
+		////////////////////////////////////////////////////////////Tercer mesa de la derecha///////////////////////////////////////////////////////////////////////////////////
+		view = camera.GetViewMatrix();
+		model = glm::mat4(1);
+		model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
+		model = glm::translate(model, glm::vec3(15.6f, -0.9f, -10.1f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		pcvieja.Draw(lightingShader);
+
+		view = camera.GetViewMatrix();
+		model = glm::mat4(1);
+		model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
+		model = glm::translate(model, glm::vec3(12.6f, -0.9f, -10.1f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		pcvieja.Draw(lightingShader);
+
+		view = camera.GetViewMatrix();
+		model = glm::mat4(1);
+		model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
+		model = glm::translate(model, glm::vec3(9.7f, -0.9f, -10.1f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		pcvieja.Draw(lightingShader);
+
+		view = camera.GetViewMatrix();
+		model = glm::mat4(1);
+		model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
+		model = glm::translate(model, glm::vec3(6.7f, -0.9f, -10.1f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		pcvieja.Draw(lightingShader);
+
+
+
+		////////////////////////////////////////////////////////////Cuarta mesa de la derecha///////////////////////////////////////////////////////////////////////////////////
+		view = camera.GetViewMatrix();
+		model = glm::mat4(1);
+		model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
+		model = glm::translate(model, glm::vec3(15.6f, -0.9f, -4.1f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		pcvieja.Draw(lightingShader);
+
+		view = camera.GetViewMatrix();
+		model = glm::mat4(1);
+		model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
+		model = glm::translate(model, glm::vec3(12.6f, -0.9f, -4.1f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		pcvieja.Draw(lightingShader);
+
+		view = camera.GetViewMatrix();
+		model = glm::mat4(1);
+		model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
+		model = glm::translate(model, glm::vec3(9.7f, -0.9f, -4.1f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		pcvieja.Draw(lightingShader);
+
+		view = camera.GetViewMatrix();
+		model = glm::mat4(1);
+		model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
+		model = glm::translate(model, glm::vec3(6.7f, -0.9f, -4.1f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		pcvieja.Draw(lightingShader);
+
+		////////////////////////////////////////////////////////////Quinta mesa de la derecha///////////////////////////////////////////////////////////////////////////////////
+		view = camera.GetViewMatrix();
+		model = glm::mat4(1);
+		model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
+		model = glm::translate(model, glm::vec3(15.9f, -0.9f, 2.3f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		pcvieja.Draw(lightingShader);
+
+		view = camera.GetViewMatrix();
+		model = glm::mat4(1);
+		model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
+		model = glm::translate(model, glm::vec3(13.5f, -0.9f, 2.3f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		pcvieja.Draw(lightingShader);
+
+		view = camera.GetViewMatrix();
+		model = glm::mat4(1);
+		model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
+		model = glm::translate(model, glm::vec3(11.2f, -0.9f, 2.3f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		pcvieja.Draw(lightingShader);
+
+		view = camera.GetViewMatrix();
+		model = glm::mat4(1);
+		model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
+		model = glm::translate(model, glm::vec3(8.8f, -0.9f, 2.3f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		pcvieja.Draw(lightingShader);
+
+		view = camera.GetViewMatrix();
+		model = glm::mat4(1);
+		model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
+		model = glm::translate(model, glm::vec3(6.5f, -0.9f, 2.3f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		pcvieja.Draw(lightingShader);
+
+		////////////////////////////////////////////////////////////Sexta mesa de la derecha///////////////////////////////////////////////////////////////////////////////////
+		view = camera.GetViewMatrix();
+		model = glm::mat4(1);
+		model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
+		model = glm::translate(model, glm::vec3(15.9f, -0.9f, 8.5f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		pcvieja.Draw(lightingShader);
+
+		view = camera.GetViewMatrix();
+		model = glm::mat4(1);
+		model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
+		model = glm::translate(model, glm::vec3(13.5f, -0.9f, 8.5f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		pcvieja.Draw(lightingShader);
+
+		view = camera.GetViewMatrix();
+		model = glm::mat4(1);
+		model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
+		model = glm::translate(model, glm::vec3(11.2f, -0.9f, 8.5f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		pcvieja.Draw(lightingShader);
+
+		view = camera.GetViewMatrix();
+		model = glm::mat4(1);
+		model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
+		model = glm::translate(model, glm::vec3(8.8f, -0.9f, 8.5f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		pcvieja.Draw(lightingShader);
+
+		view = camera.GetViewMatrix();
+		model = glm::mat4(1);
+		model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
+		model = glm::translate(model, glm::vec3(6.5f, -0.9f, 8.5f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		pcvieja.Draw(lightingShader);
+
+		////////////////////////////////////////////////////////////Septima mesa de la derecha///////////////////////////////////////////////////////////////////////////////////
+		view = camera.GetViewMatrix();
+		model = glm::mat4(1);
+		model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
+		model = glm::translate(model, glm::vec3(15.9f, -0.9f, 14.8f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		pcvieja.Draw(lightingShader);
+
+		view = camera.GetViewMatrix();
+		model = glm::mat4(1);
+		model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
+		model = glm::translate(model, glm::vec3(13.5f, -0.9f, 14.8f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		pcvieja.Draw(lightingShader);
+
+		view = camera.GetViewMatrix();
+		model = glm::mat4(1);
+		model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
+		model = glm::translate(model, glm::vec3(11.2f, -0.9f, 14.8f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		pcvieja.Draw(lightingShader);
+
+		view = camera.GetViewMatrix();
+		model = glm::mat4(1);
+		model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
+		model = glm::translate(model, glm::vec3(8.8f, -0.9f, 14.8f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		pcvieja.Draw(lightingShader);
+
+		view = camera.GetViewMatrix();
+		model = glm::mat4(1);
+		model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
+		model = glm::translate(model, glm::vec3(6.5f, -0.9f, 14.8f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		pcvieja.Draw(lightingShader);
+
+		//////////////////////////////////////////////////////////////Mesas de la IZQUIERDA////////////////////////////////////////////////////////////////////////////////////////
+		////////////////////////////////////////////////////////////Primer mesa de la IZQUIERDA///////////////////////////////////////////////////////////////////////////////////
+
+		view = camera.GetViewMatrix();
+		model = glm::mat4(1);
+		model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
+		model = glm::translate(model, glm::vec3(-9.8f, -0.9f, -22.9f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		pcvieja.Draw(lightingShader);
+
+		view = camera.GetViewMatrix();
+		model = glm::mat4(1);
+		model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
+		model = glm::translate(model, glm::vec3(-6.8f, -0.9f, -22.9f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		pcvieja.Draw(lightingShader);
+
+		view = camera.GetViewMatrix();
+		model = glm::mat4(1);
+		model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
+		model = glm::translate(model, glm::vec3(-3.9f, -0.9f, -22.9f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		pcvieja.Draw(lightingShader);
+
+		view = camera.GetViewMatrix();
+		model = glm::mat4(1);
+		model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
+		model = glm::translate(model, glm::vec3(-0.9f, -0.9f, -22.9f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		pcvieja.Draw(lightingShader);
+
+		////////////////////////////////////////////////////////////Segunda mesa de la IZQUIERDA///////////////////////////////////////////////////////////////////////////////////
+		view = camera.GetViewMatrix();
+		model = glm::mat4(1);
+		model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
+		model = glm::translate(model, glm::vec3(-9.8f, -0.9f, -16.4f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		pcvieja.Draw(lightingShader);
+
+		view = camera.GetViewMatrix();
+		model = glm::mat4(1);
+		model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
+		model = glm::translate(model, glm::vec3(-6.8f, -0.9f, -16.4f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		pcvieja.Draw(lightingShader);
+
+		view = camera.GetViewMatrix();
+		model = glm::mat4(1);
+		model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
+		model = glm::translate(model, glm::vec3(-3.9f, -0.9f, -16.4f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		pcvieja.Draw(lightingShader);
+
+		view = camera.GetViewMatrix();
+		model = glm::mat4(1);
+		model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
+		model = glm::translate(model, glm::vec3(-0.9f, -0.9f, -16.4f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		pcvieja.Draw(lightingShader);
+
+
+		////////////////////////////////////////////////////////////Tercer mesa de la IZQUIERDA///////////////////////////////////////////////////////////////////////////////////
+		view = camera.GetViewMatrix();
+		model = glm::mat4(1);
+		model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
+		model = glm::translate(model, glm::vec3(-9.8f, -0.9f, -10.1f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		pcvieja.Draw(lightingShader);
+
+		view = camera.GetViewMatrix();
+		model = glm::mat4(1);
+		model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
+		model = glm::translate(model, glm::vec3(-6.8f, -0.9f, -10.1f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		pcvieja.Draw(lightingShader);
+
+		view = camera.GetViewMatrix();
+		model = glm::mat4(1);
+		model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
+		model = glm::translate(model, glm::vec3(-3.9f, -0.9f, -10.1f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		pcvieja.Draw(lightingShader);
+
+		view = camera.GetViewMatrix();
+		model = glm::mat4(1);
+		model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
+		model = glm::translate(model, glm::vec3(-0.9f, -0.9f, -10.1f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		pcvieja.Draw(lightingShader);
+
+		////////////////////////////////////////////////////////////Cuarta mesa de la IZQUIERDA///////////////////////////////////////////////////////////////////////////////////
+		view = camera.GetViewMatrix();
+		model = glm::mat4(1);
+		model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
+		model = glm::translate(model, glm::vec3(-9.8f, -0.9f, -4.1f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		pcvieja.Draw(lightingShader);
+
+		view = camera.GetViewMatrix();
+		model = glm::mat4(1);
+		model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
+		model = glm::translate(model, glm::vec3(-6.8f, -0.9f, -4.1f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		pcvieja.Draw(lightingShader);
+
+		view = camera.GetViewMatrix();
+		model = glm::mat4(1);
+		model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
+		model = glm::translate(model, glm::vec3(-3.9f, -0.9f, -4.1f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		pcvieja.Draw(lightingShader);
+
+		view = camera.GetViewMatrix();
+		model = glm::mat4(1);
+		model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
+		model = glm::translate(model, glm::vec3(-0.9f, -0.9f, -4.1f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		pcvieja.Draw(lightingShader);
+
+		////////////////////////////////////////////////////////////Quinta mesa de la IZQUIERDA///////////////////////////////////////////////////////////////////////////////////
+		view = camera.GetViewMatrix();
+		model = glm::mat4(1);
+		model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
+		model = glm::translate(model, glm::vec3(-10.0f, -0.9f, 2.3f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		pcvieja.Draw(lightingShader);
+
+		view = camera.GetViewMatrix();
+		model = glm::mat4(1);
+		model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
+		model = glm::translate(model, glm::vec3(-7.6f, -0.9f, 2.3f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		pcvieja.Draw(lightingShader);
+
+		view = camera.GetViewMatrix();
+		model = glm::mat4(1);
+		model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
+		model = glm::translate(model, glm::vec3(-5.3f, -0.9f, 2.3f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		pcvieja.Draw(lightingShader);
+
+		view = camera.GetViewMatrix();
+		model = glm::mat4(1);
+		model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
+		model = glm::translate(model, glm::vec3(-2.9f, -0.9f, 2.3f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		pcvieja.Draw(lightingShader);
+
+		view = camera.GetViewMatrix();
+		model = glm::mat4(1);
+		model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
+		model = glm::translate(model, glm::vec3(-0.6f, -0.9f, 2.3f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		pcvieja.Draw(lightingShader);
+
+		////////////////////////////////////////////////////////////Sexta mesa de la IZQUIERDA///////////////////////////////////////////////////////////////////////////////////
+		view = camera.GetViewMatrix();
+		model = glm::mat4(1);
+		model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
+		model = glm::translate(model, glm::vec3(-10.0f, -0.9f, 8.5f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		pcvieja.Draw(lightingShader);
+
+		view = camera.GetViewMatrix();
+		model = glm::mat4(1);
+		model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
+		model = glm::translate(model, glm::vec3(-7.6f, -0.9f, 8.5f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		pcvieja.Draw(lightingShader);
+
+		view = camera.GetViewMatrix();
+		model = glm::mat4(1);
+		model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
+		model = glm::translate(model, glm::vec3(-5.3f, -0.9f, 8.5f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		pcvieja.Draw(lightingShader);
+
+		view = camera.GetViewMatrix();
+		model = glm::mat4(1);
+		model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
+		model = glm::translate(model, glm::vec3(-2.9f, -0.9f, 8.5f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		pcvieja.Draw(lightingShader);
+
+		view = camera.GetViewMatrix();
+		model = glm::mat4(1);
+		model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
+		model = glm::translate(model, glm::vec3(-0.6f, -0.9f, 8.5f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		pcvieja.Draw(lightingShader);
+
+		////////////////////////////////////////////////////////////Septima mesa de la IZQUIERDA///////////////////////////////////////////////////////////////////////////////////
+		view = camera.GetViewMatrix();
+		model = glm::mat4(1);
+		model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
+		model = glm::translate(model, glm::vec3(-10.0f, -0.9f, 14.8f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		pcvieja.Draw(lightingShader);
+
+		view = camera.GetViewMatrix();
+		model = glm::mat4(1);
+		model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
+		model = glm::translate(model, glm::vec3(-7.6f, -0.9f, 14.8f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		pcvieja.Draw(lightingShader);
+
+		view = camera.GetViewMatrix();
+		model = glm::mat4(1);
+		model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
+		model = glm::translate(model, glm::vec3(-5.3f, -0.9f, 14.8f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		pcvieja.Draw(lightingShader);
+
+		view = camera.GetViewMatrix();
+		model = glm::mat4(1);
+		model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
+		model = glm::translate(model, glm::vec3(-2.9f, -0.9f, 14.8f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		pcvieja.Draw(lightingShader);
+
+		view = camera.GetViewMatrix();
+		model = glm::mat4(1);
+		model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
+		model = glm::translate(model, glm::vec3(-0.6f, -0.9f, 14.8f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		pcvieja.Draw(lightingShader);
+
+
+		///////////////////////////////////////////////////////////////////////////Modelos de mesas viejas///////////////////////////////////////////////////////////////////////////
+		////////////////////////////////////////////////////////////Primer mesa de la derecha///////////////////////////////////////////////////////////////////////////////////
+		view = camera.GetViewMatrix();
+		model = glm::mat4(1);
+		model = glm::translate(model, glm::vec3(8.2f, -1.0f, -20.5f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+		model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		escritorioviejo.Draw(lightingShader);
+
+		////////////////////////////////////////////////////////////Segunda mesa de la derecha///////////////////////////////////////////////////////////////////////////////////
+		view = camera.GetViewMatrix();
+		model = glm::mat4(1);
+		model = glm::translate(model, glm::vec3(8.2f, -1.0f, -14.0f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+		model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		escritorioviejo.Draw(lightingShader);
+
+		////////////////////////////////////////////////////////////Tercer mesa de la derecha///////////////////////////////////////////////////////////////////////////////////
+		view = camera.GetViewMatrix();
+		model = glm::mat4(1);
+		model = glm::translate(model, glm::vec3(8.2f, -1.0f, -7.6f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+		model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		escritorioviejo.Draw(lightingShader);
+
+
+		////////////////////////////////////////////////////////////Cuarta mesa de la derecha///////////////////////////////////////////////////////////////////////////////////
+		view = camera.GetViewMatrix();
+		model = glm::mat4(1);
+		model = glm::translate(model, glm::vec3(8.2f, -1.0f, -1.7f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+		model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		escritorioviejo.Draw(lightingShader);
+
+		////////////////////////////////////////////////////////////Quinta mesa de la derecha///////////////////////////////////////////////////////////////////////////////////
+		view = camera.GetViewMatrix();
+		model = glm::mat4(1);
+		model = glm::translate(model, glm::vec3(8.2f, -1.0f, 4.8f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+		model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		escritorioviejo.Draw(lightingShader);
+
+		////////////////////////////////////////////////////////////Sexta mesa de la derecha///////////////////////////////////////////////////////////////////////////////////
+		view = camera.GetViewMatrix();
+		model = glm::mat4(1);
+		model = glm::translate(model, glm::vec3(8.2f, -1.0f, 10.9f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+		model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		escritorioviejo.Draw(lightingShader);
+
+		////////////////////////////////////////////////////////////Septima mesa de la derecha///////////////////////////////////////////////////////////////////////////////////
+		view = camera.GetViewMatrix();
+		model = glm::mat4(1);
+		model = glm::translate(model, glm::vec3(8.2f, -1.0f, 17.2f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+		model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		escritorioviejo.Draw(lightingShader);
+
+		////////////////////////////////////////////////////////////Octava mesa de la derecha///////////////////////////////////////////////////////////////////////////////////
+		view = camera.GetViewMatrix();
+		model = glm::mat4(1);
+		model = glm::translate(model, glm::vec3(11.3f, -1.0f, 20.3f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+		model = glm::scale(model, glm::vec3(0.5f, 1.0f, 1.0f));
+		model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		escritorioviejo.Draw(lightingShader);
+
+		////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		////////////////////////////////////////////////////////////Primer mesa de la IZQUIERDA///////////////////////////////////////////////////////////////////////////////////
+		view = camera.GetViewMatrix();
+		model = glm::mat4(1);
+		model = glm::translate(model, glm::vec3(-8.2f, -1.0f, -20.5f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+		model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		escritorioviejo.Draw(lightingShader);
+
+		////////////////////////////////////////////////////////////Segunda mesa de la IZQUIERDA///////////////////////////////////////////////////////////////////////////////////
+		view = camera.GetViewMatrix();
+		model = glm::mat4(1);
+		model = glm::translate(model, glm::vec3(-8.2f, -1.0f, -14.0f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+		model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		escritorioviejo.Draw(lightingShader);
+
+		////////////////////////////////////////////////////////////Tercer mesa de la IZQUIERDA///////////////////////////////////////////////////////////////////////////////////
+		view = camera.GetViewMatrix();
+		model = glm::mat4(1);
+		model = glm::translate(model, glm::vec3(-8.2f, -1.0f, -7.6f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+		model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		escritorioviejo.Draw(lightingShader);
+
+
+		////////////////////////////////////////////////////////////Cuarta mesa de la IZQUIERDA///////////////////////////////////////////////////////////////////////////////////
+		view = camera.GetViewMatrix();
+		model = glm::mat4(1);
+		model = glm::translate(model, glm::vec3(-8.2f, -1.0f, -1.7f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+		model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		escritorioviejo.Draw(lightingShader);
+
+		////////////////////////////////////////////////////////////Quinta mesa de la IZQUIERDA///////////////////////////////////////////////////////////////////////////////////
+		view = camera.GetViewMatrix();
+		model = glm::mat4(1);
+		model = glm::translate(model, glm::vec3(-8.2f, -1.0f, 4.8f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+		model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		escritorioviejo.Draw(lightingShader);
+
+		////////////////////////////////////////////////////////////Sexta mesa de la IZQUIERDA///////////////////////////////////////////////////////////////////////////////////
+		view = camera.GetViewMatrix();
+		model = glm::mat4(1);
+		model = glm::translate(model, glm::vec3(-8.2f, -1.0f, 10.9f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+		model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		escritorioviejo.Draw(lightingShader);
+
+		////////////////////////////////////////////////////////////Septima mesa de la IZQUIERDA///////////////////////////////////////////////////////////////////////////////////
+		view = camera.GetViewMatrix();
+		model = glm::mat4(1);
+		model = glm::translate(model, glm::vec3(-8.2f, -1.0f, 17.2f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+		model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		escritorioviejo.Draw(lightingShader);
+
+
+
+
+		///////////////////////////////////////////////////////////////////////////Modelos de sillas viejas///////////////////////////////////////////////////////////////////////////
+		////////////////////////////////////////////////////////////Primer mesa de la derecha///////////////////////////////////////////////////////////////////////////////////
+		view = camera.GetViewMatrix();
+		model = glm::mat4(1);
+		model = glm::translate(model, glm::vec3(13.0f, -1.2f, -24.0f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+		model = glm::scale(model, glm::vec3(1.0f, 1.1f, 1.0f));
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		sillavieja.Draw(lightingShader);
+
+		view = camera.GetViewMatrix();
+		model = glm::mat4(1);
+		model = glm::translate(model, glm::vec3(10.25f, -1.2f, -24.0f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+		model = glm::scale(model, glm::vec3(1.0f, 1.1f, 1.0f));
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		sillavieja.Draw(lightingShader);
+
+		view = camera.GetViewMatrix();
+		model = glm::mat4(1);
+		model = glm::translate(model, glm::vec3(7.32f, -1.2f, -24.0f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+		model = glm::scale(model, glm::vec3(1.0f, 1.1f, 1.0f));
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		sillavieja.Draw(lightingShader);
+
+		view = camera.GetViewMatrix();
+		model = glm::mat4(1);
+		model = glm::translate(model, glm::vec3(4.25f, -1.2f, -24.0f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+		model = glm::scale(model, glm::vec3(1.0f, 1.1f, 1.0f));
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		sillavieja.Draw(lightingShader);
+
+		////////////////////////////////////////////////////////////Segunda mesa de la derecha///////////////////////////////////////////////////////////////////////////////////
+		view = camera.GetViewMatrix();
+		model = glm::mat4(1);
+		model = glm::translate(model, glm::vec3(13.0f, -1.2f, -17.4f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+		model = glm::scale(model, glm::vec3(1.0f, 1.1f, 1.0f));
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		sillavieja.Draw(lightingShader);
+
+		view = camera.GetViewMatrix();
+		model = glm::mat4(1);
+		model = glm::translate(model, glm::vec3(10.25f, -1.2f, -17.4f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+		model = glm::scale(model, glm::vec3(1.0f, 1.1f, 1.0f));
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		sillavieja.Draw(lightingShader);
+
+		view = camera.GetViewMatrix();
+		model = glm::mat4(1);
+		model = glm::translate(model, glm::vec3(7.32f, -1.2f, -17.4f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+		model = glm::scale(model, glm::vec3(1.0f, 1.1f, 1.0f));
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		sillavieja.Draw(lightingShader);
+
+		view = camera.GetViewMatrix();
+		model = glm::mat4(1);
+		model = glm::translate(model, glm::vec3(4.25f, -1.2f, -17.4f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+		model = glm::scale(model, glm::vec3(1.0f, 1.1f, 1.0f));
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		sillavieja.Draw(lightingShader);
+
+		////////////////////////////////////////////////////////////Tercera mesa de la derecha///////////////////////////////////////////////////////////////////////////////////
+		view = camera.GetViewMatrix();
+		model = glm::mat4(1);
+		model = glm::translate(model, glm::vec3(13.0f, -1.2f, -11.0f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+		model = glm::scale(model, glm::vec3(1.0f, 1.1f, 1.0f));
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		sillavieja.Draw(lightingShader);
+
+		view = camera.GetViewMatrix();
+		model = glm::mat4(1);
+		model = glm::translate(model, glm::vec3(10.25f, -1.2f, -11.0f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+		model = glm::scale(model, glm::vec3(1.0f, 1.1f, 1.0f));
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		sillavieja.Draw(lightingShader);
+
+		view = camera.GetViewMatrix();
+		model = glm::mat4(1);
+		model = glm::translate(model, glm::vec3(7.32f, -1.2f, -11.0f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+		model = glm::scale(model, glm::vec3(1.0f, 1.1f, 1.0f));
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		sillavieja.Draw(lightingShader);
+
+		view = camera.GetViewMatrix();
+		model = glm::mat4(1);
+		model = glm::translate(model, glm::vec3(4.25f, -1.2f, -11.0f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+		model = glm::scale(model, glm::vec3(1.0f, 1.1f, 1.0f));
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		sillavieja.Draw(lightingShader);
+
+
+		////////////////////////////////////////////////////////////Cuarta mesa de la derecha///////////////////////////////////////////////////////////////////////////////////
+		view = camera.GetViewMatrix();
+		model = glm::mat4(1);
+		model = glm::translate(model, glm::vec3(13.0f, -1.2f, -5.0f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+		model = glm::scale(model, glm::vec3(1.0f, 1.1f, 1.0f));
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		sillavieja.Draw(lightingShader);
+
+		view = camera.GetViewMatrix();
+		model = glm::mat4(1);
+		model = glm::translate(model, glm::vec3(10.25f, -1.2f, -5.0f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+		model = glm::scale(model, glm::vec3(1.0f, 1.1f, 1.0f));
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		sillavieja.Draw(lightingShader);
+
+		view = camera.GetViewMatrix();
+		model = glm::mat4(1);
+		model = glm::translate(model, glm::vec3(7.32f, -1.2f, -5.0f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+		model = glm::scale(model, glm::vec3(1.0f, 1.1f, 1.0f));
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		sillavieja.Draw(lightingShader);
+
+		view = camera.GetViewMatrix();
+		model = glm::mat4(1);
+		model = glm::translate(model, glm::vec3(4.25f, -1.2f, -5.0f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+		model = glm::scale(model, glm::vec3(1.0f, 1.1f, 1.0f));
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		sillavieja.Draw(lightingShader);
+
+		////////////////////////////////////////////////////////////Quinta mesa de la derecha///////////////////////////////////////////////////////////////////////////////////
+		view = camera.GetViewMatrix();
+		model = glm::mat4(1);
+		model = glm::translate(model, glm::vec3(13.3f, -1.2f, 1.4f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+		model = glm::scale(model, glm::vec3(1.0f, 1.1f, 1.0f));
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		sillavieja.Draw(lightingShader);
+
+		view = camera.GetViewMatrix();
+		model = glm::mat4(1);
+		model = glm::translate(model, glm::vec3(11.1f, -1.2f, 1.4f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+		model = glm::scale(model, glm::vec3(1.0f, 1.1f, 1.0f));
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		sillavieja.Draw(lightingShader);
+
+		view = camera.GetViewMatrix();
+		model = glm::mat4(1);
+		model = glm::translate(model, glm::vec3(8.8f, -1.2f, 1.4f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+		model = glm::scale(model, glm::vec3(1.0f, 1.1f, 1.0f));
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		sillavieja.Draw(lightingShader);
+
+		view = camera.GetViewMatrix();
+		model = glm::mat4(1);
+		model = glm::translate(model, glm::vec3(6.3f, -1.2f, 1.4f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+		model = glm::scale(model, glm::vec3(1.0f, 1.1f, 1.0f));
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		sillavieja.Draw(lightingShader);
+
+		view = camera.GetViewMatrix();
+		model = glm::mat4(1);
+		model = glm::translate(model, glm::vec3(4.0f, -1.2f, 1.4f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+		model = glm::scale(model, glm::vec3(1.0f, 1.1f, 1.0f));
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		sillavieja.Draw(lightingShader);
+
+		////////////////////////////////////////////////////////////Sexta mesa de la derecha///////////////////////////////////////////////////////////////////////////////////
+		view = camera.GetViewMatrix();
+		model = glm::mat4(1);
+		model = glm::translate(model, glm::vec3(13.3f, -1.2f, 7.6f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+		model = glm::scale(model, glm::vec3(1.0f, 1.1f, 1.0f));
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		sillavieja.Draw(lightingShader);
+
+		view = camera.GetViewMatrix();
+		model = glm::mat4(1);
+		model = glm::translate(model, glm::vec3(11.1f, -1.2f, 7.6f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+		model = glm::scale(model, glm::vec3(1.0f, 1.1f, 1.0f));
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		sillavieja.Draw(lightingShader);
+
+		view = camera.GetViewMatrix();
+		model = glm::mat4(1);
+		model = glm::translate(model, glm::vec3(8.8f, -1.2f, 7.6f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+		model = glm::scale(model, glm::vec3(1.0f, 1.1f, 1.0f));
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		sillavieja.Draw(lightingShader);
+
+		view = camera.GetViewMatrix();
+		model = glm::mat4(1);
+		model = glm::translate(model, glm::vec3(6.3f, -1.2f, 7.6f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+		model = glm::scale(model, glm::vec3(1.0f, 1.1f, 1.0f));
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		sillavieja.Draw(lightingShader);
+
+		view = camera.GetViewMatrix();
+		model = glm::mat4(1);
+		model = glm::translate(model, glm::vec3(4.0f, -1.2f, 7.6f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+		model = glm::scale(model, glm::vec3(1.0f, 1.1f, 1.0f));
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		sillavieja.Draw(lightingShader);
+
+		////////////////////////////////////////////////////////////Septima mesa de la derecha///////////////////////////////////////////////////////////////////////////////////
+		view = camera.GetViewMatrix();
+		model = glm::mat4(1);
+		model = glm::translate(model, glm::vec3(13.3f, -1.2f, 13.9f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+		model = glm::scale(model, glm::vec3(1.0f, 1.1f, 1.0f));
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		sillavieja.Draw(lightingShader);
+
+		view = camera.GetViewMatrix();
+		model = glm::mat4(1);
+		model = glm::translate(model, glm::vec3(11.1f, -1.2f, 13.9f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+		model = glm::scale(model, glm::vec3(1.0f, 1.1f, 1.0f));
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		sillavieja.Draw(lightingShader);
+
+		view = camera.GetViewMatrix();
+		model = glm::mat4(1);
+		model = glm::translate(model, glm::vec3(8.8f, -1.2f, 13.9f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+		model = glm::scale(model, glm::vec3(1.0f, 1.1f, 1.0f));
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		sillavieja.Draw(lightingShader);
+
+		view = camera.GetViewMatrix();
+		model = glm::mat4(1);
+		model = glm::translate(model, glm::vec3(6.3f, -1.2f, 13.9f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+		model = glm::scale(model, glm::vec3(1.0f, 1.1f, 1.0f));
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		sillavieja.Draw(lightingShader);
+
+		view = camera.GetViewMatrix();
+		model = glm::mat4(1);
+		model = glm::translate(model, glm::vec3(4.0f, -1.2f, 13.9f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+		model = glm::scale(model, glm::vec3(1.0f, 1.1f, 1.0f));
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		sillavieja.Draw(lightingShader);
+
+		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		////////////////////////////////////////////////////////////Primer mesa de la IZQUIERDA///////////////////////////////////////////////////////////////////////////////////
+		view = camera.GetViewMatrix();
+		model = glm::mat4(1);
+		model = glm::translate(model, glm::vec3(-12.0f, -1.2f, -24.0f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+		model = glm::scale(model, glm::vec3(1.0f, 1.1f, 1.0f));
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		sillavieja.Draw(lightingShader);
+
+		view = camera.GetViewMatrix();
+		model = glm::mat4(1);
+		model = glm::translate(model, glm::vec3(-9.25f, -1.2f, -24.0f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+		model = glm::scale(model, glm::vec3(1.0f, 1.1f, 1.0f));
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		sillavieja.Draw(lightingShader);
+
+		view = camera.GetViewMatrix();
+		model = glm::mat4(1);
+		model = glm::translate(model, glm::vec3(-6.32f, -1.2f, -24.0f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+		model = glm::scale(model, glm::vec3(1.0f, 1.1f, 1.0f));
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		sillavieja.Draw(lightingShader);
+
+		view = camera.GetViewMatrix();
+		model = glm::mat4(1);
+		model = glm::translate(model, glm::vec3(-3.25f, -1.2f, -24.0f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+		model = glm::scale(model, glm::vec3(1.0f, 1.1f, 1.0f));
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		sillavieja.Draw(lightingShader);
+
+		////////////////////////////////////////////////////////////Segunda mesa de la IZQUIERDA///////////////////////////////////////////////////////////////////////////////////
+		view = camera.GetViewMatrix();
+		model = glm::mat4(1);
+		model = glm::translate(model, glm::vec3(-12.0f, -1.2f, -17.4f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+		model = glm::scale(model, glm::vec3(1.0f, 1.1f, 1.0f));
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		sillavieja.Draw(lightingShader);
+
+		view = camera.GetViewMatrix();
+		model = glm::mat4(1);
+		model = glm::translate(model, glm::vec3(-9.25f, -1.2f, -17.4f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+		model = glm::scale(model, glm::vec3(1.0f, 1.1f, 1.0f));
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		sillavieja.Draw(lightingShader);
+
+		view = camera.GetViewMatrix();
+		model = glm::mat4(1);
+		model = glm::translate(model, glm::vec3(-6.32f, -1.2f, -17.4f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+		model = glm::scale(model, glm::vec3(1.0f, 1.1f, 1.0f));
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		sillavieja.Draw(lightingShader);
+
+		view = camera.GetViewMatrix();
+		model = glm::mat4(1);
+		model = glm::translate(model, glm::vec3(-3.25f, -1.2f, -17.4f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+		model = glm::scale(model, glm::vec3(1.0f, 1.1f, 1.0f));
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		sillavieja.Draw(lightingShader);
+
+
+		////////////////////////////////////////////////////////////Tercera mesa de la IZQUIERDA///////////////////////////////////////////////////////////////////////////////////
+		view = camera.GetViewMatrix();
+		model = glm::mat4(1);
+		model = glm::translate(model, glm::vec3(-12.0f, -1.2f, -11.0f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+		model = glm::scale(model, glm::vec3(1.0f, 1.1f, 1.0f));
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		sillavieja.Draw(lightingShader);
+
+		view = camera.GetViewMatrix();
+		model = glm::mat4(1);
+		model = glm::translate(model, glm::vec3(-9.25f, -1.2f, -11.0f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+		model = glm::scale(model, glm::vec3(1.0f, 1.1f, 1.0f));
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		sillavieja.Draw(lightingShader);
+
+		view = camera.GetViewMatrix();
+		model = glm::mat4(1);
+		model = glm::translate(model, glm::vec3(-6.32f, -1.2f, -11.0f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+		model = glm::scale(model, glm::vec3(1.0f, 1.1f, 1.0f));
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		sillavieja.Draw(lightingShader);
+
+		view = camera.GetViewMatrix();
+		model = glm::mat4(1);
+		model = glm::translate(model, glm::vec3(-3.25f, -1.2f, -11.0f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+		model = glm::scale(model, glm::vec3(1.0f, 1.1f, 1.0f));
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		sillavieja.Draw(lightingShader);
+
+
+		////////////////////////////////////////////////////////////Cuarta mesa de la IZQUIERDA///////////////////////////////////////////////////////////////////////////////////
+		view = camera.GetViewMatrix();
+		model = glm::mat4(1);
+		model = glm::translate(model, glm::vec3(-12.0f, -1.2f, -5.0f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+		model = glm::scale(model, glm::vec3(1.0f, 1.1f, 1.0f));
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		sillavieja.Draw(lightingShader);
+
+		view = camera.GetViewMatrix();
+		model = glm::mat4(1);
+		model = glm::translate(model, glm::vec3(-9.25f, -1.2f, -5.0f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+		model = glm::scale(model, glm::vec3(1.0f, 1.1f, 1.0f));
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		sillavieja.Draw(lightingShader);
+
+		view = camera.GetViewMatrix();
+		model = glm::mat4(1);
+		model = glm::translate(model, glm::vec3(-6.32f, -1.2f, -5.0f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+		model = glm::scale(model, glm::vec3(1.0f, 1.1f, 1.0f));
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		sillavieja.Draw(lightingShader);
+
+		view = camera.GetViewMatrix();
+		model = glm::mat4(1);
+		model = glm::translate(model, glm::vec3(-3.25f, -1.2f, -5.0f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+		model = glm::scale(model, glm::vec3(1.0f, 1.1f, 1.0f));
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		sillavieja.Draw(lightingShader);
+
+		////////////////////////////////////////////////////////////Quinta mesa de la IZQUIERDA///////////////////////////////////////////////////////////////////////////////////
+		view = camera.GetViewMatrix();
+		model = glm::mat4(1);
+		model = glm::translate(model, glm::vec3(-12.3f, -1.2f, 1.4f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+		model = glm::scale(model, glm::vec3(1.0f, 1.1f, 1.0f));
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		sillavieja.Draw(lightingShader);
+
+		view = camera.GetViewMatrix();
+		model = glm::mat4(1);
+		model = glm::translate(model, glm::vec3(-10.1f, -1.2f, 1.4f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+		model = glm::scale(model, glm::vec3(1.0f, 1.1f, 1.0f));
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		sillavieja.Draw(lightingShader);
+
+		view = camera.GetViewMatrix();
+		model = glm::mat4(1);
+		model = glm::translate(model, glm::vec3(-7.8f, -1.2f, 1.4f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+		model = glm::scale(model, glm::vec3(1.0f, 1.1f, 1.0f));
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		sillavieja.Draw(lightingShader);
+
+		view = camera.GetViewMatrix();
+		model = glm::mat4(1);
+		model = glm::translate(model, glm::vec3(-5.3f, -1.2f, 1.4f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+		model = glm::scale(model, glm::vec3(1.0f, 1.1f, 1.0f));
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		sillavieja.Draw(lightingShader);
+
+		view = camera.GetViewMatrix();
+		model = glm::mat4(1);
+		model = glm::translate(model, glm::vec3(-3.0f, -1.2f, 1.4f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+		model = glm::scale(model, glm::vec3(1.0f, 1.1f, 1.0f));
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		sillavieja.Draw(lightingShader);
+
+		////////////////////////////////////////////////////////////Sexta mesa de la IZQUIERDA///////////////////////////////////////////////////////////////////////////////////
+		view = camera.GetViewMatrix();
+		model = glm::mat4(1);
+		model = glm::translate(model, glm::vec3(-12.3f, -1.2f, 7.6f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+		model = glm::scale(model, glm::vec3(1.0f, 1.1f, 1.0f));
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		sillavieja.Draw(lightingShader);
+
+		view = camera.GetViewMatrix();
+		model = glm::mat4(1);
+		model = glm::translate(model, glm::vec3(-10.1f, -1.2f, 7.6f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+		model = glm::scale(model, glm::vec3(1.0f, 1.1f, 1.0f));
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		sillavieja.Draw(lightingShader);
+
+		view = camera.GetViewMatrix();
+		model = glm::mat4(1);
+		model = glm::translate(model, glm::vec3(-7.8f, -1.2f, 7.6f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+		model = glm::scale(model, glm::vec3(1.0f, 1.1f, 1.0f));
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		sillavieja.Draw(lightingShader);
+
+		view = camera.GetViewMatrix();
+		model = glm::mat4(1);
+		model = glm::translate(model, glm::vec3(-5.3f, -1.2f, 7.6f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+		model = glm::scale(model, glm::vec3(1.0f, 1.1f, 1.0f));
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		sillavieja.Draw(lightingShader);
+
+		view = camera.GetViewMatrix();
+		model = glm::mat4(1);
+		model = glm::translate(model, glm::vec3(-3.0f, -1.2f, 7.6f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+		model = glm::scale(model, glm::vec3(1.0f, 1.1f, 1.0f));
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		sillavieja.Draw(lightingShader);
+
+		////////////////////////////////////////////////////////////Septima mesa de la IZQUIERDA///////////////////////////////////////////////////////////////////////////////////
+		view = camera.GetViewMatrix();
+		model = glm::mat4(1);
+		model = glm::translate(model, glm::vec3(-12.3f, -1.2f, 13.9f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+		model = glm::scale(model, glm::vec3(1.0f, 1.1f, 1.0f));
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		sillavieja.Draw(lightingShader);
+
+		view = camera.GetViewMatrix();
+		model = glm::mat4(1);
+		model = glm::translate(model, glm::vec3(-10.1f, -1.2f, 13.9f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+		model = glm::scale(model, glm::vec3(1.0f, 1.1f, 1.0f));
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		sillavieja.Draw(lightingShader);
+
+		view = camera.GetViewMatrix();
+		model = glm::mat4(1);
+		model = glm::translate(model, glm::vec3(-7.8f, -1.2f, 13.9f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+		model = glm::scale(model, glm::vec3(1.0f, 1.1f, 1.0f));
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		sillavieja.Draw(lightingShader);
+
+		view = camera.GetViewMatrix();
+		model = glm::mat4(1);
+		model = glm::translate(model, glm::vec3(-5.3f, -1.2f, 13.9f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+		model = glm::scale(model, glm::vec3(1.0f, 1.1f, 1.0f));
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		sillavieja.Draw(lightingShader);
+
+		view = camera.GetViewMatrix();
+		model = glm::mat4(1);
+		model = glm::translate(model, glm::vec3(-3.0f, -1.2f, 13.9f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+		model = glm::scale(model, glm::vec3(1.0f, 1.1f, 1.0f));
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		sillavieja.Draw(lightingShader);
+
+		///////////////////////////////////////////////////////////////////////////Salón Nueevoooo////////////////////////////////////////////////////////////////////////////////////////////////////
 		view = camera.GetViewMatrix();
 		model = glm::mat4(1);
 		model = glm::scale(model, glm::vec3(5.0f, 5.0f, 5.0f));
@@ -333,273 +1383,273 @@ int main()
 		nuevosalon.Draw(lightingShader);
 
 		////////////////////////////////////////////////////Modelos de sillas nuevas//////////////////////
-
-		////////////////////////////////// Primer mesa de la derecha  /////////////////////////////////////////////////////////
-		//view = camera.GetViewMatrix();
-		//model = glm::mat4(1);
-		//model = glm::translate(model, glm::vec3(12.6f, -1.2f, -23.2f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
-		//model = glm::scale(model, glm::vec3(0.1f, 0.1f, 0.1f));
-		//model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
-		//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		//sillanueva.Draw(lightingShader);
-
-		//view = camera.GetViewMatrix();
-		//model = glm::mat4(1);
-		//model = glm::translate(model, glm::vec3(9.73f, -1.2f, -23.2f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
-		//model = glm::scale(model, glm::vec3(0.1f, 0.1f, 0.1f));
-		//model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
-		//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		//sillanueva.Draw(lightingShader);
-
-		//view = camera.GetViewMatrix();
-		//model = glm::mat4(1);
-		//model = glm::translate(model, glm::vec3(6.9f, -1.2f, -23.2f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
-		//model = glm::scale(model, glm::vec3(0.1f, 0.1f, 0.1f));
-		//model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
-		//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		//sillanueva.Draw(lightingShader);
-
-		//view = camera.GetViewMatrix();
-		//model = glm::mat4(1);
-		//model = glm::translate(model, glm::vec3(3.73f, -1.2f, -23.2f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
-		//model = glm::scale(model, glm::vec3(0.1f, 0.1f, 0.1f));
-		//model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
-		//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		//sillanueva.Draw(lightingShader);
-
-		//////////////////////////////// Segunda mesa de la derecha  /////////////////////////////////////////////////////////
-		//view = camera.GetViewMatrix();
-		//model = glm::mat4(1);
-		//model = glm::translate(model, glm::vec3(12.6f, -1.2f, -16.5f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
-		//model = glm::scale(model, glm::vec3(0.1f, 0.1f, 0.1f));
-		//model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
-		//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		//sillanueva.Draw(lightingShader);
-
-		//view = camera.GetViewMatrix();
-		//model = glm::mat4(1);
-		//model = glm::translate(model, glm::vec3(9.73f, -1.2f, -16.5f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
-		//model = glm::scale(model, glm::vec3(0.1f, 0.1f, 0.1f));
-		//model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
-		//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		//sillanueva.Draw(lightingShader);
-
-		//view = camera.GetViewMatrix();
-		//model = glm::mat4(1);
-		//model = glm::translate(model, glm::vec3(6.9f, -1.2f, -16.5f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
-		//model = glm::scale(model, glm::vec3(0.1f, 0.1f, 0.1f));
-		//model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
-		//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		//sillanueva.Draw(lightingShader);
-
-		//view = camera.GetViewMatrix();
-		//model = glm::mat4(1);
-		//model = glm::translate(model, glm::vec3(3.73f, -1.2f, -16.5f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
-		//model = glm::scale(model, glm::vec3(0.1f, 0.1f, 0.1f));
-		//model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
-		//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		//sillanueva.Draw(lightingShader);
-
-
-		//		//////////////////////////// Tercera mesa de la derecha  /////////////////////////////////////////////////////////
-		//view = camera.GetViewMatrix();
-		//model = glm::mat4(1);
-		//model = glm::translate(model, glm::vec3(12.6f, -1.2f, -9.8f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
-		//model = glm::scale(model, glm::vec3(0.1f, 0.1f, 0.1f));
-		//model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
-		//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		//sillanueva.Draw(lightingShader);
-
-		//view = camera.GetViewMatrix();
-		//model = glm::mat4(1);
-		//model = glm::translate(model, glm::vec3(9.73f, -1.2f, -9.8f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
-		//model = glm::scale(model, glm::vec3(0.1f, 0.1f, 0.1f));
-		//model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
-		//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		//sillanueva.Draw(lightingShader);
-
-		//view = camera.GetViewMatrix();
-		//model = glm::mat4(1);
-		//model = glm::translate(model, glm::vec3(6.9f, -1.2f, -9.8f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
-		//model = glm::scale(model, glm::vec3(0.1f, 0.1f, 0.1f));
-		//model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
-		//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		//sillanueva.Draw(lightingShader);
-
-		//view = camera.GetViewMatrix();
-		//model = glm::mat4(1);
-		//model = glm::translate(model, glm::vec3(3.73f, -1.2f, -9.8f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
-		//model = glm::scale(model, glm::vec3(0.1f, 0.1f, 0.1f));
-		//model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
-		//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		//sillanueva.Draw(lightingShader);
-
-
-		//		////////////////////////////// Cuarta mesa de la derecha  /////////////////////////////////////////////////////////
-		//view = camera.GetViewMatrix();
-		//model = glm::mat4(1);
-		//model = glm::translate(model, glm::vec3(12.6f, -1.2f, -4.1f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
-		//model = glm::scale(model, glm::vec3(0.1f, 0.1f, 0.1f));
-		//model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
-		//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		//sillanueva.Draw(lightingShader);
-
-
-		//view = camera.GetViewMatrix();
-		//model = glm::mat4(1);
-		//model = glm::translate(model, glm::vec3(9.73f, -1.2f, -4.1f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
-		//model = glm::scale(model, glm::vec3(0.1f, 0.1f, 0.1f));
-		//model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
-		//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		//sillanueva.Draw(lightingShader);
-
-		//view = camera.GetViewMatrix();
-		//model = glm::mat4(1);
-		//model = glm::translate(model, glm::vec3(6.9f, -1.2f, -4.1f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
-		//model = glm::scale(model, glm::vec3(0.1f, 0.1f, 0.1f));
-		//model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
-		//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		//sillanueva.Draw(lightingShader);
-
-		//view = camera.GetViewMatrix();
-		//model = glm::mat4(1);
-		//model = glm::translate(model, glm::vec3(3.73f, -1.2f, -4.1f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
-		//model = glm::scale(model, glm::vec3(0.1f, 0.1f, 0.1f));
-		//model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
-		//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		//sillanueva.Draw(lightingShader);
-
-
-		//		////////////////////////////// Quinta mesa de la derecha  /////////////////////////////////////////////////////////     /////////////////////// 5 computadoras
-		//view = camera.GetViewMatrix();
-		//model = glm::mat4(1);
-		//model = glm::translate(model, glm::vec3(13.0f, -1.2f, 2.6f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
-		//model = glm::scale(model, glm::vec3(0.1f, 0.1f, 0.1f));
-		//model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
-		//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		//sillanueva.Draw(lightingShader);
-
-		//view = camera.GetViewMatrix();
-		//model = glm::mat4(1);
-		//model = glm::translate(model, glm::vec3(10.5f, -1.2f, 2.6f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
-		//model = glm::scale(model, glm::vec3(0.1f, 0.1f, 0.1f));
-		//model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
-		//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		//sillanueva.Draw(lightingShader);
-
-		//view = camera.GetViewMatrix();
-		//model = glm::mat4(1);
-		//model = glm::translate(model, glm::vec3(8.0f, -1.2f, 2.6f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
-		//model = glm::scale(model, glm::vec3(0.1f, 0.1f, 0.1f));
-		//model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
-		//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		//sillanueva.Draw(lightingShader);
-
-		//view = camera.GetViewMatrix();
-		//model = glm::mat4(1);
-		//model = glm::translate(model, glm::vec3(5.5f, -1.2f, 2.6f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
-		//model = glm::scale(model, glm::vec3(0.1f, 0.1f, 0.1f));
-		//model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
-		//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		//sillanueva.Draw(lightingShader);
-
-		//view = camera.GetViewMatrix();
-		//model = glm::mat4(1);
-		//model = glm::translate(model, glm::vec3(3.0f, -1.2f, 2.6f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
-		//model = glm::scale(model, glm::vec3(0.1f, 0.1f, 0.1f));
-		//model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
-		//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		//sillanueva.Draw(lightingShader);
-
-
-
-
-		//		////////////////////////////// Sexta mesa de la derecha  /////////////////////////////////////////////////////////
-		//view = camera.GetViewMatrix();
-		//model = glm::mat4(1);
-		//model = glm::translate(model, glm::vec3(13.0f, -1.2f, 8.3f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
-		//model = glm::scale(model, glm::vec3(0.1f, 0.1f, 0.1f));
-		//model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
-		//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		//sillanueva.Draw(lightingShader);
-
-		//view = camera.GetViewMatrix();
-		//model = glm::mat4(1);
-		//model = glm::translate(model, glm::vec3(10.5f, -1.2f, 8.3f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
-		//model = glm::scale(model, glm::vec3(0.1f, 0.1f, 0.1f));
-		//model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
-		//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		//sillanueva.Draw(lightingShader);
-
-		//view = camera.GetViewMatrix();
-		//model = glm::mat4(1);
-		//model = glm::translate(model, glm::vec3(8.0f, -1.2f, 8.3f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
-		//model = glm::scale(model, glm::vec3(0.1f, 0.1f, 0.1f));
-		//model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
-		//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		//sillanueva.Draw(lightingShader);
-
-		//view = camera.GetViewMatrix();
-		//model = glm::mat4(1);
-		//model = glm::translate(model, glm::vec3(5.5f, -1.2f, 8.3f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
-		//model = glm::scale(model, glm::vec3(0.1f, 0.1f, 0.1f));
-		//model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
-		//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		//sillanueva.Draw(lightingShader);
-
-		//view = camera.GetViewMatrix();
-		//model = glm::mat4(1);
-		//model = glm::translate(model, glm::vec3(3.0f, -1.2f, 8.3f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
-		//model = glm::scale(model, glm::vec3(0.1f, 0.1f, 0.1f));
-		//model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
-		//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		//sillanueva.Draw(lightingShader);
-
-		////		////////////////////////////// Septima mesa de la derecha  /////////////////////////////////////////////////////////     /////////////////////// 5 computadoras
-		//view = camera.GetViewMatrix();
-		//model = glm::mat4(1);
-		//model = glm::translate(model, glm::vec3(13.0f, -1.2f, 14.8f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
-		//model = glm::scale(model, glm::vec3(0.1f, 0.1f, 0.1f));
-		//model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
-		//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		//sillanueva.Draw(lightingShader);
-
-		//view = camera.GetViewMatrix();
-		//model = glm::mat4(1);
-		//model = glm::translate(model, glm::vec3(10.5f, -1.2f, 14.8f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
-		//model = glm::scale(model, glm::vec3(0.1f, 0.1f, 0.1f));
-		//model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
-		//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		//sillanueva.Draw(lightingShader);
-
-		//view = camera.GetViewMatrix();
-		//model = glm::mat4(1);
-		//model = glm::translate(model, glm::vec3(8.0f, -1.2f, 14.8f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
-		//model = glm::scale(model, glm::vec3(0.1f, 0.1f, 0.1f));
-		//model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
-		//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		//sillanueva.Draw(lightingShader);
-
-		//view = camera.GetViewMatrix();
-		//model = glm::mat4(1);
-		//model = glm::translate(model, glm::vec3(5.5f, -1.2f, 14.8f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
-		//model = glm::scale(model, glm::vec3(0.1f, 0.1f, 0.1f));
-		//model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
-		//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		//sillanueva.Draw(lightingShader);
-
-		//view = camera.GetViewMatrix();
-		//model = glm::mat4(1);
-		//model = glm::translate(model, glm::vec3(3.0f, -1.2f, 14.8f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
-		//model = glm::scale(model, glm::vec3(0.1f, 0.1f, 0.1f));
-		//model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
-		//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		//sillanueva.Draw(lightingShader);
-
+		//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//		////////////////////////////////// Primer mesa de la derecha  /////////////////////////////////////////////////////////
+//		view = camera.GetViewMatrix();
+//		model = glm::mat4(1);
+//		model = glm::translate(model, glm::vec3(12.6f, -1.2f, -23.2f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+//		model = glm::scale(model, glm::vec3(0.1f, 0.1f, 0.1f));
+//		model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
+//		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+//		sillanueva.Draw(lightingShader);
 //
-//////////////////////////////////////////////////////Modelos de sillas nuevas//////////////////////
+//		view = camera.GetViewMatrix();
+//		model = glm::mat4(1);
+//		model = glm::translate(model, glm::vec3(9.73f, -1.2f, -23.2f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+//		model = glm::scale(model, glm::vec3(0.1f, 0.1f, 0.1f));
+//		model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
+//		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+//		sillanueva.Draw(lightingShader);
 //
-//		//////////////////////////////// Primer mesa de la izquierda  /////////////////////////////////////////////////////////
+//		view = camera.GetViewMatrix();
+//		model = glm::mat4(1);
+//		model = glm::translate(model, glm::vec3(6.9f, -1.2f, -23.2f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+//		model = glm::scale(model, glm::vec3(0.1f, 0.1f, 0.1f));
+//		model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
+//		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+//		sillanueva.Draw(lightingShader);
+//
+//		view = camera.GetViewMatrix();
+//		model = glm::mat4(1);
+//		model = glm::translate(model, glm::vec3(3.73f, -1.2f, -23.2f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+//		model = glm::scale(model, glm::vec3(0.1f, 0.1f, 0.1f));
+//		model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
+//		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+//		sillanueva.Draw(lightingShader);
+//
+//		////////////////////////////// Segunda mesa de la derecha  /////////////////////////////////////////////////////////
+//		view = camera.GetViewMatrix();
+//		model = glm::mat4(1);
+//		model = glm::translate(model, glm::vec3(12.6f, -1.2f, -16.5f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+//		model = glm::scale(model, glm::vec3(0.1f, 0.1f, 0.1f));
+//		model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
+//		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+//		sillanueva.Draw(lightingShader);
+//
+//		view = camera.GetViewMatrix();
+//		model = glm::mat4(1);
+//		model = glm::translate(model, glm::vec3(9.73f, -1.2f, -16.5f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+//		model = glm::scale(model, glm::vec3(0.1f, 0.1f, 0.1f));
+//		model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
+//		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+//		sillanueva.Draw(lightingShader);
+//
+//		view = camera.GetViewMatrix();
+//		model = glm::mat4(1);
+//		model = glm::translate(model, glm::vec3(6.9f, -1.2f, -16.5f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+//		model = glm::scale(model, glm::vec3(0.1f, 0.1f, 0.1f));
+//		model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
+//		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+//		sillanueva.Draw(lightingShader);
+//
+//		view = camera.GetViewMatrix();
+//		model = glm::mat4(1);
+//		model = glm::translate(model, glm::vec3(3.73f, -1.2f, -16.5f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+//		model = glm::scale(model, glm::vec3(0.1f, 0.1f, 0.1f));
+//		model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
+//		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+//		sillanueva.Draw(lightingShader);
+//
+//
+//				//////////////////////////// Tercera mesa de la derecha  /////////////////////////////////////////////////////////
+//		view = camera.GetViewMatrix();
+//		model = glm::mat4(1);
+//		model = glm::translate(model, glm::vec3(12.6f, -1.2f, -9.8f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+//		model = glm::scale(model, glm::vec3(0.1f, 0.1f, 0.1f));
+//		model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
+//		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+//		sillanueva.Draw(lightingShader);
+//
+//		view = camera.GetViewMatrix();
+//		model = glm::mat4(1);
+//		model = glm::translate(model, glm::vec3(9.73f, -1.2f, -9.8f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+//		model = glm::scale(model, glm::vec3(0.1f, 0.1f, 0.1f));
+//		model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
+//		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+//		sillanueva.Draw(lightingShader);
+//
+//		view = camera.GetViewMatrix();
+//		model = glm::mat4(1);
+//		model = glm::translate(model, glm::vec3(6.9f, -1.2f, -9.8f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+//		model = glm::scale(model, glm::vec3(0.1f, 0.1f, 0.1f));
+//		model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
+//		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+//		sillanueva.Draw(lightingShader);
+//
+//		view = camera.GetViewMatrix();
+//		model = glm::mat4(1);
+//		model = glm::translate(model, glm::vec3(3.73f, -1.2f, -9.8f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+//		model = glm::scale(model, glm::vec3(0.1f, 0.1f, 0.1f));
+//		model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
+//		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+//		sillanueva.Draw(lightingShader);
+//
+//
+//				////////////////////////////// Cuarta mesa de la derecha  /////////////////////////////////////////////////////////
+//		view = camera.GetViewMatrix();
+//		model = glm::mat4(1);
+//		model = glm::translate(model, glm::vec3(12.6f, -1.2f, -4.1f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+//		model = glm::scale(model, glm::vec3(0.1f, 0.1f, 0.1f));
+//		model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
+//		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+//		sillanueva.Draw(lightingShader);
+//
+//
+//		view = camera.GetViewMatrix();
+//		model = glm::mat4(1);
+//		model = glm::translate(model, glm::vec3(9.73f, -1.2f, -4.1f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+//		model = glm::scale(model, glm::vec3(0.1f, 0.1f, 0.1f));
+//		model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
+//		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+//		sillanueva.Draw(lightingShader);
+//
+//		view = camera.GetViewMatrix();
+//		model = glm::mat4(1);
+//		model = glm::translate(model, glm::vec3(6.9f, -1.2f, -4.1f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+//		model = glm::scale(model, glm::vec3(0.1f, 0.1f, 0.1f));
+//		model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
+//		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+//		sillanueva.Draw(lightingShader);
+//
+//		view = camera.GetViewMatrix();
+//		model = glm::mat4(1);
+//		model = glm::translate(model, glm::vec3(3.73f, -1.2f, -4.1f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+//		model = glm::scale(model, glm::vec3(0.1f, 0.1f, 0.1f));
+//		model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
+//		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+//		sillanueva.Draw(lightingShader);
+//
+//
+//				////////////////////////////// Quinta mesa de la derecha  /////////////////////////////////////////////////////////     /////////////////////// 5 computadoras
+//		view = camera.GetViewMatrix();
+//		model = glm::mat4(1);
+//		model = glm::translate(model, glm::vec3(13.0f, -1.2f, 2.6f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+//		model = glm::scale(model, glm::vec3(0.1f, 0.1f, 0.1f));
+//		model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
+//		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+//		sillanueva.Draw(lightingShader);
+//
+//		view = camera.GetViewMatrix();
+//		model = glm::mat4(1);
+//		model = glm::translate(model, glm::vec3(10.5f, -1.2f, 2.6f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+//		model = glm::scale(model, glm::vec3(0.1f, 0.1f, 0.1f));
+//		model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
+//		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+//		sillanueva.Draw(lightingShader);
+//
+//		view = camera.GetViewMatrix();
+//		model = glm::mat4(1);
+//		model = glm::translate(model, glm::vec3(8.0f, -1.2f, 2.6f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+//		model = glm::scale(model, glm::vec3(0.1f, 0.1f, 0.1f));
+//		model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
+//		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+//		sillanueva.Draw(lightingShader);
+//
+//		view = camera.GetViewMatrix();
+//		model = glm::mat4(1);
+//		model = glm::translate(model, glm::vec3(5.5f, -1.2f, 2.6f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+//		model = glm::scale(model, glm::vec3(0.1f, 0.1f, 0.1f));
+//		model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
+//		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+//		sillanueva.Draw(lightingShader);
+//
+//		view = camera.GetViewMatrix();
+//		model = glm::mat4(1);
+//		model = glm::translate(model, glm::vec3(3.0f, -1.2f, 2.6f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+//		model = glm::scale(model, glm::vec3(0.1f, 0.1f, 0.1f));
+//		model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
+//		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+//		sillanueva.Draw(lightingShader);
+//
+//
+//
+//
+//				////////////////////////////// Sexta mesa de la derecha  /////////////////////////////////////////////////////////
+//		view = camera.GetViewMatrix();
+//		model = glm::mat4(1);
+//		model = glm::translate(model, glm::vec3(13.0f, -1.2f, 8.3f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+//		model = glm::scale(model, glm::vec3(0.1f, 0.1f, 0.1f));
+//		model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
+//		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+//		sillanueva.Draw(lightingShader);
+//
+//		view = camera.GetViewMatrix();
+//		model = glm::mat4(1);
+//		model = glm::translate(model, glm::vec3(10.5f, -1.2f, 8.3f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+//		model = glm::scale(model, glm::vec3(0.1f, 0.1f, 0.1f));
+//		model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
+//		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+//		sillanueva.Draw(lightingShader);
+//
+//		view = camera.GetViewMatrix();
+//		model = glm::mat4(1);
+//		model = glm::translate(model, glm::vec3(8.0f, -1.2f, 8.3f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+//		model = glm::scale(model, glm::vec3(0.1f, 0.1f, 0.1f));
+//		model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
+//		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+//		sillanueva.Draw(lightingShader);
+//
+//		view = camera.GetViewMatrix();
+//		model = glm::mat4(1);
+//		model = glm::translate(model, glm::vec3(5.5f, -1.2f, 8.3f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+//		model = glm::scale(model, glm::vec3(0.1f, 0.1f, 0.1f));
+//		model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
+//		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+//		sillanueva.Draw(lightingShader);
+//
+//		view = camera.GetViewMatrix();
+//		model = glm::mat4(1);
+//		model = glm::translate(model, glm::vec3(3.0f, -1.2f, 8.3f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+//		model = glm::scale(model, glm::vec3(0.1f, 0.1f, 0.1f));
+//		model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
+//		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+//		sillanueva.Draw(lightingShader);
+//
+//		//		////////////////////////////// Septima mesa de la derecha  /////////////////////////////////////////////////////////     /////////////////////// 5 computadoras
+//		view = camera.GetViewMatrix();
+//		model = glm::mat4(1);
+//		model = glm::translate(model, glm::vec3(13.0f, -1.2f, 14.8f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+//		model = glm::scale(model, glm::vec3(0.1f, 0.1f, 0.1f));
+//		model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
+//		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+//		sillanueva.Draw(lightingShader);
+//
+//		view = camera.GetViewMatrix();
+//		model = glm::mat4(1);
+//		model = glm::translate(model, glm::vec3(10.5f, -1.2f, 14.8f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+//		model = glm::scale(model, glm::vec3(0.1f, 0.1f, 0.1f));
+//		model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
+//		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+//		sillanueva.Draw(lightingShader);
+//
+//		view = camera.GetViewMatrix();
+//		model = glm::mat4(1);
+//		model = glm::translate(model, glm::vec3(8.0f, -1.2f, 14.8f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+//		model = glm::scale(model, glm::vec3(0.1f, 0.1f, 0.1f));
+//		model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
+//		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+//		sillanueva.Draw(lightingShader);
+//
+//		view = camera.GetViewMatrix();
+//		model = glm::mat4(1);
+//		model = glm::translate(model, glm::vec3(5.5f, -1.2f, 14.8f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+//		model = glm::scale(model, glm::vec3(0.1f, 0.1f, 0.1f));
+//		model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
+//		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+//		sillanueva.Draw(lightingShader);
+//
+//		view = camera.GetViewMatrix();
+//		model = glm::mat4(1);
+//		model = glm::translate(model, glm::vec3(3.0f, -1.2f, 14.8f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+//		model = glm::scale(model, glm::vec3(0.1f, 0.1f, 0.1f));
+//		model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
+//		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+//		sillanueva.Draw(lightingShader);
+//
+////
+////////////////////////////////////////////////////////Modelos de sillas nuevas//////////////////////
+////
+////		//////////////////////////////// Primer mesa de la izquierda  /////////////////////////////////////////////////////////
 //		view = camera.GetViewMatrix();
 //		model = glm::mat4(1);
 //		model = glm::translate(model, glm::vec3(-12.6f, -1.2f, -23.2f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
@@ -860,46 +1910,46 @@ int main()
 //		model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
 //		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 //		sillanueva.Draw(lightingShader);
-//
 
 
 
-	//////////////////////////////////	/*Modelos de escritorios nuevos*///////////////////////////////////////////////////////
-		//Derecha
-		view = camera.GetViewMatrix();
-		model = glm::mat4(1);
-		model = glm::scale(model, glm::vec3(3.0f, 1.5f, 1.5f));
-		model = glm::translate(model, glm::vec3(9.0f, 0.9f, -13.7f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
-		model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
-		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		escritorionuevo.Draw(lightingShader);
 
-		//Izquierda
-		view = camera.GetViewMatrix();
-		model = glm::mat4(1);
-		model = glm::scale(model, glm::vec3(3.0f, 1.5f, 1.5f));
-		model = glm::translate(model, glm::vec3(3.6f, 0.9f, -13.7f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
-		model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
-		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		escritorionuevo.Draw(lightingShader);
+	////////////////////////////////////	/*Modelos de escritorios nuevos*///////////////////////////////////////////////////////
+	//	//Derecha
+	//	view = camera.GetViewMatrix();
+	//	model = glm::mat4(1);
+	//	model = glm::scale(model, glm::vec3(3.0f, 1.5f, 1.5f));
+	//	model = glm::translate(model, glm::vec3(9.0f, 0.9f, -13.7f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+	//	model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
+	//	glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+	//	escritorionuevo.Draw(lightingShader);
 
-		//Derecha
-		view = camera.GetViewMatrix();
-		model = glm::mat4(1);
-		model = glm::scale(model, glm::vec3(3.0f, 1.5f, 1.5f));
-		model = glm::translate(model, glm::vec3(9.0f, 0.9f, -9.4f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
-		model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
-		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		escritorionuevo.Draw(lightingShader);
+	//	//Izquierda
+	//	view = camera.GetViewMatrix();
+	//	model = glm::mat4(1);
+	//	model = glm::scale(model, glm::vec3(3.0f, 1.5f, 1.5f));
+	//	model = glm::translate(model, glm::vec3(3.6f, 0.9f, -13.7f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+	//	model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
+	//	glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+	//	escritorionuevo.Draw(lightingShader);
 
-		//Izquierda
-		view = camera.GetViewMatrix();
-		model = glm::mat4(1);
-		model = glm::scale(model, glm::vec3(3.0f, 1.5f, 1.5f));
-		model = glm::translate(model, glm::vec3(3.6f, 0.9f, -9.4f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
-		model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
-		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		escritorionuevo.Draw(lightingShader);
+	//	//Derecha
+	//	view = camera.GetViewMatrix();
+	//	model = glm::mat4(1);
+	//	model = glm::scale(model, glm::vec3(3.0f, 1.5f, 1.5f));
+	//	model = glm::translate(model, glm::vec3(9.0f, 0.9f, -9.4f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+	//	model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
+	//	glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+	//	escritorionuevo.Draw(lightingShader);
+
+	//	//Izquierda
+	//	view = camera.GetViewMatrix();
+	//	model = glm::mat4(1);
+	//	model = glm::scale(model, glm::vec3(3.0f, 1.5f, 1.5f));
+	//	model = glm::translate(model, glm::vec3(3.6f, 0.9f, -9.4f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+	//	model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
+	//	glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+	//	escritorionuevo.Draw(lightingShader);
 
 		///////Derecha
 		view = camera.GetViewMatrix();
@@ -910,291 +1960,633 @@ int main()
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 		escritorionuevo.Draw(lightingShader);
 
-		//Izquierda
-		view = camera.GetViewMatrix();
-		model = glm::mat4(1);
-		model = glm::scale(model, glm::vec3(3.0f, 1.5f, 1.5f));
-		model = glm::translate(model, glm::vec3(3.6f, 0.9f, -5.2f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
-		model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
-		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		escritorionuevo.Draw(lightingShader);
+	//	//Izquierda
+	//	view = camera.GetViewMatrix();
+	//	model = glm::mat4(1);
+	//	model = glm::scale(model, glm::vec3(3.0f, 1.5f, 1.5f));
+	//	model = glm::translate(model, glm::vec3(3.6f, 0.9f, -5.2f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+	//	model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
+	//	glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+	//	escritorionuevo.Draw(lightingShader);
 
 
-		//Derecha
-		view = camera.GetViewMatrix();
-		model = glm::mat4(1);
-		model = glm::scale(model, glm::vec3(3.0f, 1.5f, 1.5f));
-		model = glm::translate(model, glm::vec3(9.0f, 0.9f, -1.2f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
-		model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
-		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		escritorionuevo.Draw(lightingShader);
+	//	//Derecha
+	//	view = camera.GetViewMatrix();
+	//	model = glm::mat4(1);
+	//	model = glm::scale(model, glm::vec3(3.0f, 1.5f, 1.5f));
+	//	model = glm::translate(model, glm::vec3(9.0f, 0.9f, -1.2f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+	//	model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
+	//	glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+	//	escritorionuevo.Draw(lightingShader);
 
-		//Izquierda
-		view = camera.GetViewMatrix();
-		model = glm::mat4(1);
-		model = glm::scale(model, glm::vec3(3.0f, 1.5f, 1.5f));
-		model = glm::translate(model, glm::vec3(3.6f, 0.9f, -1.2f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
-		model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
-		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		escritorionuevo.Draw(lightingShader);
-
-
-		//Derecha
-		view = camera.GetViewMatrix();
-		model = glm::mat4(1);
-		model = glm::scale(model, glm::vec3(3.0f, 1.5f, 1.5f));
-		model = glm::translate(model, glm::vec3(9.0f, 0.9f, 3.2f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
-		model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
-		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		escritorionuevo.Draw(lightingShader);
-
-		//Izquierda
-		view = camera.GetViewMatrix();
-		model = glm::mat4(1);
-		model = glm::scale(model, glm::vec3(3.0f, 1.5f, 1.5f));
-		model = glm::translate(model, glm::vec3(3.6f, 0.9f, 3.2f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
-		model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
-		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		escritorionuevo.Draw(lightingShader);
+	//	//Izquierda
+	//	view = camera.GetViewMatrix();
+	//	model = glm::mat4(1);
+	//	model = glm::scale(model, glm::vec3(3.0f, 1.5f, 1.5f));
+	//	model = glm::translate(model, glm::vec3(3.6f, 0.9f, -1.2f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+	//	model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
+	//	glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+	//	escritorionuevo.Draw(lightingShader);
 
 
-		//Derecha
-		view = camera.GetViewMatrix();
-		model = glm::mat4(1);
-		model = glm::scale(model, glm::vec3(3.0f, 1.5f, 1.5f));
-		model = glm::translate(model, glm::vec3(9.0f, 0.9f, 7.2f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
-		model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
-		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		escritorionuevo.Draw(lightingShader);
+	//	//Derecha
+	//	view = camera.GetViewMatrix();
+	//	model = glm::mat4(1);
+	//	model = glm::scale(model, glm::vec3(3.0f, 1.5f, 1.5f));
+	//	model = glm::translate(model, glm::vec3(9.0f, 0.9f, 3.2f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+	//	model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
+	//	glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+	//	escritorionuevo.Draw(lightingShader);
 
-		//Izquierda
-		view = camera.GetViewMatrix();
-		model = glm::mat4(1);
-		model = glm::scale(model, glm::vec3(3.0f, 1.5f, 1.5f));
-		model = glm::translate(model, glm::vec3(3.6f, 0.9f, 7.2f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
-		model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
-		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		escritorionuevo.Draw(lightingShader);
-
-
-		//Derecha
-		view = camera.GetViewMatrix();
-		model = glm::mat4(1);
-		model = glm::scale(model, glm::vec3(3.0f, 1.5f, 1.5f));
-		model = glm::translate(model, glm::vec3(9.0f, 0.9f, 11.2f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
-		model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
-		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		escritorionuevo.Draw(lightingShader);
-
-		//Izquierda
-		view = camera.GetViewMatrix();
-		model = glm::mat4(1);
-		model = glm::scale(model, glm::vec3(3.0f, 1.5f, 1.5f));
-		model = glm::translate(model, glm::vec3(3.6f, 0.9f, 11.2f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
-		model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
-		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		escritorionuevo.Draw(lightingShader);
+	//	//Izquierda
+	//	view = camera.GetViewMatrix();
+	//	model = glm::mat4(1);
+	//	model = glm::scale(model, glm::vec3(3.0f, 1.5f, 1.5f));
+	//	model = glm::translate(model, glm::vec3(3.6f, 0.9f, 3.2f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+	//	model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
+	//	glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+	//	escritorionuevo.Draw(lightingShader);
 
 
+	//	//Derecha
+	//	view = camera.GetViewMatrix();
+	//	model = glm::mat4(1);
+	//	model = glm::scale(model, glm::vec3(3.0f, 1.5f, 1.5f));
+	//	model = glm::translate(model, glm::vec3(9.0f, 0.9f, 7.2f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+	//	model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
+	//	glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+	//	escritorionuevo.Draw(lightingShader);
 
-		//Mesa profesor //Derecha
-		view = camera.GetViewMatrix();
-		model = glm::mat4(1);
-		model = glm::scale(model, glm::vec3(1.3f, 1.5f, 1.5f));
-		model = glm::translate(model, glm::vec3(15.1f, 0.9f, 13.5f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
-		model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
-		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		escritorionuevo.Draw(lightingShader);
+	//	//Izquierda
+	//	view = camera.GetViewMatrix();
+	//	model = glm::mat4(1);
+	//	model = glm::scale(model, glm::vec3(3.0f, 1.5f, 1.5f));
+	//	model = glm::translate(model, glm::vec3(3.6f, 0.9f, 7.2f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+	//	model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
+	//	glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+	//	escritorionuevo.Draw(lightingShader);
 
-		/////////////////////////////////////////////////////////////Modelos de iMac viejas////////////////////////////////////////////////////////////////////////////////////
+
+	//	//Derecha
+	//	view = camera.GetViewMatrix();
+	//	model = glm::mat4(1);
+	//	model = glm::scale(model, glm::vec3(3.0f, 1.5f, 1.5f));
+	//	model = glm::translate(model, glm::vec3(9.0f, 0.9f, 11.2f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+	//	model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
+	//	glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+	//	escritorionuevo.Draw(lightingShader);
+
+	//	//Izquierda
+	//	view = camera.GetViewMatrix();
+	//	model = glm::mat4(1);
+	//	model = glm::scale(model, glm::vec3(3.0f, 1.5f, 1.5f));
+	//	model = glm::translate(model, glm::vec3(3.6f, 0.9f, 11.2f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+	//	model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
+	//	glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+	//	escritorionuevo.Draw(lightingShader);
+
+
+
+	//	//Mesa profesor //Derecha
+	//	view = camera.GetViewMatrix();
+	//	model = glm::mat4(1);
+	//	model = glm::scale(model, glm::vec3(1.3f, 1.5f, 1.5f));
+	//	model = glm::translate(model, glm::vec3(15.1f, 0.9f, 13.5f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+	//	model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
+	//	glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+	//	escritorionuevo.Draw(lightingShader);
+
+	
+		///////////////////////////////////////////////////////////Modelos de iMac////////////////////////////////////////////////////////////////////////////////////
+		//////////////////////////////////////////////////////////Primer mesa de la derecha//////////////////////////////////////////////////////////////////////////
+		// 
+		////Modelo de iMac
 		//view = camera.GetViewMatrix();
 		//model = glm::mat4(1);
 		//model = glm::scale(model, glm::vec3(1.15f, 1.15f, 1.15f));
-		//model = glm::translate(model, glm::vec3(10.8f, 2.4f, -19.9f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+		//model = glm::translate(model, glm::vec3(11.0f, 2.2f, -17.7f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
 		//model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
 		//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		//pcvieja.Draw(lightingShader);
+		//imac.Draw(lightingShader);
 
-		/////////////////////////////////////////////////////////////Modelos de iMac////////////////////////////////////////////////////////////////////////////////////
-		////////////////////////////////////////////////////////////Primer mesa de la derecha//////////////////////////////////////////////////////////////////////////
-		// 
-		//Modelo de iMac
-		view = camera.GetViewMatrix();
-		model = glm::mat4(1);
-		model = glm::scale(model, glm::vec3(1.15f, 1.15f, 1.15f));
-		model = glm::translate(model, glm::vec3(11.0f, 2.4f, -17.7f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
-		model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
-		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		imac.Draw(lightingShader);
+		//view = camera.GetViewMatrix();
+		//model = glm::mat4(1);
+		//model = glm::scale(model, glm::vec3(1.15f, 1.15f, 1.15f));
+		//model = glm::translate(model, glm::vec3(8.4f, 2.2f, -17.7f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+		//model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
+		//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		//imac.Draw(lightingShader);
 
-		view = camera.GetViewMatrix();
-		model = glm::mat4(1);
-		model = glm::scale(model, glm::vec3(1.15f, 1.15f, 1.15f));
-		model = glm::translate(model, glm::vec3(8.4f, 2.4f, -17.7f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
-		model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
-		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		imac.Draw(lightingShader);
+		//view = camera.GetViewMatrix();
+		//model = glm::mat4(1);
+		//model = glm::scale(model, glm::vec3(1.15f, 1.15f, 1.15f));
+		//model = glm::translate(model, glm::vec3(5.9f, 2.2f, -17.7f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+		//model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
+		//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		//imac.Draw(lightingShader);
 
-		view = camera.GetViewMatrix();
-		model = glm::mat4(1);
-		model = glm::scale(model, glm::vec3(1.15f, 1.15f, 1.15f));
-		model = glm::translate(model, glm::vec3(5.9f, 2.4f, -17.7f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
-		model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
-		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		imac.Draw(lightingShader);
+		//view = camera.GetViewMatrix();
+		//model = glm::mat4(1);
+		//model = glm::scale(model, glm::vec3(1.15f, 1.15f, 1.15f));
+		//model = glm::translate(model, glm::vec3(3.3f, 2.2f, -17.7f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+		//model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
+		//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		//imac.Draw(lightingShader);
 
-		view = camera.GetViewMatrix();
-		model = glm::mat4(1);
-		model = glm::scale(model, glm::vec3(1.15f, 1.15f, 1.15f));
-		model = glm::translate(model, glm::vec3(3.3f, 2.4f, -17.7f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
-		model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
-		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		imac.Draw(lightingShader);
+		//////////////////////////////////////////////////////////////Seguunda mesa de la derecha//////////////////////////////////////////////////////////////////////////
+		//// 
+		////Modelo de iMac
+		//view = camera.GetViewMatrix();
+		//model = glm::mat4(1);
+		//model = glm::scale(model, glm::vec3(1.15f, 1.15f, 1.15f));
+		//model = glm::translate(model, glm::vec3(11.0f, 2.2f, -12.0f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+		//model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
+		//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		//imac.Draw(lightingShader);
 
-		////////////////////////////////////////////////////////////Seguunda mesa de la derecha//////////////////////////////////////////////////////////////////////////
-		// 
-		//Modelo de iMac
-		view = camera.GetViewMatrix();
-		model = glm::mat4(1);
-		model = glm::scale(model, glm::vec3(1.15f, 1.15f, 1.15f));
-		model = glm::translate(model, glm::vec3(11.0f, 2.4f, -12.0f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
-		model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
-		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		imac.Draw(lightingShader);
+		//view = camera.GetViewMatrix();
+		//model = glm::mat4(1);
+		//model = glm::scale(model, glm::vec3(1.15f, 1.15f, 1.15f));
+		//model = glm::translate(model, glm::vec3(8.4f, 2.2f, -12.0f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+		//model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
+		//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		//imac.Draw(lightingShader);
 
-		view = camera.GetViewMatrix();
-		model = glm::mat4(1);
-		model = glm::scale(model, glm::vec3(1.15f, 1.15f, 1.15f));
-		model = glm::translate(model, glm::vec3(8.4f, 2.4f, -12.0f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
-		model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
-		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		imac.Draw(lightingShader);
+		//view = camera.GetViewMatrix();
+		//model = glm::mat4(1);
+		//model = glm::scale(model, glm::vec3(1.15f, 1.15f, 1.15f));
+		//model = glm::translate(model, glm::vec3(5.9f, 2.2f, -12.0f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+		//model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
+		//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		//imac.Draw(lightingShader);
 
-		view = camera.GetViewMatrix();
-		model = glm::mat4(1);
-		model = glm::scale(model, glm::vec3(1.15f, 1.15f, 1.15f));
-		model = glm::translate(model, glm::vec3(5.9f, 2.4f, -12.0f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
-		model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
-		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		imac.Draw(lightingShader);
+		//view = camera.GetViewMatrix();
+		//model = glm::mat4(1);
+		//model = glm::scale(model, glm::vec3(1.15f, 1.15f, 1.15f));
+		//model = glm::translate(model, glm::vec3(3.3f, 2.2f, -12.0f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+		//model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
+		//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		//imac.Draw(lightingShader);
 
-		view = camera.GetViewMatrix();
-		model = glm::mat4(1);
-		model = glm::scale(model, glm::vec3(1.15f, 1.15f, 1.15f));
-		model = glm::translate(model, glm::vec3(3.3f, 2.4f, -12.0f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
-		model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
-		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		imac.Draw(lightingShader);
+		//////////////////////////////////////////////////////////////Tercera mesa de la derecha//////////////////////////////////////////////////////////////////////////
+		////Modelo de iMac
+		//view = camera.GetViewMatrix();
+		//model = glm::mat4(1);
+		//model = glm::scale(model, glm::vec3(1.15f, 1.15f, 1.15f));
+		//model = glm::translate(model, glm::vec3(11.0f, 2.2f, -6.7f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+		//model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
+		//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		//imac.Draw(lightingShader);
 
-		////////////////////////////////////////////////////////////Tercera mesa de la derecha//////////////////////////////////////////////////////////////////////////
-		//Modelo de iMac
-		view = camera.GetViewMatrix();
-		model = glm::mat4(1);
-		model = glm::scale(model, glm::vec3(1.15f, 1.15f, 1.15f));
-		model = glm::translate(model, glm::vec3(11.0f, 2.4f, -6.7f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
-		model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
-		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		imac.Draw(lightingShader);
+		//view = camera.GetViewMatrix();
+		//model = glm::mat4(1);
+		//model = glm::scale(model, glm::vec3(1.15f, 1.15f, 1.15f));
+		//model = glm::translate(model, glm::vec3(8.4f, 2.2f, -6.7f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+		//model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
+		//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		//imac.Draw(lightingShader);
 
-		view = camera.GetViewMatrix();
-		model = glm::mat4(1);
-		model = glm::scale(model, glm::vec3(1.15f, 1.15f, 1.15f));
-		model = glm::translate(model, glm::vec3(8.4f, 2.4f, -6.7f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
-		model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
-		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		imac.Draw(lightingShader);
+		//view = camera.GetViewMatrix();
+		//model = glm::mat4(1);
+		//model = glm::scale(model, glm::vec3(1.15f, 1.15f, 1.15f));
+		//model = glm::translate(model, glm::vec3(5.9f, 2.2f, -6.7f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+		//model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
+		//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		//imac.Draw(lightingShader);
 
-		view = camera.GetViewMatrix();
-		model = glm::mat4(1);
-		model = glm::scale(model, glm::vec3(1.15f, 1.15f, 1.15f));
-		model = glm::translate(model, glm::vec3(5.9f, 2.4f, -6.7f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
-		model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
-		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		imac.Draw(lightingShader);
+		//view = camera.GetViewMatrix();
+		//model = glm::mat4(1);
+		//model = glm::scale(model, glm::vec3(1.15f, 1.15f, 1.15f));
+		//model = glm::translate(model, glm::vec3(3.3f, 2.2f, -6.7f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+		//model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
+		//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		//imac.Draw(lightingShader);
 
-		view = camera.GetViewMatrix();
-		model = glm::mat4(1);
-		model = glm::scale(model, glm::vec3(1.15f, 1.15f, 1.15f));
-		model = glm::translate(model, glm::vec3(3.3f, 2.4f, -6.7f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
-		model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
-		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		imac.Draw(lightingShader);
+		//////////////////////////////////////////////////////////////Cuarta mesa de la derecha//////////////////////////////////////////////////////////////////////////
+		////Modelo de iMac
+		//view = camera.GetViewMatrix();
+		//model = glm::mat4(1);
+		//model = glm::scale(model, glm::vec3(1.15f, 1.15f, 1.15f));
+		//model = glm::translate(model, glm::vec3(11.0f, 2.2f, -1.3f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+		//model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
+		//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		//imac.Draw(lightingShader);
 
-		////////////////////////////////////////////////////////////Cuarta mesa de la derecha//////////////////////////////////////////////////////////////////////////
-		//Modelo de iMac
-		view = camera.GetViewMatrix();
-		model = glm::mat4(1);
-		model = glm::scale(model, glm::vec3(1.15f, 1.15f, 1.15f));
-		model = glm::translate(model, glm::vec3(11.0f, 2.4f, -1.3f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
-		model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
-		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		imac.Draw(lightingShader);
+		//view = camera.GetViewMatrix();
+		//model = glm::mat4(1);
+		//model = glm::scale(model, glm::vec3(1.15f, 1.15f, 1.15f));
+		//model = glm::translate(model, glm::vec3(8.4f, 2.2f, -1.3f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+		//model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
+		//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		//imac.Draw(lightingShader);
 
-		view = camera.GetViewMatrix();
-		model = glm::mat4(1);
-		model = glm::scale(model, glm::vec3(1.15f, 1.15f, 1.15f));
-		model = glm::translate(model, glm::vec3(8.4f, 2.4f, -1.3f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
-		model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
-		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		imac.Draw(lightingShader);
+		//view = camera.GetViewMatrix();
+		//model = glm::mat4(1);
+		//model = glm::scale(model, glm::vec3(1.15f, 1.15f, 1.15f));
+		//model = glm::translate(model, glm::vec3(5.9f, 2.2f, -1.3f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+		//model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
+		//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		//imac.Draw(lightingShader);
 
-		view = camera.GetViewMatrix();
-		model = glm::mat4(1);
-		model = glm::scale(model, glm::vec3(1.15f, 1.15f, 1.15f));
-		model = glm::translate(model, glm::vec3(5.9f, 2.4f, -1.3f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
-		model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
-		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		imac.Draw(lightingShader);
+		//view = camera.GetViewMatrix();
+		//model = glm::mat4(1);
+		//model = glm::scale(model, glm::vec3(1.15f, 1.15f, 1.15f));
+		//model = glm::translate(model, glm::vec3(3.3f, 2.2f, -1.3f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+		//model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
+		//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		//imac.Draw(lightingShader);
 
-		view = camera.GetViewMatrix();
-		model = glm::mat4(1);
-		model = glm::scale(model, glm::vec3(1.15f, 1.15f, 1.15f));
-		model = glm::translate(model, glm::vec3(3.3f, 2.4f, -1.3f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
-		model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
-		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		imac.Draw(lightingShader);
+		//////////////////////////////////////////////////////////////Cuarta mesa de la derecha//////////////////////////////////////////////////////////////////////////
+		////Modelo de iMac
+		//view = camera.GetViewMatrix();
+		//model = glm::mat4(1);
+		//model = glm::scale(model, glm::vec3(1.15f, 1.15f, 1.15f));
+		//model = glm::translate(model, glm::vec3(11.2f, 2.2f, 4.3f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+		//model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
+		//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		//imac.Draw(lightingShader);
 
-		////////////////////////////////////////////////////////////Cuarta mesa de la derecha//////////////////////////////////////////////////////////////////////////
-		//Modelo de iMac
-		view = camera.GetViewMatrix();
-		model = glm::mat4(1);
-		model = glm::scale(model, glm::vec3(1.15f, 1.15f, 1.15f));
-		model = glm::translate(model, glm::vec3(11.2f, 2.4f, 4.3f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
-		model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
-		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		imac.Draw(lightingShader);
+		//view = camera.GetViewMatrix();
+		//model = glm::mat4(1);
+		//model = glm::scale(model, glm::vec3(1.15f, 1.15f, 1.15f));
+		//model = glm::translate(model, glm::vec3(9.2f, 2.2f, 4.3f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+		//model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
+		//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		//imac.Draw(lightingShader);
 
-		view = camera.GetViewMatrix();
-		model = glm::mat4(1);
-		model = glm::scale(model, glm::vec3(1.15f, 1.15f, 1.15f));
-		model = glm::translate(model, glm::vec3(9.2f, 2.4f, 4.3f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
-		model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
-		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		imac.Draw(lightingShader);
+		//view = camera.GetViewMatrix();
+		//model = glm::mat4(1);
+		//model = glm::scale(model, glm::vec3(1.15f, 1.15f, 1.15f));
+		//model = glm::translate(model, glm::vec3(7.2f, 2.2f, 4.3f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+		//model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
+		//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		//imac.Draw(lightingShader);
 
-		view = camera.GetViewMatrix();
-		model = glm::mat4(1);
-		model = glm::scale(model, glm::vec3(1.15f, 1.15f, 1.15f));
-		model = glm::translate(model, glm::vec3(7.2f, 2.4f, 4.3f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
-		model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
-		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		imac.Draw(lightingShader);
+		//view = camera.GetViewMatrix();
+		//model = glm::mat4(1);
+		//model = glm::scale(model, glm::vec3(1.15f, 1.15f, 1.15f));
+		//model = glm::translate(model, glm::vec3(5.2f, 2.2f, 4.3f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+		//model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
+		//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		//imac.Draw(lightingShader);
 
-		view = camera.GetViewMatrix();
-		model = glm::mat4(1);
-		model = glm::scale(model, glm::vec3(1.15f, 1.15f, 1.15f));
-		model = glm::translate(model, glm::vec3(5.2f, 2.4f, 4.3f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
-		model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
-		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		imac.Draw(lightingShader);
+		//view = camera.GetViewMatrix();
+		//model = glm::mat4(1);
+		//model = glm::scale(model, glm::vec3(1.15f, 1.15f, 1.15f));
+		//model = glm::translate(model, glm::vec3(3.2f, 2.2f, 4.3f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+		//model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
+		//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		//imac.Draw(lightingShader);
 
-		view = camera.GetViewMatrix();
-		model = glm::mat4(1);
-		model = glm::scale(model, glm::vec3(1.15f, 1.15f, 1.15f));
-		model = glm::translate(model, glm::vec3(3.2f, 2.4f, 4.3f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
-		model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
-		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		imac.Draw(lightingShader);
+		//////////////////////////////////////////////////////////////Quinta mesa de la derecha//////////////////////////////////////////////////////////////////////////
+		////Modelo de iMac
+		//view = camera.GetViewMatrix();
+		//model = glm::mat4(1);
+		//model = glm::scale(model, glm::vec3(1.15f, 1.15f, 1.15f));
+		//model = glm::translate(model, glm::vec3(11.2f, 2.2f, 9.7f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+		//model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
+		//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		//imac.Draw(lightingShader);
+
+		//view = camera.GetViewMatrix();
+		//model = glm::mat4(1);
+		//model = glm::scale(model, glm::vec3(1.15f, 1.15f, 1.15f));
+		//model = glm::translate(model, glm::vec3(9.2f, 2.2f, 9.7f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+		//model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
+		//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		//imac.Draw(lightingShader);
+
+		//view = camera.GetViewMatrix();
+		//model = glm::mat4(1);
+		//model = glm::scale(model, glm::vec3(1.15f, 1.15f, 1.15f));
+		//model = glm::translate(model, glm::vec3(7.2f, 2.2f, 9.7f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+		//model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
+		//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		//imac.Draw(lightingShader);
+
+		//view = camera.GetViewMatrix();
+		//model = glm::mat4(1);
+		//model = glm::scale(model, glm::vec3(1.15f, 1.15f, 1.15f));
+		//model = glm::translate(model, glm::vec3(5.2f, 2.2f, 9.7f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+		//model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
+		//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		//imac.Draw(lightingShader);
+
+		//view = camera.GetViewMatrix();
+		//model = glm::mat4(1);
+		//model = glm::scale(model, glm::vec3(1.15f, 1.15f, 1.15f));
+		//model = glm::translate(model, glm::vec3(3.2f, 2.2f, 9.7f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+		//model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
+		//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		//imac.Draw(lightingShader);
+
+		//////////////////////////////////////////////////////////////Sexta mesa de la derecha//////////////////////////////////////////////////////////////////////////
+		////Modelo de iMac
+		//view = camera.GetViewMatrix();
+		//model = glm::mat4(1);
+		//model = glm::scale(model, glm::vec3(1.15f, 1.15f, 1.15f));
+		//model = glm::translate(model, glm::vec3(11.2f, 2.2f, 15.1f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+		//model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
+		//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		//imac.Draw(lightingShader);
+
+		//view = camera.GetViewMatrix();
+		//model = glm::mat4(1);
+		//model = glm::scale(model, glm::vec3(1.15f, 1.15f, 1.15f));
+		//model = glm::translate(model, glm::vec3(9.2f, 2.2f, 15.1f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+		//model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
+		//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		//imac.Draw(lightingShader);
+
+		//view = camera.GetViewMatrix();
+		//model = glm::mat4(1);
+		//model = glm::scale(model, glm::vec3(1.15f, 1.15f, 1.15f));
+		//model = glm::translate(model, glm::vec3(7.2f, 2.2f, 15.1f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+		//model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
+		//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		//imac.Draw(lightingShader);
+
+		//view = camera.GetViewMatrix();
+		//model = glm::mat4(1);
+		//model = glm::scale(model, glm::vec3(1.15f, 1.15f, 1.15f));
+		//model = glm::translate(model, glm::vec3(5.2f, 2.2f, 15.1f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+		//model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
+		//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		//imac.Draw(lightingShader);
+
+		//view = camera.GetViewMatrix();
+		//model = glm::mat4(1);
+		//model = glm::scale(model, glm::vec3(1.15f, 1.15f, 1.15f));
+		//model = glm::translate(model, glm::vec3(3.2f, 2.2f, 15.1f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+		//model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
+		//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		//imac.Draw(lightingShader);
+
+		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		//////////////////////////////////////////////////////////////Primer mesa de la izquierda//////////////////////////////////////////////////////////////////////////
+		//// 
+		////Modelo de iMac
+		//view = camera.GetViewMatrix();
+		//model = glm::mat4(1);
+		//model = glm::scale(model, glm::vec3(1.15f, 1.15f, 1.15f));
+		//model = glm::translate(model, glm::vec3(-11.0f, 2.2f, -17.7f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+		//model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
+		//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		//imac.Draw(lightingShader);
+
+		//view = camera.GetViewMatrix();
+		//model = glm::mat4(1);
+		//model = glm::scale(model, glm::vec3(1.15f, 1.15f, 1.15f));
+		//model = glm::translate(model, glm::vec3(-8.4f, 2.2f, -17.7f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+		//model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
+		//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		//imac.Draw(lightingShader);
+
+		//view = camera.GetViewMatrix();
+		//model = glm::mat4(1);
+		//model = glm::scale(model, glm::vec3(1.15f, 1.15f, 1.15f));
+		//model = glm::translate(model, glm::vec3(-5.9f, 2.2f, -17.7f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+		//model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
+		//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		//imac.Draw(lightingShader);
+
+		//view = camera.GetViewMatrix();
+		//model = glm::mat4(1);
+		//model = glm::scale(model, glm::vec3(1.15f, 1.15f, 1.15f));
+		//model = glm::translate(model, glm::vec3(-3.3f, 2.2f, -17.7f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+		//model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
+		//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		//imac.Draw(lightingShader);
+
+		//////////////////////////////////////////////////////////////Seguunda mesa de la izquierda//////////////////////////////////////////////////////////////////////////
+		//// 
+		////Modelo de iMac
+		//view = camera.GetViewMatrix();
+		//model = glm::mat4(1);
+		//model = glm::scale(model, glm::vec3(1.15f, 1.15f, 1.15f));
+		//model = glm::translate(model, glm::vec3(-11.0f, 2.2f, -12.0f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+		//model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
+		//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		//imac.Draw(lightingShader);
+
+		//view = camera.GetViewMatrix();
+		//model = glm::mat4(1);
+		//model = glm::scale(model, glm::vec3(1.15f, 1.15f, 1.15f));
+		//model = glm::translate(model, glm::vec3(-8.4f, 2.2f, -12.0f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+		//model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
+		//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		//imac.Draw(lightingShader);
+
+		//view = camera.GetViewMatrix();
+		//model = glm::mat4(1);
+		//model = glm::scale(model, glm::vec3(1.15f, 1.15f, 1.15f));
+		//model = glm::translate(model, glm::vec3(-5.9f, 2.2f, -12.0f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+		//model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
+		//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		//imac.Draw(lightingShader);
+
+		//view = camera.GetViewMatrix();
+		//model = glm::mat4(1);
+		//model = glm::scale(model, glm::vec3(1.15f, 1.15f, 1.15f));
+		//model = glm::translate(model, glm::vec3(-3.3f, 2.2f, -12.0f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+		//model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
+		//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		//imac.Draw(lightingShader);
+
+		//////////////////////////////////////////////////////////////Tercera mesa de la izquierda//////////////////////////////////////////////////////////////////////////
+		////Modelo de iMac
+		//view = camera.GetViewMatrix();
+		//model = glm::mat4(1);
+		//model = glm::scale(model, glm::vec3(1.15f, 1.15f, 1.15f));
+		//model = glm::translate(model, glm::vec3(-11.0f, 2.2f, -6.7f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+		//model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
+		//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		//imac.Draw(lightingShader);
+
+		//view = camera.GetViewMatrix();
+		//model = glm::mat4(1);
+		//model = glm::scale(model, glm::vec3(1.15f, 1.15f, 1.15f));
+		//model = glm::translate(model, glm::vec3(-8.4f, 2.2f, -6.7f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+		//model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
+		//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		//imac.Draw(lightingShader);
+
+		//view = camera.GetViewMatrix();
+		//model = glm::mat4(1);
+		//model = glm::scale(model, glm::vec3(1.15f, 1.15f, 1.15f));
+		//model = glm::translate(model, glm::vec3(-5.9f, 2.2f, -6.7f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+		//model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
+		//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		//imac.Draw(lightingShader);
+
+		//view = camera.GetViewMatrix();
+		//model = glm::mat4(1);
+		//model = glm::scale(model, glm::vec3(1.15f, 1.15f, 1.15f));
+		//model = glm::translate(model, glm::vec3(-3.3f, 2.2f, -6.7f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+		//model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
+		//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		//imac.Draw(lightingShader);
+
+		//////////////////////////////////////////////////////////////Cuarta mesa de la izquierda//////////////////////////////////////////////////////////////////////////
+		////Modelo de iMac
+		//view = camera.GetViewMatrix();
+		//model = glm::mat4(1);
+		//model = glm::scale(model, glm::vec3(1.15f, 1.15f, 1.15f));
+		//model = glm::translate(model, glm::vec3(-11.0f, 2.2f, -1.3f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+		//model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
+		//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		//imac.Draw(lightingShader);
+
+		//view = camera.GetViewMatrix();
+		//model = glm::mat4(1);
+		//model = glm::scale(model, glm::vec3(1.15f, 1.15f, 1.15f));
+		//model = glm::translate(model, glm::vec3(-8.4f, 2.2f, -1.3f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+		//model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
+		//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		//imac.Draw(lightingShader);
+
+		//view = camera.GetViewMatrix();
+		//model = glm::mat4(1);
+		//model = glm::scale(model, glm::vec3(1.15f, 1.15f, 1.15f));
+		//model = glm::translate(model, glm::vec3(-5.9f, 2.2f, -1.3f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+		//model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
+		//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		//imac.Draw(lightingShader);
+
+		//view = camera.GetViewMatrix();
+		//model = glm::mat4(1);
+		//model = glm::scale(model, glm::vec3(1.15f, 1.15f, 1.15f));
+		//model = glm::translate(model, glm::vec3(-3.3f, 2.2f, -1.3f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+		//model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
+		//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		//imac.Draw(lightingShader);
+
+		//////////////////////////////////////////////////////////////Cuarta mesa de la izquierda//////////////////////////////////////////////////////////////////////////
+		////Modelo de iMac
+		//view = camera.GetViewMatrix();
+		//model = glm::mat4(1);
+		//model = glm::scale(model, glm::vec3(1.15f, 1.15f, 1.15f));
+		//model = glm::translate(model, glm::vec3(-11.2f, 2.2f, 4.3f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+		//model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
+		//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		//imac.Draw(lightingShader);
+
+		//view = camera.GetViewMatrix();
+		//model = glm::mat4(1);
+		//model = glm::scale(model, glm::vec3(1.15f, 1.15f, 1.15f));
+		//model = glm::translate(model, glm::vec3(-9.2f, 2.2f, 4.3f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+		//model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
+		//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		//imac.Draw(lightingShader);
+
+		//view = camera.GetViewMatrix();
+		//model = glm::mat4(1);
+		//model = glm::scale(model, glm::vec3(1.15f, 1.15f, 1.15f));
+		//model = glm::translate(model, glm::vec3(-7.2f, 2.2f, 4.3f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+		//model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
+		//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		//imac.Draw(lightingShader);
+
+		//view = camera.GetViewMatrix();
+		//model = glm::mat4(1);
+		//model = glm::scale(model, glm::vec3(1.15f, 1.15f, 1.15f));
+		//model = glm::translate(model, glm::vec3(-5.2f, 2.2f, 4.3f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+		//model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
+		//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		//imac.Draw(lightingShader);
+
+		//view = camera.GetViewMatrix();
+		//model = glm::mat4(1);
+		//model = glm::scale(model, glm::vec3(1.15f, 1.15f, 1.15f));
+		//model = glm::translate(model, glm::vec3(-3.2f, 2.2f, 4.3f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+		//model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
+		//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		//imac.Draw(lightingShader);
+
+		//////////////////////////////////////////////////////////////Quinta mesa de la izquierda//////////////////////////////////////////////////////////////////////////
+		////Modelo de iMac
+		//view = camera.GetViewMatrix();
+		//model = glm::mat4(1);
+		//model = glm::scale(model, glm::vec3(1.15f, 1.15f, 1.15f));
+		//model = glm::translate(model, glm::vec3(-11.2f, 2.2f, 9.7f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+		//model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
+		//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		//imac.Draw(lightingShader);
+
+		//view = camera.GetViewMatrix();
+		//model = glm::mat4(1);
+		//model = glm::scale(model, glm::vec3(1.15f, 1.15f, 1.15f));
+		//model = glm::translate(model, glm::vec3(-9.2f, 2.2f, 9.7f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+		//model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
+		//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		//imac.Draw(lightingShader);
+
+		//view = camera.GetViewMatrix();
+		//model = glm::mat4(1);
+		//model = glm::scale(model, glm::vec3(1.15f, 1.15f, 1.15f));
+		//model = glm::translate(model, glm::vec3(-7.2f, 2.2f, 9.7f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+		//model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
+		//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		//imac.Draw(lightingShader);
+
+		//view = camera.GetViewMatrix();
+		//model = glm::mat4(1);
+		//model = glm::scale(model, glm::vec3(1.15f, 1.15f, 1.15f));
+		//model = glm::translate(model, glm::vec3(-5.2f, 2.2f, 9.7f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+		//model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
+		//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		//imac.Draw(lightingShader);
+
+		//view = camera.GetViewMatrix();
+		//model = glm::mat4(1);
+		//model = glm::scale(model, glm::vec3(1.15f, 1.15f, 1.15f));
+		//model = glm::translate(model, glm::vec3(-3.2f, 2.2f, 9.7f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+		//model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
+		//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		//imac.Draw(lightingShader);
+
+		//////////////////////////////////////////////////////////////Sexta mesa de la izquierda//////////////////////////////////////////////////////////////////////////
+		////Modelo de iMac
+		//view = camera.GetViewMatrix();
+		//model = glm::mat4(1);
+		//model = glm::scale(model, glm::vec3(1.15f, 1.15f, 1.15f));
+		//model = glm::translate(model, glm::vec3(-11.2f, 2.2f, 15.1f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+		//model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
+		//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		//imac.Draw(lightingShader);
+
+		//view = camera.GetViewMatrix();
+		//model = glm::mat4(1);
+		//model = glm::scale(model, glm::vec3(1.15f, 1.15f, 1.15f));
+		//model = glm::translate(model, glm::vec3(-9.2f, 2.2f, 15.1f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+		//model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
+		//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		//imac.Draw(lightingShader);
+
+		//view = camera.GetViewMatrix();
+		//model = glm::mat4(1);
+		//model = glm::scale(model, glm::vec3(1.15f, 1.15f, 1.15f));
+		//model = glm::translate(model, glm::vec3(-7.2f, 2.2f, 15.1f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+		//model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
+		//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		//imac.Draw(lightingShader);
+
+		//view = camera.GetViewMatrix();
+		//model = glm::mat4(1);
+		//model = glm::scale(model, glm::vec3(1.15f, 1.15f, 1.15f));
+		//model = glm::translate(model, glm::vec3(-5.2f, 2.2f, 15.1f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+		//model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
+		//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		//imac.Draw(lightingShader);
+
+		//view = camera.GetViewMatrix();
+		//model = glm::mat4(1);
+		//model = glm::scale(model, glm::vec3(1.15f, 1.15f, 1.15f));
+		//model = glm::translate(model, glm::vec3(-3.2f, 2.2f, 15.1f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+		//model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
+		//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		//imac.Draw(lightingShader);
 
 
 		//////////////////////////////////////////////////////////////////Modelo de logos////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1230,7 +2622,7 @@ int main()
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 		logo.Draw(lightingShader);
 	
-		////Modelo del Dron
+		////////////////////////////////////////////////////////////////////////////////////Modelo del Dron////////////////////////////////////////////////////////////////////////////////////////////
 		//model = glm::mat4(1);
 		//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 		//glUniform1i(glGetUniformLocation(lightingShader.Program, "transparency"), 0);
@@ -1242,7 +2634,6 @@ int main()
 		//dron.Draw(lightingShader);
 		//glBindVertexArray(0);
 
-		////////////Salon Nuevo
 
 
 
