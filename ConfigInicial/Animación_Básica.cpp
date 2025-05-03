@@ -361,8 +361,8 @@ int main()
 		//lava.Draw(lightingShader);
 
 		if (!show) {
-		/////////////////////////////////////////////////////////////Modelos de iMac viejas////////////////////////////////////////////////////////////////////////////////////
-		////////////////////////////////////////////////////////////Primer mesa de la derecha///////////////////////////////////////////////////////////////////////////////////
+			/////////////////////////////////////////////////////////////Modelos de iMac viejas////////////////////////////////////////////////////////////////////////////////////
+			////////////////////////////////////////////////////////////Primer mesa de la derecha///////////////////////////////////////////////////////////////////////////////////
 			view = camera.GetViewMatrix();
 			model = glm::mat4(1);
 			model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
@@ -1585,14 +1585,14 @@ int main()
 
 			glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 			sillavieja.Draw(lightingShader);
-			
+
 		}
 
 		if (!shownew) {
-		
+
 
 			//////////////////////////////////	/*Modelos de escritorios nuevos*///////////////////////////////////////////////////////
-			//Derecha
+			/*Derecha*/
 			//view = camera.GetViewMatrix();
 			//model = glm::mat4(1);
 			//model = glm::scale(model, glm::vec3(3.0f, 1.5f, 1.5f));
@@ -1601,11 +1601,14 @@ int main()
 			//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 			//escritorionuevo.Draw(lightingShader);
 
+
+			// Ejemplo para uno de los modelos (aplica a todos los que necesiten rotación)
 			view = camera.GetViewMatrix();
 			model = glm::mat4(1);
 			model = glm::scale(model, glm::vec3(3.0f, 1.5f, 1.5f));
-			model = glm::rotate(model, glm::radians(90.0f + rotationRiseAngle), glm::vec3(0.0f, 1.0f, 0.0f)); // Rotación primero
-			model = glm::translate(model, glm::vec3(9.0f, 0.9f - riseDistance, -13.7f)); // Traslación después
+			model = glm::translate(model, glm::vec3(9.0f, 0.9f - riseDistance, -13.7f));
+			model = glm::rotate(model, glm::radians(rotationRiseAngle), glm::vec3(1.0f, 1.0f, 1.0f)); // Rotación Z
+			model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 			glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 			escritorionuevo.Draw(lightingShader);
 
@@ -1613,9 +1616,8 @@ int main()
 			view = camera.GetViewMatrix();
 			model = glm::mat4(1);
 			model = glm::scale(model, glm::vec3(3.0f, 1.5f, 1.5f));
-			model = glm::rotate(model, glm::radians(90.0f + rotationRiseAngle), glm::vec3(0.0f, 1.0f, 0.0f)); // Rotación primero
 			model = glm::translate(model, glm::vec3(3.6f, 0.9f - riseDistance, -13.7f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
-			//model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
+			model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
 			glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 			escritorionuevo.Draw(lightingShader);
 
@@ -1623,7 +1625,6 @@ int main()
 			view = camera.GetViewMatrix();
 			model = glm::mat4(1);
 			model = glm::scale(model, glm::vec3(3.0f, 1.5f, 1.5f));
-			model = glm::rotate(model, glm::radians(90.0f + rotationRiseAngle), glm::vec3(0.0f, 1.0f, 0.0f)); // Rotación primero
 			model = glm::translate(model, glm::vec3(9.0f, 0.9f - riseDistance, -9.4f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
 			model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
 			glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
@@ -2318,8 +2319,8 @@ int main()
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 		nuevosalon.Draw(lightingShader);
 
-		
-	
+
+
 		////////////////////////////////////////////////////////////////////////////////////Modelo del Dron////////////////////////////////////////////////////////////////////////////////////////////
 		//model = glm::mat4(1);
 		//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
@@ -2530,17 +2531,41 @@ void Animation() {
 		fallDistance += fallSpeed * deltaTime;
 		rotationAngle += rotationSpeed * deltaTime;
 	}*/
-	if (animateRise) {
-		// Actualizar distancia y rotación
-		riseDistance -= riseSpeed * deltaTime;
-		rotationRiseAngle += rotationRiseSpeed * deltaTime;
+	//////if (animateRise) {
+	//////	// Actualizar distancia y rotación
+	//////	riseDistance -= riseSpeed * deltaTime;
+	//////	rotationRiseAngle += rotationRiseSpeed * deltaTime;
 
-		// Limitar valores mínimos
-		if (riseDistance <= 0.0f) {
-			riseDistance = 0.0f;
-			animateRise = false; // Detener animación
-		}
-	}
+	//////	// Limitar valores mínimos
+	//////	if (riseDistance <= 0.0f) {
+	//////		riseDistance = 0.0f;
+	//////		animateRise = false; // Detener animación
+	//////	}
+	//////}
+
+	////// Animación de subida con rotación
+	////if (animateRise) {
+	////	if (riseDistance > 0.0f) {
+	////		float delta = riseSpeed * deltaTime;
+	////		riseDistance -= delta;
+	////		rotationRiseAngle += rotationRiseSpeed * deltaTime; // Actualizar ángulo
+	////	}
+	////	else {
+	////		riseDistance = 0.0f;
+	////		animateRise = false;
+	////	}
+	////}
+
+	if (animateRise) {
+        if (riseDistance > 0.0f) {
+            float delta = riseSpeed * deltaTime;
+            riseDistance -= delta;
+            rotationRiseAngle += rotationRiseSpeed * deltaTime; // Actualizar ángulo en Y
+        } else {
+            riseDistance = 0.0f;
+            animateRise = false;
+        }
+    }
 
 	if (!animationPaused && animateFall) { // Solo animar si no está en pausa
 		fallDistance += fallSpeed * deltaTime;
