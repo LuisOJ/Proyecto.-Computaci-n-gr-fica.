@@ -72,7 +72,7 @@ glm::vec3 dronPos(-15.0f, 9.0f, -24.0f); // Posición inicial del dron (igual al 
 
 glm::vec3 waypoints[4] = {
 	glm::vec3(-15.0f, 9.0f, -24.0f),  // Esquina inferior-izquierda (A)
-	glm::vec3(15.0f, 9.0f, -24.0f),   // Esquina inferior-derecha (B)
+	glm::vec3(15.0f, 9.0f, -22.0f),   // Esquina inferior-derecha (B)
 	glm::vec3(15.0f, 9.0f, 20.0f),    // Esquina superior-derecha (C) 
 	glm::vec3(-15.0f, 9.0f, 20.0f)    // Esquina superior-izquierda (D) 
 };
@@ -80,7 +80,7 @@ glm::vec3 waypoints[4] = {
 
 
 int currentWaypoint = 0;
-float speed = 2.5f; // Velocidad de movimiento
+float speed = 5.0f; // Velocidad de movimiento
 bool moveDron = false; // Control de movimiento
 // 
 bool sinusoidalMode = false;        // Modo sinusoidal activo/desactivado
@@ -88,6 +88,11 @@ float sineAmplitude = 3.0f;        // Altura de la onda
 float sineFrequency = 2.0f;        // Velocidad de oscilación
 float sineTime = 0.0f;             // Tiempo acumulado para el cálculo de la onda
 glm::vec3 initialSinePos;          // Posición inicial al activar el modo sinusoidal
+glm::vec3 segmentStart;  // <--- ¡Nueva!
+glm::vec3 segmentEnd;    // <--- ¡Nueva!
+glm::vec3 segmentDir;    // <--- ¡Nueva!
+float segmentLength = 0.0f;  // <--- ¡Nueva!
+float segmentProgress = 0.0f;  // <--- ¡Nueva!
 
 // Positions of the point lights
 glm::vec3 pointLightPositions[] = {
@@ -2527,6 +2532,7 @@ void KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mode
 			Light1 = glm::vec3(0);//Cuado es solo un valor en los 3 vectores pueden dejar solo una componente
 		}
 	}
+
 	if (keys[GLFW_KEY_N])
 	{
 		AnimBall = !AnimBall;
@@ -2535,16 +2541,22 @@ void KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mode
 	if (key == GLFW_KEY_M && action == GLFW_PRESS) {
 		sinusoidalMode = !sinusoidalMode;
 		if (sinusoidalMode) {
-			initialSinePos = dronPos;
+			// Configurar el primer segmento
+			currentWaypoint = 0;
+			segmentStart = waypoints[currentWaypoint];
+			int nextWP = (currentWaypoint + 1) % 4;
+			segmentEnd = waypoints[nextWP];
+			segmentDir = glm::normalize(segmentEnd - segmentStart);
+			segmentLength = glm::distance(segmentStart, segmentEnd);
+			segmentProgress = 0.0f;
 			sineTime = 0.0f;
+			dronPos = segmentStart; // Opcional: ajustar al waypoint inicial
 		}
 		else {
-			currentWaypoint = 0; // Reiniciar al primer waypoint
-			dronPos = waypoints[0]; // Opcional: posicionar dron en el inicio
+			currentWaypoint = 0;
+			dronPos = waypoints[0]; // Reiniciar al inicio
 		}
 	}
-
-
 
 }
 
@@ -2596,76 +2608,58 @@ void Animation() {
 		rotationAngle += rotationSpeed * deltaTime;
 	}
 
-	//if (AnimBall) {
-	//	if (sinusoidalMode) {
-	//		// --- Código sinusoidal ---
-	//		sineTime += deltaTime; // Actualizar tiempo acumulado
+	if (AnimBall) {
+		if (sinusoidalMode) {
+			// Movimiento sinusoidal siguiendo waypoints
+			segmentProgress += speed * deltaTime;
 
-	//		// Calcular posición en X (oscilación) y Z (avance)
-	//		dronPos.x = initialSinePos.x + sin(sineTime * sineFrequency) * sineAmplitude;
-	//		dronPos.z = initialSinePos.z + speed * sineTime;
+			// Cambiar de segmento si es necesario
+			while (segmentProgress > segmentLength) {
+				segmentProgress -= segmentLength;
+				currentWaypoint = (currentWaypoint + 1) % 4;
+				segmentStart = waypoints[currentWaypoint];
+				int nextWP = (currentWaypoint + 1) % 4;
+				segmentEnd = waypoints[nextWP];
+				segmentDir = glm::normalize(segmentEnd - segmentStart);
+				segmentLength = glm::distance(segmentStart, segmentEnd);
+			}
 
-	//		// Calcular rotación basada en la dirección del movimiento
-	//		float velocityX = cos(sineTime * sineFrequency) * sineFrequency * sineAmplitude;
-	//		float velocityZ = speed;
-	//		float angle = atan2(velocityX, velocityZ);
-	//		rotBall = glm::degrees(angle);
-	//		// --- Fin código sinusoidal ---
-	//	}
-	//	else {
-	//		// Código del movimiento rectangular
-	//		glm::vec3 target = waypoints[currentWaypoint];
-	//		glm::vec3 direction = target - dronPos;
-	//		float distanceToTarget = glm::length(direction);
+			// Calcular posición base en el segmento
+			glm::vec3 basePos = segmentStart + segmentDir * segmentProgress;
 
-	//		if (distanceToTarget > 0.1f) {
-	//			direction = glm::normalize(direction);
-	//			dronPos += direction * speed * deltaTime;
-	//			float angle = atan2(direction.x, direction.z);
-	//			rotBall = glm::degrees(angle);
-	//		}
-	//		else {
-	//			currentWaypoint = (currentWaypoint + 1) % 4;
-	//		}
-	//	}
-	//}
+			// Calcular dirección perpendicular al segmento
+			glm::vec3 perp = glm::cross(segmentDir, glm::vec3(0.0f, 1.0f, 0.0f));
+			perp = glm::normalize(perp);
 
-	if (sinusoidalMode) {
-		// Move towards the current target waypoint as in normal mode
-		glm::vec3 target = waypoints[currentWaypoint];
-		glm::vec3 direction = target - dronPos;
-		float distanceToTarget = glm::length(direction);
+			// Aplicar oscilación sinusoidal
+			float sineValue = sin(sineTime * sineFrequency) * sineAmplitude;
+			dronPos = basePos + perp * sineValue;
 
-		if (distanceToTarget > 0.1f) {
-			direction = glm::normalize(direction);
-			dronPos += direction * speed * deltaTime;
-
-			// Calculate rotation based on the direction towards the target
-			float angle = atan2(direction.x, direction.z);
+			// Actualizar rotación basada en la dirección del segmento
+			float angle = atan2(segmentDir.x, segmentDir.z);
 			rotBall = glm::degrees(angle);
+
+			// Actualizar tiempo para la onda
+			sineTime += deltaTime;
+
 		}
 		else {
-			currentWaypoint = (currentWaypoint + 1) % 4;
+			// Movimiento rectangular original
+			glm::vec3 target = waypoints[currentWaypoint];
+			glm::vec3 direction = target - dronPos;
+			float distanceToTarget = glm::length(direction);
+
+			if (distanceToTarget > 0.1f) {
+				direction = glm::normalize(direction);
+				dronPos += direction * speed * deltaTime;
+				float angle = atan2(direction.x, direction.z);
+				rotBall = glm::degrees(angle);
+			}
+			else {
+				currentWaypoint = (currentWaypoint + 1) % 4;
+			}
 		}
-
-		// Determine the current segment (previousWaypoint to currentWaypoint)
-		int previousWaypoint = (currentWaypoint - 1 + 4) % 4; // Ensure positive modulo
-		glm::vec3 segmentStart = waypoints[previousWaypoint];
-		glm::vec3 segmentEnd = waypoints[currentWaypoint];
-		glm::vec3 segmentDir = segmentEnd - segmentStart;
-		if (glm::length(segmentDir) > 0.0f) {
-			segmentDir = glm::normalize(segmentDir);
-		}
-
-		// Compute perpendicular direction in the X-Z plane
-		glm::vec3 perpendicularDir = glm::vec3(-segmentDir.z, 0.0f, segmentDir.x);
-
-		// Apply sinusoidal offset
-		sineTime += deltaTime;
-		float sineValue = sin(sineTime * sineFrequency) * sineAmplitude;
-		dronPos += perpendicularDir * sineValue;
 	}
-
 	
 }
 
