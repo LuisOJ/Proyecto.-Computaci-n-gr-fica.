@@ -25,11 +25,41 @@
 #include "Model.h"
 
 
+//--------------------------------------------------------------------------
+//-----------------------------Movimientos de sillas------------------------
+// Número de filas de sillas y cuántas sillas hay por fila
+// ======================= Configuración de sillas ============================
+const int filasDeSillas = 14;
+const int sillasPorFila = 4;
+const int numSillas = filasDeSillas * sillasPorFila;
+
+// Variables para animación
+glm::vec3 sillaPosArr[numSillas];            // Posiciones actuales
+float sillaRotArr[numSillas] = { 0.0f };      // Rotaciones actuales
+float rotSillaArr[numSillas] = { 0.0f };      // Auxiliar de rotación
+int sillaAnimArr[numSillas] = { 0 };          // Estado de animación
+bool sillaActiva = false;
+
+// Parámetros para personalizar trayectorias
+glm::vec3 posicionesIniciales[numSillas];     // Desde la puerta
+glm::vec3 destinoIntermedio[numSillas];       // Entrada al pasillo
+float rotacionObjetivo[numSillas];            // Rotación hacia pasillo
+glm::vec3 posicionesFinales[numSillas];           // Frente al escritorio
+float rotacionFinalAjuste[numSillas];         // Rotación final
+glm::vec3 destino1[numSillas];  // Primero se mueven al frente
+glm::vec3 destino2[numSillas];  // Luego giran y se mueven lateral
+glm::vec3 destinoFinalAvance[numSillas];  // Agrega esta nueva variable global
+float rotacionPostFinal[numSillas]; // (fuera del loop, como variable global)
+
+
+
+
+
 
 ////
 // ANIMACIÓN NUEVOS MODELOS
 bool animateRise = false;
-float riseDistance = 4.0f;  // Distancia inicial bajo la lava
+float riseDistance = 5.0f;  // Distancia inicial bajo la lava
 float riseSpeed = 1.5f;     // Velocidad de ascenso
 float rotationRiseAngle = 0.0f;
 float rotationRiseSpeed = 180.0f; // Velocidad de rotación durante el ascenso
@@ -38,11 +68,16 @@ float rotationRiseSpeed = 180.0f; // Velocidad de rotación durante el ascenso
 
 bool show = false; // Variable global para mostrar salones
 bool shownew = false; // Variable global para mostrar salones
+bool showlava = false; // La lava está visible inicialmente
+bool animacionActiva = false;
+int faseAnimacion = 0; // 0:inactiva, 1:bajar escritorios, 2:subir nuevos modelos
+float animationSpeed = 2.0f;
+
 
 bool animateFall = false;
 float fallDistance = 0.0f;
 float rotationAngle = 0.0f;
-float fallSpeed = 3.0f;       // Velocidad de caída
+float fallSpeed = 2.0f;       // Velocidad de caída
 float rotationSpeed = 90.0f;  // Velocidad de rotación (grados/segundo)
 bool animationPaused = true;  // Controla si la animación está en pausa
 // (mantén las variables anteriores de animación)
@@ -72,7 +107,7 @@ glm::vec3 dronPos(-15.0f, 9.0f, -24.0f); // Posición inicial del dron (igual al 
 
 glm::vec3 waypoints[4] = {
 	glm::vec3(-15.0f, 9.0f, -24.0f),  // Esquina inferior-izquierda (A)
-	glm::vec3(15.0f, 9.0f, -22.0f),   // Esquina inferior-derecha (B)
+	glm::vec3(15.0f, 9.0f, -20.0f),   // Esquina inferior-derecha (B)
 	glm::vec3(15.0f, 9.0f, 20.0f),    // Esquina superior-derecha (C) 
 	glm::vec3(-15.0f, 9.0f, 20.0f)    // Esquina superior-izquierda (D) 
 };
@@ -88,11 +123,11 @@ float sineAmplitude = 3.0f;        // Altura de la onda
 float sineFrequency = 2.0f;        // Velocidad de oscilación
 float sineTime = 0.0f;             // Tiempo acumulado para el cálculo de la onda
 glm::vec3 initialSinePos;          // Posición inicial al activar el modo sinusoidal
-glm::vec3 segmentStart;  // <--- ¡Nueva!
-glm::vec3 segmentEnd;    // <--- ¡Nueva!
-glm::vec3 segmentDir;    // <--- ¡Nueva!
-float segmentLength = 0.0f;  // <--- ¡Nueva!
-float segmentProgress = 0.0f;  // <--- ¡Nueva!
+glm::vec3 segmentStart;  //  
+glm::vec3 segmentEnd;    //  
+glm::vec3 segmentDir;    //  
+float segmentLength = 0.0f;  //  
+float segmentProgress = 0.0f;  //
 
 // Positions of the point lights
 glm::vec3 pointLightPositions[] = {
@@ -339,33 +374,19 @@ int main()
 
 		glm::mat4 model(1);
 
+		
+		if (showlava) {
+			/////////////Modelo de Lava/////////////////////////
+			view = camera.GetViewMatrix();
+			model = glm::mat4(1);
+			model = glm::scale(model, glm::vec3(0.06f, 0.09f, 0.09f));
+			model = glm::translate(model, glm::vec3(40.0f, -4.8f, 35.0f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+			glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+			lava.Draw(lightingShader);
 
+		}
 
-		////Carga de modelo 
-		//view = camera.GetViewMatrix();
-		//model = glm::mat4(1);
-		//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		//Piso.Draw(lightingShader);
-
-		/////Salon con mesas, sillas y computadoras
-		//view = camera.GetViewMatrix();
-		//model = glm::mat4(1);
-		//model = glm::translate(model, glm::vec3(-9.0f, -1.0f, 25.0f)); // Ajusta X,Y,Z
-		//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		//full.Draw(lightingShader);
-
-
-
-
-		/////////////Modelo de Lava/////////////////////////
-		view = camera.GetViewMatrix();
-		model = glm::mat4(1);
-		model = glm::scale(model, glm::vec3(0.06f, 0.09f, 0.09f));
-		model = glm::translate(model, glm::vec3(40.0f, -4.8f, 35.0f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
-		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		lava.Draw(lightingShader);
-
-		if (!show) {
+		if (faseAnimacion < 2) {
 			/////////////////////////////////////////////////////////////Modelos de iMac viejas////////////////////////////////////////////////////////////////////////////////////
 			////////////////////////////////////////////////////////////Primer mesa de la derecha///////////////////////////////////////////////////////////////////////////////////
 			view = camera.GetViewMatrix();
@@ -1593,50 +1614,28 @@ int main()
 
 		}
 
-		if (!shownew) {
+		if (faseAnimacion >= 1) {
+
+			for (int i = 0; i < numSillas; i++) {
+				view = camera.GetViewMatrix();
+				model = glm::mat4(1.0f);
+				model = glm::translate(model, posicionesIniciales[i] + sillaPosArr[i]);
+				model = glm::scale(model, glm::vec3(0.1f, 0.1f, 0.1f));
+				model = glm::rotate(model, glm::radians(sillaRotArr[i] + 180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+				glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+				sillanueva.Draw(lightingShader);
+			}
 
 
 			//////////////////////////////////	/*Modelos de escritorios nuevos*///////////////////////////////////////////////////////
 			/*Derecha*/
-			//view = camera.GetViewMatrix();
-			//model = glm::mat4(1);
-			//model = glm::scale(model, glm::vec3(3.0f, 1.5f, 1.5f));
-			//model = glm::translate(model, glm::vec3(9.0f, 0.9f - riseDistance, -13.7f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
-			//model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
-			//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-			//escritorionuevo.Draw(lightingShader);
-
-
-			//// Ejemplo para uno de los modelos (aplica a todos los que necesiten rotación)
-			//view = camera.GetViewMatrix();
-			//model = glm::mat4(1);
-			//model = glm::scale(model, glm::vec3(3.0f, 1.5f, 1.5f));
-			//model = glm::translate(model, glm::vec3(9.0f, 0.9f - riseDistance, -13.7f));
-			//model = glm::rotate(model, glm::radians(rotationRiseAngle), glm::vec3(1.0f, 1.0f, 1.0f)); // Rotación Z
-			//model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-			//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-			//escritorionuevo.Draw(lightingShader);
-
-			//// Modelo de escritorio nuevo (dentro de if(!shownew))
-			//view = camera.GetViewMatrix();
-			//model = glm::mat4(1);
-			//model = glm::scale(model, glm::vec3(3.0f, 1.5f, 1.5f)); // Escala
-			//model = glm::rotate(model, glm::radians(rotationRiseAngle), glm::vec3(1.0f, 1.0f, 1.0f)); // Rotación en Y (¡antes de trasladar!)
-			//model = glm::translate(model, glm::vec3(9.0f, 0.9f - riseDistance, -13.7f)); // Posición con riseDistance
-			//model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Rotación existente (orientación)
-			//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-			//escritorionuevo.Draw(lightingShader);
-
-			model = glm::mat4(1.0f);
-			// Primero traslación (incluye la animación de subida)
-			model = glm::translate(model, glm::vec3(9.0f, 0.9f - riseDistance, -13.7f));
-			// Luego rotación animada (gira sobre su propio eje en su nueva posición)
-			model = glm::rotate(model, glm::radians(rotationRiseAngle), glm::vec3(1.0f, 1.0f, 1.0f));
-			// Luego rotación fija (orientación final del modelo)
-			model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-			// Finalmente escala
+			view = camera.GetViewMatrix();
+			model = glm::mat4(1);
 			model = glm::scale(model, glm::vec3(3.0f, 1.5f, 1.5f));
-
+			model = glm::translate(model, glm::vec3(9.0f, 0.9f - riseDistance, -13.7f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+			model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
+			glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+			escritorionuevo.Draw(lightingShader);
 
 			//Izquierda
 			view = camera.GetViewMatrix();
@@ -2467,6 +2466,7 @@ void DoMovement()
 void KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mode)
 {
 
+
 	/*if (key == GLFW_KEY_3 && action == GLFW_PRESS) {
 		animateFall = !animateFall;
 	}*/
@@ -2481,8 +2481,13 @@ void KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mode
 	}
 
 	if (key == GLFW_KEY_3 && action == GLFW_PRESS) {
-		animateFall = true;
-		animationPaused = !animationPaused; // Iniciar/reanudar animación
+		//animateFall = true;
+		//animationPaused = !animationPaused; // Iniciar/reanudar animación
+		if (!animacionActiva) {
+			animacionActiva = true;
+			faseAnimacion = 1;
+			showlava = false; // Oculta la lava para revelar la animación
+		}
 	}
 
 	if (key == GLFW_KEY_R && action == GLFW_PRESS) {
@@ -2500,6 +2505,10 @@ void KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mode
 
 	if (key == GLFW_KEY_2 && action == GLFW_PRESS) {
 		shownew = !shownew; // Toggle para mostrar solo sillas
+	}
+
+	if (key == GLFW_KEY_4 && action == GLFW_PRESS) {
+		showlava = !showlava; // Toggle para mostrar solo la lava
 	}
 
 	if (GLFW_KEY_ESCAPE == key && GLFW_PRESS == action)
@@ -2529,7 +2538,7 @@ void KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mode
 		}
 		else
 		{
-			Light1 = glm::vec3(0);//Cuado es solo un valor en los 3 vectores pueden dejar solo una componente
+			Light1 = glm::vec3(0);
 		}
 	}
 
@@ -2550,7 +2559,7 @@ void KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mode
 			segmentLength = glm::distance(segmentStart, segmentEnd);
 			segmentProgress = 0.0f;
 			sineTime = 0.0f;
-			dronPos = segmentStart; // Opcional: ajustar al waypoint inicial
+			dronPos = segmentStart; 
 		}
 		else {
 			currentWaypoint = 0;
@@ -2558,39 +2567,409 @@ void KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mode
 		}
 	}
 
+	// INICIALIZACIÓN DEL MOVIMIENTO DE SILLAS (al presionar 'B')
+// ===========================================================
+// Este bloque configura todas las posiciones, rotaciones y trayectorias iniciales para las sillas. Agrupa las sillas
+// en diferentes zonas del pasillo y escritorios según su índice.
+
+	if (keys[GLFW_KEY_B] && !sillaActiva) {
+		sillaActiva = true;  // Se activa el sistema de animación
+
+		for (int i = 0; i < numSillas; i++) {
+			// --------- Cálculo de fila y columna ---------
+			int fila = i / sillasPorFila;
+			int columna = i % sillasPorFila;
+
+			// --------- Configuración de posición y rotación inicial ---------
+
+			// Posiciones iniciales: todas las sillas entran desde la izquierda,
+			// separadas ligeramente por columnas
+			posicionesIniciales[i] = glm::vec3(-23.7f + columna * 0.25f, -1.2f, 20.2f);
+
+			// Desplazamiento relativo inicial (sin movimiento aún)
+			sillaPosArr[i] = glm::vec3(0.0f);
+
+			// Rotaciones iniciales (sin giro aún)
+			sillaRotArr[i] = 0.0f;
+			rotSillaArr[i] = 0.0f;
+
+			// Inicializamos el primer movimiento de la primera silla
+			sillaAnimArr[0] = 1;
+
+			// --------- Destinos y objetivos de rotación ---------
+
+			// Destino intermedio: llegar al pasillo central (eje X = 0.0f)
+			destinoIntermedio[i] = glm::vec3(0.0f, -1.2f, posicionesIniciales[i].z);
+
+			// Giro hacia el pasillo (90° a la izquierda)
+			rotacionObjetivo[i] = 90.0f;
+
+			// Avance final en Z hasta el fondo del pasillo (-23.0f)
+			destinoFinalAvance[i] = glm::vec3(destinoIntermedio[i].x, -1.2f, -23.0f);
+
+			// Rotación final después del avance por el pasillo
+			rotacionFinalAjuste[i] = 180.0f;
+
+			// Rotación lateral final al posicionarse
+			rotacionPostFinal[i] = 270.0f;
+
+			// ===========================================================
+			// AGRUPAMIENTO DE SILLAS EN DIFERENTES ZONAS DEL SALÓN
+			// ===========================================================
+			// Cada grupo corresponde a un escritorio o posición distinta
+			// y se acomoda a la izquierda o derecha del pasillo.
+			// ===========================================================
+
+			if (i < 4) {
+				// ?? Grupo 1 - izquierda (fondo del salón)
+				posicionesFinales[i] = glm::vec3(-12.9f + i * 3.0f, -1.2f, -23.0f);
+				rotacionFinalAjuste[i] = 180.0f;
+				rotacionPostFinal[i] = 270.0f;
+			}
+			else if (i >= 4 && i < 8) {
+				// Grupo 1 - derecha (fondo del salón)
+				posicionesFinales[i] = glm::vec3(12.9f - (i - 4) * 3.0f, -1.2f, -23.0f);
+				rotacionFinalAjuste[i] = 0.0f;
+				rotacionPostFinal[i] = -90.0f;
+			}
+			else if (i >= 8 && i < 12) {
+				// Grupo 2 - izquierda (Z = -16.5)
+				posicionesFinales[i] = glm::vec3(-12.9f + (i - 8) * 3.0f, -1.2f, -16.5f);
+				rotacionFinalAjuste[i] = 180.0f;
+				rotacionPostFinal[i] = 270.0f;
+			}
+			else if (i >= 12 && i < 16) {
+				// Grupo 2 - derecha
+				posicionesFinales[i] = glm::vec3(12.9f - (i - 12) * 3.0f, -1.2f, -16.5f);
+				rotacionFinalAjuste[i] = 0.0f;
+				rotacionPostFinal[i] = -90.0f;
+			}
+			else if (i >= 16 && i < 20) {
+				// Grupo 3 - izquierda (Z = -9.8)
+				posicionesFinales[i] = glm::vec3(-12.9f + (i - 16) * 3.0f, -1.2f, -9.8f);
+				rotacionFinalAjuste[i] = 180.0f;
+				rotacionPostFinal[i] = 270.0f;
+			}
+			else if (i >= 20 && i < 24) {
+				// Grupo 3 - derecha
+				posicionesFinales[i] = glm::vec3(12.9f - (i - 20) * 3.0f, -1.2f, -9.8f);
+				rotacionFinalAjuste[i] = 0.0f;
+				rotacionPostFinal[i] = -90.0f;
+			}
+			else if (i >= 24 && i < 28) {
+				// Grupo 4 - izquierda (Z = -4.1)
+				posicionesFinales[i] = glm::vec3(-12.9f + (i - 24) * 3.0f, -1.2f, -4.1f);
+				rotacionFinalAjuste[i] = 180.0f;
+				rotacionPostFinal[i] = 270.0f;
+			}
+			else if (i >= 28 && i < 32) {
+				// Grupo 4 - derecha
+				posicionesFinales[i] = glm::vec3(12.9f - (i - 28) * 3.0f, -1.2f, -4.1f);
+				rotacionFinalAjuste[i] = 0.0f;
+				rotacionPostFinal[i] = -90.0f;
+			}
+			else if (i >= 32 && i < 36) {
+				// Grupo 5 - izquierda (Z = 2.6)
+				posicionesFinales[i] = glm::vec3(-12.9f + (i - 32) * 3.0f, -1.2f, 2.6f);
+				rotacionFinalAjuste[i] = 180.0f;
+				rotacionPostFinal[i] = 270.0f;
+			}
+			else if (i >= 36 && i < 40) {
+				// Grupo 5 - derecha
+				posicionesFinales[i] = glm::vec3(12.9f - (i - 36) * 3.0f, -1.2f, 2.6f);
+				rotacionFinalAjuste[i] = 0.0f;
+				rotacionPostFinal[i] = -90.0f;
+			}
+			else if (i >= 40 && i < 44) {
+				// Grupo 6 - izquierda (Z = 8.3)
+				posicionesFinales[i] = glm::vec3(-12.9f + (i - 40) * 3.0f, -1.2f, 8.3f);
+				rotacionFinalAjuste[i] = 180.0f;
+				rotacionPostFinal[i] = 270.0f;
+			}
+			else if (i >= 44 && i < 48) {
+				// Grupo 6 - derecha
+				posicionesFinales[i] = glm::vec3(12.9f - (i - 44) * 3.0f, -1.2f, 8.3f);
+				rotacionFinalAjuste[i] = 0.0f;
+				rotacionPostFinal[i] = -90.0f;
+			}
+			else if (i >= 48 && i < 52) {
+				// Grupo 7 - izquierda (Z = 14.8)
+				posicionesFinales[i] = glm::vec3(-12.9f + (i - 48) * 3.0f, -1.2f, 14.8f);
+				rotacionFinalAjuste[i] = 180.0f;
+				rotacionPostFinal[i] = 270.0f;
+			}
+			else if (i >= 52 && i < 56) {
+				// Grupo 7 - derecha
+				posicionesFinales[i] = glm::vec3(12.9f - (i - 52) * 3.0f, -1.2f, 14.8f);
+				rotacionFinalAjuste[i] = 0.0f;
+				rotacionPostFinal[i] = -90.0f;
+			}
+		}
+
+		// Iniciar el movimiento de la primera silla
+		sillaAnimArr[0] = 1;
+	}
+
 }
 
 void Animation() {
 
-	/*if (animateFall) {
-		fallDistance += fallSpeed * deltaTime;
-		rotationAngle += rotationSpeed * deltaTime;
-	}*/
-	//////if (animateRise) {
-	//////	// Actualizar distancia y rotación
-	//////	riseDistance -= riseSpeed * deltaTime;
-	//////	rotationRiseAngle += rotationRiseSpeed * deltaTime;
+	// --------- ANIMACIÓN DE LA SILLA EN ORDEN ----------
+	if (sillaActiva) {
+		for (int i = 0; i < numSillas; i++) {
+			switch (sillaAnimArr[i]) {
 
-	//////	// Limitar valores mínimos
-	//////	if (riseDistance <= 0.0f) {
-	//////		riseDistance = 0.0f;
-	//////		animateRise = false; // Detener animación
-	//////	}
-	//////}
+			case 0: // Espera secuencial
+				if (i == 0 || sillaAnimArr[i - 1] >= 2)
+					sillaAnimArr[i] = 1;
+				break;
 
-	////// Animación de subida con rotación
-	////if (animateRise) {
-	////	if (riseDistance > 0.0f) {
-	////		float delta = riseSpeed * deltaTime;
-	////		riseDistance -= delta;
-	////		rotationRiseAngle += rotationRiseSpeed * deltaTime; // Actualizar ángulo
-	////	}
-	////	else {
-	////		riseDistance = 0.0f;
-	////		animateRise = false;
-	////	}
-	////}
+			case 1: // Movimiento en X hacia el pasillo
+				if (sillaPosArr[i].x < destinoIntermedio[i].x - posicionesIniciales[i].x)
+					sillaPosArr[i].x += 0.18f;
+				else
+					sillaAnimArr[i] = 2;
+				break;
 
+			case 2: // Primer giro (todos hacia 90°)
+				if (sillaRotArr[i] < rotacionObjetivo[i])
+					sillaRotArr[i] += 0.55f;
+				else {
+					sillaRotArr[i] = rotacionObjetivo[i];
+					sillaAnimArr[i] = 3;
+				}
+				break;
+
+			case 3:
+				if (sillaPosArr[i].z > posicionesFinales[i].z - posicionesIniciales[i].z)
+					sillaPosArr[i].z -= 0.18f;
+				else {
+					sillaPosArr[i].z = posicionesFinales[i].z - posicionesIniciales[i].z;
+					sillaRotArr[i] = 90.0f;
+					sillaAnimArr[i] = 4;
+				}
+				break;
+
+			case 4:
+				if (i < 4) {
+					// izquierda fondo
+					if (sillaRotArr[i] < rotacionFinalAjuste[i])
+						sillaRotArr[i] += 0.55f;
+					else {
+						sillaRotArr[i] = rotacionFinalAjuste[i];
+						sillaAnimArr[i] = 5;
+					}
+				}
+				else if (i >= 4 && i < 8) {
+					// derecha fondo
+					if (sillaRotArr[i] > rotacionFinalAjuste[i] + 0.1f)
+						sillaRotArr[i] -= 0.55f;
+					else {
+						sillaRotArr[i] = rotacionFinalAjuste[i];
+						sillaAnimArr[i] = 10;
+					}
+				}
+				else if (i >= 8 && i < 12) {
+					// grupo 2
+					if (sillaRotArr[i] < rotacionFinalAjuste[i])
+						sillaRotArr[i] += 0.55f;
+					else {
+						sillaRotArr[i] = rotacionFinalAjuste[i];
+						sillaAnimArr[i] = 5;
+					}
+				}
+				else if (i >= 12 && i < 16) {
+					// grupo 2 derecho
+					if (sillaRotArr[i] > rotacionFinalAjuste[i] + 0.1f)
+						sillaRotArr[i] -= 0.55f;
+					else {
+						sillaRotArr[i] = rotacionFinalAjuste[i];
+						sillaAnimArr[i] = 10;
+					}
+				}
+				else if (i >= 16 && i < 20) {
+					// Grupo 3 izquierdo
+					if (sillaRotArr[i] < rotacionFinalAjuste[i])
+						sillaRotArr[i] += 0.55f;
+					else {
+						sillaRotArr[i] = rotacionFinalAjuste[i];
+						sillaAnimArr[i] = 5;  // 
+					}
+				}
+				else if (i >= 20 && i < 24) {
+					// Grupo 3 derecho
+					if (sillaRotArr[i] > rotacionFinalAjuste[i] + 0.1f)
+						sillaRotArr[i] -= 0.55f;
+					else {
+						sillaRotArr[i] = rotacionFinalAjuste[i];
+						sillaAnimArr[i] = 10;  // 
+					}
+				}
+				else if (i >= 24 && i < 28) {
+					// Grupo 4 izquierda
+					if (sillaRotArr[i] < rotacionFinalAjuste[i])
+						sillaRotArr[i] += 0.55f;
+					else {
+						sillaRotArr[i] = rotacionFinalAjuste[i];
+						sillaAnimArr[i] = 5;
+					}
+				}
+				else if (i >= 28 && i < 32) {
+					// Grupo 4 derecha
+					if (sillaRotArr[i] > rotacionFinalAjuste[i] + 0.1f)
+						sillaRotArr[i] -= 0.55f;
+					else {
+						sillaRotArr[i] = rotacionFinalAjuste[i];
+						sillaAnimArr[i] = 10;
+					}
+				}
+				else if (i >= 32 && i < 36) {
+					if (sillaRotArr[i] < rotacionFinalAjuste[i])
+						sillaRotArr[i] += 0.55f;
+					else {
+						sillaRotArr[i] = rotacionFinalAjuste[i];
+						sillaAnimArr[i] = 5;  // Izquierda
+					}
+				}
+				else if (i >= 36 && i < 40) {
+					if (sillaRotArr[i] > rotacionFinalAjuste[i] + 0.1f)
+						sillaRotArr[i] -= 0.55f;
+					else {
+						sillaRotArr[i] = rotacionFinalAjuste[i];
+						sillaAnimArr[i] = 10; // Derecha
+					}
+				}
+				else if (i >= 40 && i < 44) {
+					if (sillaRotArr[i] < rotacionFinalAjuste[i])
+						sillaRotArr[i] += 0.55f;
+					else {
+						sillaRotArr[i] = rotacionFinalAjuste[i];
+						sillaAnimArr[i] = 5;  // Izquierda
+					}
+				}
+				else if (i >= 44 && i < 48) {
+					if (sillaRotArr[i] > rotacionFinalAjuste[i] + 0.1f)
+						sillaRotArr[i] -= 0.55f;
+					else {
+						sillaRotArr[i] = rotacionFinalAjuste[i];
+						sillaAnimArr[i] = 10;  // Derecha
+					}
+				}
+				else if (i >= 48 && i < 52) {
+					if (sillaRotArr[i] < rotacionFinalAjuste[i])
+						sillaRotArr[i] += 0.55f;
+					else {
+						sillaRotArr[i] = rotacionFinalAjuste[i];
+						sillaAnimArr[i] = 5;  // avanzar a la izquierda
+					}
+				}
+				else if (i >= 52 && i < 56) {
+					if (sillaRotArr[i] > rotacionFinalAjuste[i] + 0.1f)
+						sillaRotArr[i] -= 0.55f;
+					else {
+						sillaRotArr[i] = rotacionFinalAjuste[i];
+						sillaAnimArr[i] = 10;  // avanzar a la derecha
+					}
+				}
+				break;
+
+
+			case 5:
+				if (i < 4 || (i >= 8 && i < 12) || (i >= 16 && i < 20) || (i >= 24 && i < 28) || (i >= 32 && i < 36) || (i >= 40 && i < 44) || (i >= 48 && i < 52)) {
+
+					float destinoX = posicionesFinales[i].x - posicionesIniciales[i].x;
+
+					if (sillaPosArr[i].x < destinoX)
+						sillaPosArr[i].x += 0.18f;
+					else {
+						sillaPosArr[i].x = destinoX;
+						sillaAnimArr[i] = 6;
+					}
+				}
+				break;
+
+			case 6:
+			{
+				float diff = rotacionPostFinal[i] - sillaRotArr[i];
+
+				if (fabs(diff) > 0.5f) {
+					if (diff > 0)
+						sillaRotArr[i] += 0.55f;
+					else
+						sillaRotArr[i] -= 0.55f;
+				}
+				else {
+					sillaRotArr[i] = rotacionPostFinal[i];
+					sillaAnimArr[i] = 7;
+				}
+				break;
+			}
+
+
+			case 7:
+				break;
+
+			case 10:
+				if ((i >= 4 && i < 8) || (i >= 12 && i < 16) || (i >= 20 && i < 24) || (i >= 28 && i < 32) || (i >= 36 && i < 40) || (i >= 44 && i < 48) || (i >= 52 && i < 56)) {
+					float destinoX = posicionesFinales[i].x - posicionesIniciales[i].x;
+
+					if (sillaPosArr[i].x < destinoX)
+						sillaPosArr[i].x += 0.18f;
+					else {
+						sillaPosArr[i].x = destinoX;
+						sillaAnimArr[i] = 11;
+					}
+				}
+				break;
+
+			case 11: // Giro lateral final (grupo derecho)
+			{
+				float diff = rotacionPostFinal[i] - sillaRotArr[i]; //
+
+				if (fabs(diff) > 0.5f) {
+					if (diff > 0)
+						sillaRotArr[i] += 0.55f;
+					else
+						sillaRotArr[i] -= 0.55f;
+				}
+				else {
+					sillaRotArr[i] = rotacionPostFinal[i];
+					sillaAnimArr[i] = 12; // Finalizado
+				}
+				break;
+			}
+
+			case 12:
+				// Animación final completa
+				break;
+			}
+
+		}
+	}
+
+
+	if (faseAnimacion == 1) { // Fase de caída
+		if (fallDistance < 5.0f) {
+			fallDistance += fallSpeed * deltaTime;
+			rotationAngle += rotationSpeed * deltaTime;
+			showlava = true; // Lava visible
+		}
+		else {
+			faseAnimacion = 2; // Iniciar fase 2
+			showlava = false;  // Ocultar lava
+		}
+	}
+	else if (faseAnimacion == 2) { // Fase de ascenso
+		if (riseDistance > 0.0f) {
+			riseDistance -= riseSpeed * deltaTime;
+			rotationRiseAngle += rotationRiseSpeed * deltaTime;
+		}
+		else {
+			animateRise = false;
+			// ¡Mantener faseAnimacion en 2 para ocultar modelos viejos!
+		}
+	}
+	///////////////////////////////////////
 	if (animateRise) {
 		if (riseDistance > 0.0f) {
 			float delta = riseSpeed * deltaTime;
