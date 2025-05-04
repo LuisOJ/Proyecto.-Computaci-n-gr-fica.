@@ -29,7 +29,7 @@
 ////
 // ANIMACIÓN NUEVOS MODELOS
 bool animateRise = false;
-float riseDistance = 2.0f;  // Distancia inicial bajo la lava
+float riseDistance = 4.0f;  // Distancia inicial bajo la lava
 float riseSpeed = 1.5f;     // Velocidad de ascenso
 float rotationRiseAngle = 0.0f;
 float rotationRiseSpeed = 180.0f; // Velocidad de rotación durante el ascenso
@@ -84,7 +84,7 @@ float speed = 2.5f; // Velocidad de movimiento
 bool moveDron = false; // Control de movimiento
 // 
 bool sinusoidalMode = false;        // Modo sinusoidal activo/desactivado
-float sineAmplitude = 1.0f;        // Altura de la onda
+float sineAmplitude = 3.0f;        // Altura de la onda
 float sineFrequency = 2.0f;        // Velocidad de oscilación
 float sineTime = 0.0f;             // Tiempo acumulado para el cálculo de la onda
 glm::vec3 initialSinePos;          // Posición inicial al activar el modo sinusoidal
@@ -352,13 +352,13 @@ int main()
 
 
 
-		///////////////Modelo de Lava/////////////////////////
-		//view = camera.GetViewMatrix();
-		//model = glm::mat4(1);
-		//model = glm::scale(model, glm::vec3(0.09f, 0.09f, 0.09f));
-		//model = glm::translate(model, glm::vec3(15.6f, -1.5f, -22.9f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
-		//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		//lava.Draw(lightingShader);
+		/////////////Modelo de Lava/////////////////////////
+		view = camera.GetViewMatrix();
+		model = glm::mat4(1);
+		model = glm::scale(model, glm::vec3(0.06f, 0.09f, 0.09f));
+		model = glm::translate(model, glm::vec3(40.0f, -4.8f, 35.0f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		lava.Draw(lightingShader);
 
 		if (!show) {
 			/////////////////////////////////////////////////////////////Modelos de iMac viejas////////////////////////////////////////////////////////////////////////////////////
@@ -1602,15 +1602,36 @@ int main()
 			//escritorionuevo.Draw(lightingShader);
 
 
-			// Ejemplo para uno de los modelos (aplica a todos los que necesiten rotación)
-			view = camera.GetViewMatrix();
-			model = glm::mat4(1);
-			model = glm::scale(model, glm::vec3(3.0f, 1.5f, 1.5f));
+			//// Ejemplo para uno de los modelos (aplica a todos los que necesiten rotación)
+			//view = camera.GetViewMatrix();
+			//model = glm::mat4(1);
+			//model = glm::scale(model, glm::vec3(3.0f, 1.5f, 1.5f));
+			//model = glm::translate(model, glm::vec3(9.0f, 0.9f - riseDistance, -13.7f));
+			//model = glm::rotate(model, glm::radians(rotationRiseAngle), glm::vec3(1.0f, 1.0f, 1.0f)); // Rotación Z
+			//model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+			//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+			//escritorionuevo.Draw(lightingShader);
+
+			//// Modelo de escritorio nuevo (dentro de if(!shownew))
+			//view = camera.GetViewMatrix();
+			//model = glm::mat4(1);
+			//model = glm::scale(model, glm::vec3(3.0f, 1.5f, 1.5f)); // Escala
+			//model = glm::rotate(model, glm::radians(rotationRiseAngle), glm::vec3(1.0f, 1.0f, 1.0f)); // Rotación en Y (¡antes de trasladar!)
+			//model = glm::translate(model, glm::vec3(9.0f, 0.9f - riseDistance, -13.7f)); // Posición con riseDistance
+			//model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Rotación existente (orientación)
+			//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+			//escritorionuevo.Draw(lightingShader);
+
+			model = glm::mat4(1.0f);
+			// Primero traslación (incluye la animación de subida)
 			model = glm::translate(model, glm::vec3(9.0f, 0.9f - riseDistance, -13.7f));
-			model = glm::rotate(model, glm::radians(rotationRiseAngle), glm::vec3(1.0f, 1.0f, 1.0f)); // Rotación Z
+			// Luego rotación animada (gira sobre su propio eje en su nueva posición)
+			model = glm::rotate(model, glm::radians(rotationRiseAngle), glm::vec3(1.0f, 1.0f, 1.0f));
+			// Luego rotación fija (orientación final del modelo)
 			model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-			glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-			escritorionuevo.Draw(lightingShader);
+			// Finalmente escala
+			model = glm::scale(model, glm::vec3(3.0f, 1.5f, 1.5f));
+
 
 			//Izquierda
 			view = camera.GetViewMatrix();
@@ -2322,16 +2343,16 @@ int main()
 
 
 		////////////////////////////////////////////////////////////////////////////////////Modelo del Dron////////////////////////////////////////////////////////////////////////////////////////////
-		//model = glm::mat4(1);
-		//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		//glUniform1i(glGetUniformLocation(lightingShader.Program, "transparency"), 0);
-		//model = glm::mat4(1);
-		//model = glm::translate(model, dronPos); // Aplicar posición actual
-		//model = glm::scale(model, glm::vec3(0.8f));
-		//model = glm::rotate(model, glm::radians(rotBall), glm::vec3(0.0f, 1.0f, 0.0f)); // Rotación en Y
-		//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		//dron.Draw(lightingShader);
-		//glBindVertexArray(0);
+		model = glm::mat4(1);
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		glUniform1i(glGetUniformLocation(lightingShader.Program, "transparency"), 0);
+		model = glm::mat4(1);
+		model = glm::translate(model, dronPos); // Aplicar posición actual
+		model = glm::scale(model, glm::vec3(0.8f));
+		model = glm::rotate(model, glm::radians(rotBall), glm::vec3(0.0f, 1.0f, 0.0f)); // Rotación en Y
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		dron.Draw(lightingShader);
+		glBindVertexArray(0);
 
 
 
@@ -2523,6 +2544,8 @@ void KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mode
 		}
 	}
 
+
+
 }
 
 void Animation() {
@@ -2557,54 +2580,93 @@ void Animation() {
 	////}
 
 	if (animateRise) {
-        if (riseDistance > 0.0f) {
-            float delta = riseSpeed * deltaTime;
-            riseDistance -= delta;
-            rotationRiseAngle += rotationRiseSpeed * deltaTime; // Actualizar ángulo en Y
-        } else {
-            riseDistance = 0.0f;
-            animateRise = false;
-        }
-    }
+		if (riseDistance > 0.0f) {
+			float delta = riseSpeed * deltaTime;
+			riseDistance -= delta;
+			rotationRiseAngle += rotationRiseSpeed * deltaTime; // Ángulo actualizado
+		}
+		else {
+			riseDistance = 0.0f;
+			animateRise = false;
+		}
+	}
 
 	if (!animationPaused && animateFall) { // Solo animar si no está en pausa
 		fallDistance += fallSpeed * deltaTime;
 		rotationAngle += rotationSpeed * deltaTime;
 	}
 
-	if (AnimBall) {
-		if (sinusoidalMode) {
-			// --- Código sinusoidal ---
-			sineTime += deltaTime; // Actualizar tiempo acumulado
+	//if (AnimBall) {
+	//	if (sinusoidalMode) {
+	//		// --- Código sinusoidal ---
+	//		sineTime += deltaTime; // Actualizar tiempo acumulado
 
-			// Calcular posición en X (oscilación) y Z (avance)
-			dronPos.x = initialSinePos.x + sin(sineTime * sineFrequency) * sineAmplitude;
-			dronPos.z = initialSinePos.z + speed * sineTime;
+	//		// Calcular posición en X (oscilación) y Z (avance)
+	//		dronPos.x = initialSinePos.x + sin(sineTime * sineFrequency) * sineAmplitude;
+	//		dronPos.z = initialSinePos.z + speed * sineTime;
 
-			// Calcular rotación basada en la dirección del movimiento
-			float velocityX = cos(sineTime * sineFrequency) * sineFrequency * sineAmplitude;
-			float velocityZ = speed;
-			float angle = atan2(velocityX, velocityZ);
+	//		// Calcular rotación basada en la dirección del movimiento
+	//		float velocityX = cos(sineTime * sineFrequency) * sineFrequency * sineAmplitude;
+	//		float velocityZ = speed;
+	//		float angle = atan2(velocityX, velocityZ);
+	//		rotBall = glm::degrees(angle);
+	//		// --- Fin código sinusoidal ---
+	//	}
+	//	else {
+	//		// Código del movimiento rectangular
+	//		glm::vec3 target = waypoints[currentWaypoint];
+	//		glm::vec3 direction = target - dronPos;
+	//		float distanceToTarget = glm::length(direction);
+
+	//		if (distanceToTarget > 0.1f) {
+	//			direction = glm::normalize(direction);
+	//			dronPos += direction * speed * deltaTime;
+	//			float angle = atan2(direction.x, direction.z);
+	//			rotBall = glm::degrees(angle);
+	//		}
+	//		else {
+	//			currentWaypoint = (currentWaypoint + 1) % 4;
+	//		}
+	//	}
+	//}
+
+	if (sinusoidalMode) {
+		// Move towards the current target waypoint as in normal mode
+		glm::vec3 target = waypoints[currentWaypoint];
+		glm::vec3 direction = target - dronPos;
+		float distanceToTarget = glm::length(direction);
+
+		if (distanceToTarget > 0.1f) {
+			direction = glm::normalize(direction);
+			dronPos += direction * speed * deltaTime;
+
+			// Calculate rotation based on the direction towards the target
+			float angle = atan2(direction.x, direction.z);
 			rotBall = glm::degrees(angle);
-			// --- Fin código sinusoidal ---
 		}
 		else {
-			// Código del movimiento rectangular
-			glm::vec3 target = waypoints[currentWaypoint];
-			glm::vec3 direction = target - dronPos;
-			float distanceToTarget = glm::length(direction);
-
-			if (distanceToTarget > 0.1f) {
-				direction = glm::normalize(direction);
-				dronPos += direction * speed * deltaTime;
-				float angle = atan2(direction.x, direction.z);
-				rotBall = glm::degrees(angle);
-			}
-			else {
-				currentWaypoint = (currentWaypoint + 1) % 4;
-			}
+			currentWaypoint = (currentWaypoint + 1) % 4;
 		}
+
+		// Determine the current segment (previousWaypoint to currentWaypoint)
+		int previousWaypoint = (currentWaypoint - 1 + 4) % 4; // Ensure positive modulo
+		glm::vec3 segmentStart = waypoints[previousWaypoint];
+		glm::vec3 segmentEnd = waypoints[currentWaypoint];
+		glm::vec3 segmentDir = segmentEnd - segmentStart;
+		if (glm::length(segmentDir) > 0.0f) {
+			segmentDir = glm::normalize(segmentDir);
+		}
+
+		// Compute perpendicular direction in the X-Z plane
+		glm::vec3 perpendicularDir = glm::vec3(-segmentDir.z, 0.0f, segmentDir.x);
+
+		// Apply sinusoidal offset
+		sineTime += deltaTime;
+		float sineValue = sin(sineTime * sineFrequency) * sineAmplitude;
+		dronPos += perpendicularDir * sineValue;
 	}
+
+	
 }
 
 void MouseCallback(GLFWwindow* window, double xPos, double yPos)
