@@ -69,6 +69,7 @@ float rotationRiseSpeed = 180.0f; // Velocidad de rotación durante el ascenso
 bool show = false; // Variable global para mostrar salones
 bool shownew = false; // Variable global para mostrar salones
 bool showlava = false; // La lava está visible inicialmente
+bool showsilla = false;
 bool animacionActiva = false;
 int faseAnimacion = 0; // 0:inactiva, 1:bajar escritorios, 2:subir nuevos modelos
 float animationSpeed = 2.0f;
@@ -374,6 +375,17 @@ int main()
 
 		glm::mat4 model(1);
 
+		if (showsilla) {
+			for (int i = 0; i < numSillas; i++) {
+				view = camera.GetViewMatrix();
+				model = glm::mat4(1.0f);
+				model = glm::translate(model, posicionesIniciales[i] + sillaPosArr[i]);
+				model = glm::scale(model, glm::vec3(0.1f, 0.1f, 0.1f));
+				model = glm::rotate(model, glm::radians(sillaRotArr[i] + 180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+				glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+				sillanueva.Draw(lightingShader);
+			}
+		}
 		
 		if (showlava) {
 			/////////////Modelo de Lava/////////////////////////
@@ -1616,15 +1628,6 @@ int main()
 
 		if (faseAnimacion >= 1) {
 
-			for (int i = 0; i < numSillas; i++) {
-				view = camera.GetViewMatrix();
-				model = glm::mat4(1.0f);
-				model = glm::translate(model, posicionesIniciales[i] + sillaPosArr[i]);
-				model = glm::scale(model, glm::vec3(0.1f, 0.1f, 0.1f));
-				model = glm::rotate(model, glm::radians(sillaRotArr[i] + 180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-				glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-				sillanueva.Draw(lightingShader);
-			}
 
 
 			//////////////////////////////////	/*Modelos de escritorios nuevos*///////////////////////////////////////////////////////
@@ -2573,6 +2576,7 @@ void KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mode
 // en diferentes zonas del pasillo y escritorios según su índice.
 
 	if (keys[GLFW_KEY_B] && !sillaActiva) {
+		showsilla = true;
 		sillaActiva = true;  // Se activa el sistema de animación
 
 		for (int i = 0; i < numSillas; i++) {
