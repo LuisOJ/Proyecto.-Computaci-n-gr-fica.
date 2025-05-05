@@ -59,7 +59,7 @@ float rotacionPostFinal[numSillas]; // (fuera del loop, como variable global)
 ////
 // ANIMACIÓN NUEVOS MODELOS
 bool animateRise = false;
-float riseDistance = -0.09f;  // Distancia inicial bajo la lava
+float riseDistance = 5.0f;  // Distancia inicial bajo la lava
 float riseSpeed = 1.5f;     // Velocidad de ascenso
 float rotationRiseAngle = 0.0f;
 float rotationRiseSpeed = 180.0f; // Velocidad de rotación durante el ascenso
@@ -103,7 +103,32 @@ bool firstMouse = true;
 glm::vec3 lightPos(0.0f, 0.0f, 0.0f);
 bool active;
 
+// Animación del dron
+glm::vec3 dronPos(-15.0f, 9.0f, -24.0f); // Posición inicial del dron (igual al primer waypoint)
 
+glm::vec3 waypoints[4] = {
+	glm::vec3(-15.0f, 9.0f, -24.0f),  // Esquina inferior-izquierda (A)
+	glm::vec3(15.0f, 9.0f, -20.0f),   // Esquina inferior-derecha (B)
+	glm::vec3(15.0f, 9.0f, 20.0f),    // Esquina superior-derecha (C) 
+	glm::vec3(-15.0f, 9.0f, 20.0f)    // Esquina superior-izquierda (D) 
+};
+
+
+
+int currentWaypoint = 0;
+float speed = 5.0f; // Velocidad de movimiento
+bool moveDron = false; // Control de movimiento
+// 
+bool sinusoidalMode = false;        // Modo sinusoidal activo/desactivado
+float sineAmplitude = 3.0f;        // Altura de la onda
+float sineFrequency = 2.0f;        // Velocidad de oscilación
+float sineTime = 0.0f;             // Tiempo acumulado para el cálculo de la onda
+glm::vec3 initialSinePos;          // Posición inicial al activar el modo sinusoidal
+glm::vec3 segmentStart;  //  
+glm::vec3 segmentEnd;    //  
+glm::vec3 segmentDir;    //  
+float segmentLength = 0.0f;  //  
+float segmentProgress = 0.0f;  //
 
 // Positions of the point lights
 glm::vec3 pointLightPositions[] = {
@@ -165,11 +190,6 @@ float rotBall = 0;
 bool AnimBall = false;
 
 //ANIMACION DEL ESTUDIANTE
-//
-//
-//
-//
-
 glm::vec3 studentPos(-22.0f, -1.0f, 20.0f);
 float rot = 0.0f;
 int   Anima = 0;
@@ -180,6 +200,7 @@ float pierD = 0.0f;
 float pierI = 0.0f;
 float body = 90.0f;
 bool step = false;
+
 
 
 // Deltatime
@@ -251,11 +272,8 @@ int main()
 	Model sillavieja((char*)"Models/texturas_Salon_viejo/Tex_silla.obj");
 	Model lava((char*)"Models/lava/lava.obj");
 
+
 	//ANIMACION DEL ESTUDIANTE
-	//
-	//
-	//
-	//
 	Model persona((char*)"Models/persona/Main.obj");
 	Model brazoI((char*)"Models/persona/L_arm.obj");
 	Model brazoD((char*)"Models/persona/R_arm.obj");
@@ -263,6 +281,8 @@ int main()
 	Model piernaD((char*)"Models/persona/R_Leg.obj");
 	Model pieI((char*)"Models/persona/L_Foot.obj");
 	Model pieD((char*)"Models/persona/R_Foot.obj");
+
+
 
 
 
@@ -326,7 +346,6 @@ int main()
 		glm::mat4 modelTemp = glm::mat4(1.0f); //Temp
 
 
-
 		// Directional light
 		glUniform3f(glGetUniformLocation(lightingShader.Program, "dirLight.direction"), -0.2f, -1.0f, -0.3f);
 		glUniform3f(glGetUniformLocation(lightingShader.Program, "dirLight.ambient"), 0.6f, 0.6f, 0.6f);
@@ -382,7 +401,7 @@ int main()
 
 		glm::mat4 model(1);
 
-		if (showsilla)  {
+		if (showsilla) {
 			for (int i = 0; i < numSillas; i++) {
 				view = camera.GetViewMatrix();
 				model = glm::mat4(1.0f);
@@ -393,10 +412,19 @@ int main()
 				sillanueva.Draw(lightingShader);
 			}
 		}
-		
-	
 
-		if (show) {
+		if (showlava) {
+			/////////////Modelo de Lava/////////////////////////
+			view = camera.GetViewMatrix();
+			model = glm::mat4(1);
+			model = glm::scale(model, glm::vec3(0.06f, 0.09f, 0.09f));
+			model = glm::translate(model, glm::vec3(40.0f, -4.8f, 35.0f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+			glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+			lava.Draw(lightingShader);
+
+		}
+
+		if (faseAnimacion < 2) {
 			/////////////////////////////////////////////////////////////Modelos de iMac viejas////////////////////////////////////////////////////////////////////////////////////
 			////////////////////////////////////////////////////////////Primer mesa de la derecha///////////////////////////////////////////////////////////////////////////////////
 			view = camera.GetViewMatrix();
@@ -1624,7 +1652,7 @@ int main()
 
 		}
 
-		if (shownew) {
+		if (faseAnimacion >= 1) {
 
 
 
@@ -2306,7 +2334,7 @@ int main()
 			view = camera.GetViewMatrix();
 			model = glm::mat4(1);
 			model = glm::scale(model, glm::vec3(27.0f, 27.0f, 27.0f));
-			model = glm::translate(model, glm::vec3(-0.48f, 0.22f, 0.88f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+			model = glm::translate(model, glm::vec3(-0.48f, 0.22f - riseDistance, 0.88f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
 			model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
 			glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 			logo.Draw(lightingShader);
@@ -2314,7 +2342,7 @@ int main()
 			view = camera.GetViewMatrix();
 			model = glm::mat4(1);
 			model = glm::scale(model, glm::vec3(27.0f, 27.0f, 27.0f));
-			model = glm::translate(model, glm::vec3(0.56f, 0.22f, 0.87f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+			model = glm::translate(model, glm::vec3(0.56f, 0.22f - riseDistance, 0.87f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
 			model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
 			glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 			logo.Draw(lightingShader);
@@ -2322,7 +2350,7 @@ int main()
 			view = camera.GetViewMatrix();
 			model = glm::mat4(1);
 			model = glm::scale(model, glm::vec3(27.0f, 27.0f, 27.9f));
-			model = glm::translate(model, glm::vec3(-0.45f, 0.22f, -0.95f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+			model = glm::translate(model, glm::vec3(-0.45f, 0.22f - riseDistance, -0.95f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
 			//model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
 			glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 			logo.Draw(lightingShader);
@@ -2330,7 +2358,7 @@ int main()
 			view = camera.GetViewMatrix();
 			model = glm::mat4(1);
 			model = glm::scale(model, glm::vec3(27.0f, 27.0f, -27.0f));
-			model = glm::translate(model, glm::vec3(0.56f, 0.22f, 0.968f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+			model = glm::translate(model, glm::vec3(0.56f, 0.22f - riseDistance, 0.968f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
 			//model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
 			glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 			logo.Draw(lightingShader);
@@ -2346,12 +2374,24 @@ int main()
 		nuevosalon.Draw(lightingShader);
 
 
+
+		////////////////////////////////////////////////////////////////////////////////////Modelo del Dron////////////////////////////////////////////////////////////////////////////////////////////
+		model = glm::mat4(1);
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		glUniform1i(glGetUniformLocation(lightingShader.Program, "transparency"), 0);
+		model = glm::mat4(1);
+		model = glm::translate(model, dronPos); // Aplicar posición actual
+		model = glm::scale(model, glm::vec3(0.8f));
+		model = glm::rotate(model, glm::radians(rotBall), glm::vec3(0.0f, 1.0f, 0.0f)); // Rotación en Y
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		dron.Draw(lightingShader);
+		glBindVertexArray(0);
+
+		//ANIMACION DEL ESTUDIANTE
 		//
-	//ANIMACION DEL ESTUDIANTE
-	//
-	//
-	//
-	//
+		//
+		//
+		//
 		view = camera.GetViewMatrix();
 		model = glm::mat4(1);
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
@@ -2387,7 +2427,6 @@ int main()
 		model = glm::rotate(model, glm::radians(pierI), glm::vec3(1.0f, 0.0f, 0.0f));
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));;
 		piernaI.Draw(lightingShader);
-
 
 
 
@@ -2497,6 +2536,38 @@ void KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mode
 {
 
 
+	/*if (key == GLFW_KEY_3 && action == GLFW_PRESS) {
+		animateFall = !animateFall;
+	}*/
+
+	if (key == GLFW_KEY_T && action == GLFW_PRESS) { // Tecla R para activar
+		animateRise = !animateRise;
+		if (animateRise) {
+			// Resetear valores iniciales
+			riseDistance = 2.0f;
+			rotationRiseAngle = 0.0f;
+		}
+	}
+
+	if (key == GLFW_KEY_3 && action == GLFW_PRESS) {
+		//animateFall = true;
+		//animationPaused = !animationPaused; // Iniciar/reanudar animación
+		if (!animacionActiva) {
+			animacionActiva = true;
+			faseAnimacion = 1;
+			showlava = false; // Oculta la lava para revelar la animación
+		}
+	}
+
+	if (key == GLFW_KEY_R && action == GLFW_PRESS) {
+		// Reiniciar valores
+		animateFall = false;
+		animationPaused = true;
+		fallDistance = 0.0f;
+		rotationAngle = 0.0f;
+	}
+
+
 	if (key == GLFW_KEY_1 && action == GLFW_PRESS) {
 		show = !show; // Toggle para mostrar solo sillas
 	}
@@ -2505,6 +2576,9 @@ void KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mode
 		shownew = !shownew; // Toggle para mostrar solo sillas
 	}
 
+	if (key == GLFW_KEY_4 && action == GLFW_PRESS) {
+		showlava = !showlava; // Toggle para mostrar solo la lava
+	}
 
 	if (GLFW_KEY_ESCAPE == key && GLFW_PRESS == action)
 	{
@@ -2542,7 +2616,25 @@ void KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mode
 		AnimBall = !AnimBall;
 
 	}
-	
+	if (key == GLFW_KEY_M && action == GLFW_PRESS) {
+		sinusoidalMode = !sinusoidalMode;
+		if (sinusoidalMode) {
+			// Configurar el primer segmento
+			currentWaypoint = 0;
+			segmentStart = waypoints[currentWaypoint];
+			int nextWP = (currentWaypoint + 1) % 4;
+			segmentEnd = waypoints[nextWP];
+			segmentDir = glm::normalize(segmentEnd - segmentStart);
+			segmentLength = glm::distance(segmentStart, segmentEnd);
+			segmentProgress = 0.0f;
+			sineTime = 0.0f;
+			dronPos = segmentStart;
+		}
+		else {
+			currentWaypoint = 0;
+			dronPos = waypoints[0]; // Reiniciar al inicio
+		}
+	}
 
 	// INICIALIZACIÓN DEL MOVIMIENTO DE SILLAS (al presionar 'B')
 // ===========================================================
@@ -2688,14 +2780,8 @@ void KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mode
 		sillaAnimArr[0] = 1;
 	}
 
-	//
 	//ANIMACION DEL ESTUDIANTE
-	//
-	//
-	//
-	//
-
-	if (keys[GLFW_KEY_7])
+	if (keys[GLFW_KEY_B])
 	{
 		Anima = 1;
 
@@ -2704,6 +2790,332 @@ void KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mode
 }
 
 void Animation() {
+
+	// --------- ANIMACIÓN DE LA SILLA EN ORDEN ----------
+	if (sillaActiva) {
+		for (int i = 0; i < numSillas; i++) {
+			switch (sillaAnimArr[i]) {
+
+			case 0: // Espera secuencial
+				if (i == 0 || sillaAnimArr[i - 1] >= 2)
+					sillaAnimArr[i] = 1;
+				break;
+
+			case 1: // Movimiento en X hacia el pasillo
+				if (sillaPosArr[i].x < destinoIntermedio[i].x - posicionesIniciales[i].x)
+					sillaPosArr[i].x += 0.18f;
+				else
+					sillaAnimArr[i] = 2;
+				break;
+
+			case 2: // Primer giro (todos hacia 90°)
+				if (sillaRotArr[i] < rotacionObjetivo[i])
+					sillaRotArr[i] += 0.55f;
+				else {
+					sillaRotArr[i] = rotacionObjetivo[i];
+					sillaAnimArr[i] = 3;
+				}
+				break;
+
+			case 3:
+				if (sillaPosArr[i].z > posicionesFinales[i].z - posicionesIniciales[i].z)
+					sillaPosArr[i].z -= 0.18f;
+				else {
+					sillaPosArr[i].z = posicionesFinales[i].z - posicionesIniciales[i].z;
+					sillaRotArr[i] = 90.0f;
+					sillaAnimArr[i] = 4;
+				}
+				break;
+
+			case 4:
+				if (i < 4) {
+					// izquierda fondo
+					if (sillaRotArr[i] < rotacionFinalAjuste[i])
+						sillaRotArr[i] += 0.55f;
+					else {
+						sillaRotArr[i] = rotacionFinalAjuste[i];
+						sillaAnimArr[i] = 5;
+					}
+				}
+				else if (i >= 4 && i < 8) {
+					// derecha fondo
+					if (sillaRotArr[i] > rotacionFinalAjuste[i] + 0.1f)
+						sillaRotArr[i] -= 0.55f;
+					else {
+						sillaRotArr[i] = rotacionFinalAjuste[i];
+						sillaAnimArr[i] = 10;
+					}
+				}
+				else if (i >= 8 && i < 12) {
+					// grupo 2
+					if (sillaRotArr[i] < rotacionFinalAjuste[i])
+						sillaRotArr[i] += 0.55f;
+					else {
+						sillaRotArr[i] = rotacionFinalAjuste[i];
+						sillaAnimArr[i] = 5;
+					}
+				}
+				else if (i >= 12 && i < 16) {
+					// grupo 2 derecho
+					if (sillaRotArr[i] > rotacionFinalAjuste[i] + 0.1f)
+						sillaRotArr[i] -= 0.55f;
+					else {
+						sillaRotArr[i] = rotacionFinalAjuste[i];
+						sillaAnimArr[i] = 10;
+					}
+				}
+				else if (i >= 16 && i < 20) {
+					// Grupo 3 izquierdo
+					if (sillaRotArr[i] < rotacionFinalAjuste[i])
+						sillaRotArr[i] += 0.55f;
+					else {
+						sillaRotArr[i] = rotacionFinalAjuste[i];
+						sillaAnimArr[i] = 5;  // 
+					}
+				}
+				else if (i >= 20 && i < 24) {
+					// Grupo 3 derecho
+					if (sillaRotArr[i] > rotacionFinalAjuste[i] + 0.1f)
+						sillaRotArr[i] -= 0.55f;
+					else {
+						sillaRotArr[i] = rotacionFinalAjuste[i];
+						sillaAnimArr[i] = 10;  // 
+					}
+				}
+				else if (i >= 24 && i < 28) {
+					// Grupo 4 izquierda
+					if (sillaRotArr[i] < rotacionFinalAjuste[i])
+						sillaRotArr[i] += 0.55f;
+					else {
+						sillaRotArr[i] = rotacionFinalAjuste[i];
+						sillaAnimArr[i] = 5;
+					}
+				}
+				else if (i >= 28 && i < 32) {
+					// Grupo 4 derecha
+					if (sillaRotArr[i] > rotacionFinalAjuste[i] + 0.1f)
+						sillaRotArr[i] -= 0.55f;
+					else {
+						sillaRotArr[i] = rotacionFinalAjuste[i];
+						sillaAnimArr[i] = 10;
+					}
+				}
+				else if (i >= 32 && i < 36) {
+					if (sillaRotArr[i] < rotacionFinalAjuste[i])
+						sillaRotArr[i] += 0.55f;
+					else {
+						sillaRotArr[i] = rotacionFinalAjuste[i];
+						sillaAnimArr[i] = 5;  // Izquierda
+					}
+				}
+				else if (i >= 36 && i < 40) {
+					if (sillaRotArr[i] > rotacionFinalAjuste[i] + 0.1f)
+						sillaRotArr[i] -= 0.55f;
+					else {
+						sillaRotArr[i] = rotacionFinalAjuste[i];
+						sillaAnimArr[i] = 10; // Derecha
+					}
+				}
+				else if (i >= 40 && i < 44) {
+					if (sillaRotArr[i] < rotacionFinalAjuste[i])
+						sillaRotArr[i] += 0.55f;
+					else {
+						sillaRotArr[i] = rotacionFinalAjuste[i];
+						sillaAnimArr[i] = 5;  // Izquierda
+					}
+				}
+				else if (i >= 44 && i < 48) {
+					if (sillaRotArr[i] > rotacionFinalAjuste[i] + 0.1f)
+						sillaRotArr[i] -= 0.55f;
+					else {
+						sillaRotArr[i] = rotacionFinalAjuste[i];
+						sillaAnimArr[i] = 10;  // Derecha
+					}
+				}
+				else if (i >= 48 && i < 52) {
+					if (sillaRotArr[i] < rotacionFinalAjuste[i])
+						sillaRotArr[i] += 0.55f;
+					else {
+						sillaRotArr[i] = rotacionFinalAjuste[i];
+						sillaAnimArr[i] = 5;  // avanzar a la izquierda
+					}
+				}
+				else if (i >= 52 && i < 56) {
+					if (sillaRotArr[i] > rotacionFinalAjuste[i] + 0.1f)
+						sillaRotArr[i] -= 0.55f;
+					else {
+						sillaRotArr[i] = rotacionFinalAjuste[i];
+						sillaAnimArr[i] = 10;  // avanzar a la derecha
+					}
+				}
+				break;
+
+
+			case 5:
+				if (i < 4 || (i >= 8 && i < 12) || (i >= 16 && i < 20) || (i >= 24 && i < 28) || (i >= 32 && i < 36) || (i >= 40 && i < 44) || (i >= 48 && i < 52)) {
+
+					float destinoX = posicionesFinales[i].x - posicionesIniciales[i].x;
+
+					if (sillaPosArr[i].x < destinoX)
+						sillaPosArr[i].x += 0.18f;
+					else {
+						sillaPosArr[i].x = destinoX;
+						sillaAnimArr[i] = 6;
+					}
+				}
+				break;
+
+			case 6:
+			{
+				float diff = rotacionPostFinal[i] - sillaRotArr[i];
+
+				if (fabs(diff) > 0.5f) {
+					if (diff > 0)
+						sillaRotArr[i] += 0.55f;
+					else
+						sillaRotArr[i] -= 0.55f;
+				}
+				else {
+					sillaRotArr[i] = rotacionPostFinal[i];
+					sillaAnimArr[i] = 7;
+				}
+				break;
+			}
+
+
+			case 7:
+				break;
+
+			case 10:
+				if ((i >= 4 && i < 8) || (i >= 12 && i < 16) || (i >= 20 && i < 24) || (i >= 28 && i < 32) || (i >= 36 && i < 40) || (i >= 44 && i < 48) || (i >= 52 && i < 56)) {
+					float destinoX = posicionesFinales[i].x - posicionesIniciales[i].x;
+
+					if (sillaPosArr[i].x < destinoX)
+						sillaPosArr[i].x += 0.18f;
+					else {
+						sillaPosArr[i].x = destinoX;
+						sillaAnimArr[i] = 11;
+					}
+				}
+				break;
+
+			case 11: // Giro lateral final (grupo derecho)
+			{
+				float diff = rotacionPostFinal[i] - sillaRotArr[i]; //
+
+				if (fabs(diff) > 0.5f) {
+					if (diff > 0)
+						sillaRotArr[i] += 0.55f;
+					else
+						sillaRotArr[i] -= 0.55f;
+				}
+				else {
+					sillaRotArr[i] = rotacionPostFinal[i];
+					sillaAnimArr[i] = 12; // Finalizado
+				}
+				break;
+			}
+
+			case 12:
+				// Animación final completa
+				break;
+			}
+
+		}
+	}
+
+
+	if (faseAnimacion == 1) { // Fase de caída
+		if (fallDistance < 5.0f) {
+			fallDistance += fallSpeed * deltaTime;
+			rotationAngle += rotationSpeed * deltaTime;
+			showlava = true; // Lava visible
+		}
+		else {
+			faseAnimacion = 2; // Iniciar fase 2
+			showlava = false;  // Ocultar lava
+		}
+	}
+	else if (faseAnimacion == 2) { // Fase de ascenso
+		if (riseDistance > 0.0f) {
+			riseDistance -= riseSpeed * deltaTime;
+			rotationRiseAngle += rotationRiseSpeed * deltaTime;
+		}
+		else {
+			animateRise = false;
+			// ¡Mantener faseAnimacion en 2 para ocultar modelos viejos!
+		}
+	}
+	///////////////////////////////////////
+	if (animateRise) {
+		if (riseDistance > 0.0f) {
+			float delta = riseSpeed * deltaTime;
+			riseDistance -= delta;
+			rotationRiseAngle += rotationRiseSpeed * deltaTime; // Ángulo actualizado
+		}
+		else {
+			riseDistance = 0.0f;
+			animateRise = false;
+		}
+	}
+
+	if (!animationPaused && animateFall) { // Solo animar si no está en pausa
+		fallDistance += fallSpeed * deltaTime;
+		rotationAngle += rotationSpeed * deltaTime;
+	}
+
+	if (AnimBall) {
+		if (sinusoidalMode) {
+			// Movimiento sinusoidal siguiendo waypoints
+			segmentProgress += speed * deltaTime;
+
+			// Cambiar de segmento si es necesario
+			while (segmentProgress > segmentLength) {
+				segmentProgress -= segmentLength;
+				currentWaypoint = (currentWaypoint + 1) % 4;
+				segmentStart = waypoints[currentWaypoint];
+				int nextWP = (currentWaypoint + 1) % 4;
+				segmentEnd = waypoints[nextWP];
+				segmentDir = glm::normalize(segmentEnd - segmentStart);
+				segmentLength = glm::distance(segmentStart, segmentEnd);
+			}
+
+			// Calcular posición base en el segmento
+			glm::vec3 basePos = segmentStart + segmentDir * segmentProgress;
+
+			// Calcular dirección perpendicular al segmento
+			glm::vec3 perp = glm::cross(segmentDir, glm::vec3(0.0f, 1.0f, 0.0f));
+			perp = glm::normalize(perp);
+
+			// Aplicar oscilación sinusoidal
+			float sineValue = sin(sineTime * sineFrequency) * sineAmplitude;
+			dronPos = basePos + perp * sineValue;
+
+			// Actualizar rotación basada en la dirección del segmento
+			float angle = atan2(segmentDir.x, segmentDir.z);
+			rotBall = glm::degrees(angle);
+
+			// Actualizar tiempo para la onda
+			sineTime += deltaTime;
+
+		}
+		else {
+			// Movimiento rectangular original
+			glm::vec3 target = waypoints[currentWaypoint];
+			glm::vec3 direction = target - dronPos;
+			float distanceToTarget = glm::length(direction);
+
+			if (distanceToTarget > 0.1f) {
+				direction = glm::normalize(direction);
+				dronPos += direction * speed * deltaTime;
+				float angle = atan2(direction.x, direction.z);
+				rotBall = glm::degrees(angle);
+			}
+			else {
+				currentWaypoint = (currentWaypoint + 1) % 4;
+			}
+		}
+	}
 
 	if (Anima == 1) {
 
@@ -3015,243 +3427,7 @@ void Animation() {
 
 	}
 
-	// --------- ANIMACIÓN DE LA SILLA EN ORDEN ----------
-	if (sillaActiva) {
-		for (int i = 0; i < numSillas; i++) {
-			switch (sillaAnimArr[i]) {
 
-			case 0: // Espera secuencial
-				if (i == 0 || sillaAnimArr[i - 1] >= 2)
-					sillaAnimArr[i] = 1;
-				break;
-
-			case 1: // Movimiento en X hacia el pasillo
-				if (sillaPosArr[i].x < destinoIntermedio[i].x - posicionesIniciales[i].x)
-					sillaPosArr[i].x += 0.18f;
-				else
-					sillaAnimArr[i] = 2;
-				break;
-
-			case 2: // Primer giro (todos hacia 90°)
-				if (sillaRotArr[i] < rotacionObjetivo[i])
-					sillaRotArr[i] += 0.55f;
-				else {
-					sillaRotArr[i] = rotacionObjetivo[i];
-					sillaAnimArr[i] = 3;
-				}
-				break;
-
-			case 3:
-				if (sillaPosArr[i].z > posicionesFinales[i].z - posicionesIniciales[i].z)
-					sillaPosArr[i].z -= 0.18f;
-				else {
-					sillaPosArr[i].z = posicionesFinales[i].z - posicionesIniciales[i].z;
-					sillaRotArr[i] = 90.0f;
-					sillaAnimArr[i] = 4;
-				}
-				break;
-
-			case 4:
-				if (i < 4) {
-					// izquierda fondo
-					if (sillaRotArr[i] < rotacionFinalAjuste[i])
-						sillaRotArr[i] += 0.55f;
-					else {
-						sillaRotArr[i] = rotacionFinalAjuste[i];
-						sillaAnimArr[i] = 5;
-					}
-				}
-				else if (i >= 4 && i < 8) {
-					// derecha fondo
-					if (sillaRotArr[i] > rotacionFinalAjuste[i] + 0.1f)
-						sillaRotArr[i] -= 0.55f;
-					else {
-						sillaRotArr[i] = rotacionFinalAjuste[i];
-						sillaAnimArr[i] = 10;
-					}
-				}
-				else if (i >= 8 && i < 12) {
-					// grupo 2
-					if (sillaRotArr[i] < rotacionFinalAjuste[i])
-						sillaRotArr[i] += 0.55f;
-					else {
-						sillaRotArr[i] = rotacionFinalAjuste[i];
-						sillaAnimArr[i] = 5;
-					}
-				}
-				else if (i >= 12 && i < 16) {
-					// grupo 2 derecho
-					if (sillaRotArr[i] > rotacionFinalAjuste[i] + 0.1f)
-						sillaRotArr[i] -= 0.55f;
-					else {
-						sillaRotArr[i] = rotacionFinalAjuste[i];
-						sillaAnimArr[i] = 10;
-					}
-				}
-				else if (i >= 16 && i < 20) {
-					// Grupo 3 izquierdo
-					if (sillaRotArr[i] < rotacionFinalAjuste[i])
-						sillaRotArr[i] += 0.55f;
-					else {
-						sillaRotArr[i] = rotacionFinalAjuste[i];
-						sillaAnimArr[i] = 5;  // 
-					}
-				}
-				else if (i >= 20 && i < 24) {
-					// Grupo 3 derecho
-					if (sillaRotArr[i] > rotacionFinalAjuste[i] + 0.1f)
-						sillaRotArr[i] -= 0.55f;
-					else {
-						sillaRotArr[i] = rotacionFinalAjuste[i];
-						sillaAnimArr[i] = 10;  // 
-					}
-				}
-				else if (i >= 24 && i < 28) {
-					// Grupo 4 izquierda
-					if (sillaRotArr[i] < rotacionFinalAjuste[i])
-						sillaRotArr[i] += 0.55f;
-					else {
-						sillaRotArr[i] = rotacionFinalAjuste[i];
-						sillaAnimArr[i] = 5;
-					}
-				}
-				else if (i >= 28 && i < 32) {
-					// Grupo 4 derecha
-					if (sillaRotArr[i] > rotacionFinalAjuste[i] + 0.1f)
-						sillaRotArr[i] -= 0.55f;
-					else {
-						sillaRotArr[i] = rotacionFinalAjuste[i];
-						sillaAnimArr[i] = 10;
-					}
-				}
-				else if (i >= 32 && i < 36) {
-					if (sillaRotArr[i] < rotacionFinalAjuste[i])
-						sillaRotArr[i] += 0.55f;
-					else {
-						sillaRotArr[i] = rotacionFinalAjuste[i];
-						sillaAnimArr[i] = 5;  // Izquierda
-					}
-				}
-				else if (i >= 36 && i < 40) {
-					if (sillaRotArr[i] > rotacionFinalAjuste[i] + 0.1f)
-						sillaRotArr[i] -= 0.55f;
-					else {
-						sillaRotArr[i] = rotacionFinalAjuste[i];
-						sillaAnimArr[i] = 10; // Derecha
-					}
-				}
-				else if (i >= 40 && i < 44) {
-					if (sillaRotArr[i] < rotacionFinalAjuste[i])
-						sillaRotArr[i] += 0.55f;
-					else {
-						sillaRotArr[i] = rotacionFinalAjuste[i];
-						sillaAnimArr[i] = 5;  // Izquierda
-					}
-				}
-				else if (i >= 44 && i < 48) {
-					if (sillaRotArr[i] > rotacionFinalAjuste[i] + 0.1f)
-						sillaRotArr[i] -= 0.55f;
-					else {
-						sillaRotArr[i] = rotacionFinalAjuste[i];
-						sillaAnimArr[i] = 10;  // Derecha
-					}
-				}
-				else if (i >= 48 && i < 52) {
-					if (sillaRotArr[i] < rotacionFinalAjuste[i])
-						sillaRotArr[i] += 0.55f;
-					else {
-						sillaRotArr[i] = rotacionFinalAjuste[i];
-						sillaAnimArr[i] = 5;  // avanzar a la izquierda
-					}
-				}
-				else if (i >= 52 && i < 56) {
-					if (sillaRotArr[i] > rotacionFinalAjuste[i] + 0.1f)
-						sillaRotArr[i] -= 0.55f;
-					else {
-						sillaRotArr[i] = rotacionFinalAjuste[i];
-						sillaAnimArr[i] = 10;  // avanzar a la derecha
-					}
-				}
-				break;
-
-
-			case 5:
-				if (i < 4 || (i >= 8 && i < 12) || (i >= 16 && i < 20) || (i >= 24 && i < 28) || (i >= 32 && i < 36) || (i >= 40 && i < 44) || (i >= 48 && i < 52)) {
-
-					float destinoX = posicionesFinales[i].x - posicionesIniciales[i].x;
-
-					if (sillaPosArr[i].x < destinoX)
-						sillaPosArr[i].x += 0.18f;
-					else {
-						sillaPosArr[i].x = destinoX;
-						sillaAnimArr[i] = 6;
-					}
-				}
-				break;
-
-			case 6:
-			{
-				float diff = rotacionPostFinal[i] - sillaRotArr[i];
-
-				if (fabs(diff) > 0.5f) {
-					if (diff > 0)
-						sillaRotArr[i] += 0.55f;
-					else
-						sillaRotArr[i] -= 0.55f;
-				}
-				else {
-					sillaRotArr[i] = rotacionPostFinal[i];
-					sillaAnimArr[i] = 7;
-				}
-				break;
-			}
-
-
-			case 7:
-				break;
-
-			case 10:
-				if ((i >= 4 && i < 8) || (i >= 12 && i < 16) || (i >= 20 && i < 24) || (i >= 28 && i < 32) || (i >= 36 && i < 40) || (i >= 44 && i < 48) || (i >= 52 && i < 56)) {
-					float destinoX = posicionesFinales[i].x - posicionesIniciales[i].x;
-
-					if (sillaPosArr[i].x < destinoX)
-						sillaPosArr[i].x += 0.18f;
-					else {
-						sillaPosArr[i].x = destinoX;
-						sillaAnimArr[i] = 11;
-					}
-				}
-				break;
-
-			case 11: // Giro lateral final (grupo derecho)
-			{
-				float diff = rotacionPostFinal[i] - sillaRotArr[i]; //
-
-				if (fabs(diff) > 0.5f) {
-					if (diff > 0)
-						sillaRotArr[i] += 0.55f;
-					else
-						sillaRotArr[i] -= 0.55f;
-				}
-				else {
-					sillaRotArr[i] = rotacionPostFinal[i];
-					sillaAnimArr[i] = 12; // Finalizado
-				}
-				break;
-			}
-
-			case 12:
-				// Animación final completa
-				break;
-			}
-
-		}
-	}
-
-
-
-	
-	
 }
 
 void MouseCallback(GLFWwindow* window, double xPos, double yPos)
