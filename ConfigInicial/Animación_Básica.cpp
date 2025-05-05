@@ -27,25 +27,25 @@
 
 //--------------------------------------------------------------------------
 //-----------------------------Movimientos de sillas------------------------
-// Número de filas de sillas y cuántas sillas hay por fila
-// ======================= Configuración de sillas ============================
+// N?mero de filas de sillas y cu?ntas sillas hay por fila
+// ======================= Configuraci?n de sillas ============================
 const int filasDeSillas = 14;
 const int sillasPorFila = 4;
 const int numSillas = filasDeSillas * sillasPorFila;
 
-// Variables para animación
+// Variables para animaci?n
 glm::vec3 sillaPosArr[numSillas];            // Posiciones actuales
 float sillaRotArr[numSillas] = { 0.0f };      // Rotaciones actuales
-float rotSillaArr[numSillas] = { 0.0f };      // Auxiliar de rotación
-int sillaAnimArr[numSillas] = { 0 };          // Estado de animación
+float rotSillaArr[numSillas] = { 0.0f };      // Auxiliar de rotaci?n
+int sillaAnimArr[numSillas] = { 0 };          // Estado de animaci?n
 bool sillaActiva = false;
 
-// Parámetros para personalizar trayectorias
+// Par?metros para personalizar trayectorias
 glm::vec3 posicionesIniciales[numSillas];     // Desde la puerta
 glm::vec3 destinoIntermedio[numSillas];       // Entrada al pasillo
-float rotacionObjetivo[numSillas];            // Rotación hacia pasillo
+float rotacionObjetivo[numSillas];            // Rotaci?n hacia pasillo
 glm::vec3 posicionesFinales[numSillas];           // Frente al escritorio
-float rotacionFinalAjuste[numSillas];         // Rotación final
+float rotacionFinalAjuste[numSillas];         // Rotaci?n final
 glm::vec3 destino1[numSillas];  // Primero se mueven al frente
 glm::vec3 destino2[numSillas];  // Luego giran y se mueven lateral
 glm::vec3 destinoFinalAvance[numSillas];  // Agrega esta nueva variable global
@@ -57,18 +57,18 @@ float rotacionPostFinal[numSillas]; // (fuera del loop, como variable global)
 
 
 ////
-// ANIMACIÓN NUEVOS MODELOS
+// ANIMACI?N NUEVOS MODELOS
 bool animateRise = false;
-float riseDistance = 5.0f;  // Distancia inicial bajo la lava
+float riseDistance = -0.09f;  // Distancia inicial bajo la lava
 float riseSpeed = 1.5f;     // Velocidad de ascenso
 float rotationRiseAngle = 0.0f;
-float rotationRiseSpeed = 180.0f; // Velocidad de rotación durante el ascenso
+float rotationRiseSpeed = 180.0f; // Velocidad de rotaci?n durante el ascenso
 
 ////
 
 bool show = false; // Variable global para mostrar salones
 bool shownew = false; // Variable global para mostrar salones
-bool showlava = false; // La lava está visible inicialmente
+bool showlava = false; // La lava est? visible inicialmente
 bool showsilla = false;
 bool animacionActiva = false;
 int faseAnimacion = 0; // 0:inactiva, 1:bajar escritorios, 2:subir nuevos modelos
@@ -78,10 +78,10 @@ float animationSpeed = 2.0f;
 bool animateFall = false;
 float fallDistance = 0.0f;
 float rotationAngle = 0.0f;
-float fallSpeed = 2.0f;       // Velocidad de caída
-float rotationSpeed = 90.0f;  // Velocidad de rotación (grados/segundo)
-bool animationPaused = true;  // Controla si la animación está en pausa
-// (mantén las variables anteriores de animación)
+float fallSpeed = 2.0f;       // Velocidad de ca?da
+float rotationSpeed = 90.0f;  // Velocidad de rotaci?n (grados/segundo)
+bool animationPaused = true;  // Controla si la animaci?n est? en pausa
+// (mant?n las variables anteriores de animaci?n)
 
 // Function prototypes
 void KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mode);
@@ -103,32 +103,7 @@ bool firstMouse = true;
 glm::vec3 lightPos(0.0f, 0.0f, 0.0f);
 bool active;
 
-// Animación del dron
-glm::vec3 dronPos(-15.0f, 9.0f, -24.0f); // Posición inicial del dron (igual al primer waypoint)
 
-glm::vec3 waypoints[4] = {
-	glm::vec3(-15.0f, 9.0f, -24.0f),  // Esquina inferior-izquierda (A)
-	glm::vec3(15.0f, 9.0f, -20.0f),   // Esquina inferior-derecha (B)
-	glm::vec3(15.0f, 9.0f, 20.0f),    // Esquina superior-derecha (C) 
-	glm::vec3(-15.0f, 9.0f, 20.0f)    // Esquina superior-izquierda (D) 
-};
-
-
-
-int currentWaypoint = 0;
-float speed = 5.0f; // Velocidad de movimiento
-bool moveDron = false; // Control de movimiento
-// 
-bool sinusoidalMode = false;        // Modo sinusoidal activo/desactivado
-float sineAmplitude = 3.0f;        // Altura de la onda
-float sineFrequency = 2.0f;        // Velocidad de oscilación
-float sineTime = 0.0f;             // Tiempo acumulado para el cálculo de la onda
-glm::vec3 initialSinePos;          // Posición inicial al activar el modo sinusoidal
-glm::vec3 segmentStart;  //  
-glm::vec3 segmentEnd;    //  
-glm::vec3 segmentDir;    //  
-float segmentLength = 0.0f;  //  
-float segmentProgress = 0.0f;  //
 
 // Positions of the point lights
 glm::vec3 pointLightPositions[] = {
@@ -190,6 +165,11 @@ float rotBall = 0;
 bool AnimBall = false;
 
 //ANIMACION DEL ESTUDIANTE
+//
+//
+//
+//
+
 glm::vec3 studentPos(-22.0f, -1.0f, 20.0f);
 float rot = 0.0f;
 int   Anima = 0;
@@ -200,7 +180,6 @@ float pierD = 0.0f;
 float pierI = 0.0f;
 float body = 90.0f;
 bool step = false;
-
 
 
 // Deltatime
@@ -272,8 +251,11 @@ int main()
 	Model sillavieja((char*)"Models/texturas_Salon_viejo/Tex_silla.obj");
 	Model lava((char*)"Models/lava/lava.obj");
 
-
 	//ANIMACION DEL ESTUDIANTE
+	//
+	//
+	//
+	//
 	Model persona((char*)"Models/persona/Main.obj");
 	Model brazoI((char*)"Models/persona/L_arm.obj");
 	Model brazoD((char*)"Models/persona/R_arm.obj");
@@ -281,8 +263,6 @@ int main()
 	Model piernaD((char*)"Models/persona/R_Leg.obj");
 	Model pieI((char*)"Models/persona/L_Foot.obj");
 	Model pieD((char*)"Models/persona/R_Foot.obj");
-
-
 
 
 
@@ -344,6 +324,7 @@ int main()
 		glUniform3f(viewPosLoc, camera.GetPosition().x, camera.GetPosition().y, camera.GetPosition().z);
 
 		glm::mat4 modelTemp = glm::mat4(1.0f); //Temp
+
 
 
 		// Directional light
@@ -413,18 +394,9 @@ int main()
 			}
 		}
 
-		if (showlava) {
-			/////////////Modelo de Lava/////////////////////////
-			view = camera.GetViewMatrix();
-			model = glm::mat4(1);
-			model = glm::scale(model, glm::vec3(0.06f, 0.09f, 0.09f));
-			model = glm::translate(model, glm::vec3(40.0f, -4.8f, 35.0f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
-			glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-			lava.Draw(lightingShader);
 
-		}
 
-		if (faseAnimacion < 2) {
+		if (show) {
 			/////////////////////////////////////////////////////////////Modelos de iMac viejas////////////////////////////////////////////////////////////////////////////////////
 			////////////////////////////////////////////////////////////Primer mesa de la derecha///////////////////////////////////////////////////////////////////////////////////
 			view = camera.GetViewMatrix();
@@ -1012,7 +984,7 @@ int main()
 			model = glm::mat4(1);
 			model = glm::translate(model, glm::vec3(11.3f, -1.0f - fallDistance, 20.3f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
 			model = glm::scale(model, glm::vec3(0.5f, 1.0f, 1.0f));
-			model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
+			model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90? a la derecha (eje Y)
 			model = glm::rotate(model, glm::radians(rotationAngle), glm::vec3(0.0f, 0.0f, 1.0f));
 			glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 			escritorioviejo.Draw(lightingShader);
@@ -1652,7 +1624,7 @@ int main()
 
 		}
 
-		if (faseAnimacion >= 1) {
+		if (shownew) {
 
 
 
@@ -1662,7 +1634,7 @@ int main()
 			model = glm::mat4(1);
 			model = glm::scale(model, glm::vec3(3.0f, 1.5f, 1.5f));
 			model = glm::translate(model, glm::vec3(9.0f, 0.9f - riseDistance, -13.7f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
-			model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
+			model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90? a la derecha (eje Y)
 			glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 			escritorionuevo.Draw(lightingShader);
 
@@ -1671,7 +1643,7 @@ int main()
 			model = glm::mat4(1);
 			model = glm::scale(model, glm::vec3(3.0f, 1.5f, 1.5f));
 			model = glm::translate(model, glm::vec3(3.6f, 0.9f - riseDistance, -13.7f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
-			model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
+			model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90? a la derecha (eje Y)
 			glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 			escritorionuevo.Draw(lightingShader);
 
@@ -1680,7 +1652,7 @@ int main()
 			model = glm::mat4(1);
 			model = glm::scale(model, glm::vec3(3.0f, 1.5f, 1.5f));
 			model = glm::translate(model, glm::vec3(9.0f, 0.9f - riseDistance, -9.4f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
-			model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
+			model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90? a la derecha (eje Y)
 			glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 			escritorionuevo.Draw(lightingShader);
 
@@ -1689,7 +1661,7 @@ int main()
 			model = glm::mat4(1);
 			model = glm::scale(model, glm::vec3(3.0f, 1.5f, 1.5f));
 			model = glm::translate(model, glm::vec3(3.6f, 0.9f - riseDistance, -9.4f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
-			model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
+			model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90? a la derecha (eje Y)
 			glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 			escritorionuevo.Draw(lightingShader);
 
@@ -1698,7 +1670,7 @@ int main()
 			model = glm::mat4(1);
 			model = glm::scale(model, glm::vec3(3.0f, 1.5f, 1.5f));
 			model = glm::translate(model, glm::vec3(9.0f, 0.9f - riseDistance, -5.2f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
-			model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
+			model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90? a la derecha (eje Y)
 			glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 			escritorionuevo.Draw(lightingShader);
 
@@ -1707,7 +1679,7 @@ int main()
 			model = glm::mat4(1);
 			model = glm::scale(model, glm::vec3(3.0f, 1.5f, 1.5f));
 			model = glm::translate(model, glm::vec3(3.6f, 0.9f - riseDistance, -5.2f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
-			model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
+			model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90? a la derecha (eje Y)
 			glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 			escritorionuevo.Draw(lightingShader);
 
@@ -1717,7 +1689,7 @@ int main()
 			model = glm::mat4(1);
 			model = glm::scale(model, glm::vec3(3.0f, 1.5f, 1.5f));
 			model = glm::translate(model, glm::vec3(9.0f, 0.9f - riseDistance, -1.2f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
-			model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
+			model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90? a la derecha (eje Y)
 			glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 			escritorionuevo.Draw(lightingShader);
 
@@ -1726,7 +1698,7 @@ int main()
 			model = glm::mat4(1);
 			model = glm::scale(model, glm::vec3(3.0f, 1.5f, 1.5f));
 			model = glm::translate(model, glm::vec3(3.6f, 0.9f - riseDistance, -1.2f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
-			model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
+			model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90? a la derecha (eje Y)
 			glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 			escritorionuevo.Draw(lightingShader);
 
@@ -1736,7 +1708,7 @@ int main()
 			model = glm::mat4(1);
 			model = glm::scale(model, glm::vec3(3.0f, 1.5f, 1.5f));
 			model = glm::translate(model, glm::vec3(9.0f, 0.9f - riseDistance, 3.2f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
-			model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
+			model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90? a la derecha (eje Y)
 			glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 			escritorionuevo.Draw(lightingShader);
 
@@ -1745,7 +1717,7 @@ int main()
 			model = glm::mat4(1);
 			model = glm::scale(model, glm::vec3(3.0f, 1.5f, 1.5f));
 			model = glm::translate(model, glm::vec3(3.6f, 0.9f - riseDistance, 3.2f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
-			model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
+			model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90? a la derecha (eje Y)
 			glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 			escritorionuevo.Draw(lightingShader);
 
@@ -1755,7 +1727,7 @@ int main()
 			model = glm::mat4(1);
 			model = glm::scale(model, glm::vec3(3.0f, 1.5f, 1.5f));
 			model = glm::translate(model, glm::vec3(9.0f, 0.9f - riseDistance, 7.2f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
-			model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
+			model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90? a la derecha (eje Y)
 			glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 			escritorionuevo.Draw(lightingShader);
 
@@ -1764,7 +1736,7 @@ int main()
 			model = glm::mat4(1);
 			model = glm::scale(model, glm::vec3(3.0f, 1.5f, 1.5f));
 			model = glm::translate(model, glm::vec3(3.6f, 0.9f - riseDistance, 7.2f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
-			model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
+			model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90? a la derecha (eje Y)
 			glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 			escritorionuevo.Draw(lightingShader);
 
@@ -1774,7 +1746,7 @@ int main()
 			model = glm::mat4(1);
 			model = glm::scale(model, glm::vec3(3.0f, 1.5f, 1.5f));
 			model = glm::translate(model, glm::vec3(9.0f, 0.9f - riseDistance, 11.2f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
-			model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
+			model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90? a la derecha (eje Y)
 			glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 			escritorionuevo.Draw(lightingShader);
 
@@ -1783,7 +1755,7 @@ int main()
 			model = glm::mat4(1);
 			model = glm::scale(model, glm::vec3(3.0f, 1.5f, 1.5f));
 			model = glm::translate(model, glm::vec3(3.6f, 0.9f - riseDistance, 11.2f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
-			model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
+			model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90? a la derecha (eje Y)
 			glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 			escritorionuevo.Draw(lightingShader);
 
@@ -1794,7 +1766,7 @@ int main()
 			model = glm::mat4(1);
 			model = glm::scale(model, glm::vec3(1.3f, 1.5f, 1.5f));
 			model = glm::translate(model, glm::vec3(15.1f, 0.9f - riseDistance, 13.5f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
-			model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
+			model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90? a la derecha (eje Y)
 			glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 			escritorionuevo.Draw(lightingShader);
 
@@ -1807,7 +1779,7 @@ int main()
 			model = glm::mat4(1);
 			model = glm::scale(model, glm::vec3(1.15f, 1.15f, 1.15f));
 			model = glm::translate(model, glm::vec3(11.0f, 2.2f - riseDistance, -17.7f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
-			model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
+			model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90? a la derecha (eje Y)
 			glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 			imac.Draw(lightingShader);
 
@@ -1815,7 +1787,7 @@ int main()
 			model = glm::mat4(1);
 			model = glm::scale(model, glm::vec3(1.15f, 1.15f, 1.15f));
 			model = glm::translate(model, glm::vec3(8.4f, 2.2f - riseDistance, -17.7f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
-			model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
+			model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90? a la derecha (eje Y)
 			glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 			imac.Draw(lightingShader);
 
@@ -1823,7 +1795,7 @@ int main()
 			model = glm::mat4(1);
 			model = glm::scale(model, glm::vec3(1.15f, 1.15f, 1.15f));
 			model = glm::translate(model, glm::vec3(5.9f, 2.2f - riseDistance, -17.7f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
-			model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
+			model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90? a la derecha (eje Y)
 			glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 			imac.Draw(lightingShader);
 
@@ -1831,7 +1803,7 @@ int main()
 			model = glm::mat4(1);
 			model = glm::scale(model, glm::vec3(1.15f, 1.15f, 1.15f));
 			model = glm::translate(model, glm::vec3(3.3f, 2.2f - riseDistance, -17.7f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
-			model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
+			model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90? a la derecha (eje Y)
 			glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 			imac.Draw(lightingShader);
 
@@ -1842,7 +1814,7 @@ int main()
 			model = glm::mat4(1);
 			model = glm::scale(model, glm::vec3(1.15f, 1.15f, 1.15f));
 			model = glm::translate(model, glm::vec3(11.0f, 2.2f - riseDistance, -12.0f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
-			model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
+			model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90? a la derecha (eje Y)
 			glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 			imac.Draw(lightingShader);
 
@@ -1850,7 +1822,7 @@ int main()
 			model = glm::mat4(1);
 			model = glm::scale(model, glm::vec3(1.15f, 1.15f, 1.15f));
 			model = glm::translate(model, glm::vec3(8.4f, 2.2f - riseDistance, -12.0f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
-			model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
+			model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90? a la derecha (eje Y)
 			glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 			imac.Draw(lightingShader);
 
@@ -1858,7 +1830,7 @@ int main()
 			model = glm::mat4(1);
 			model = glm::scale(model, glm::vec3(1.15f, 1.15f, 1.15f));
 			model = glm::translate(model, glm::vec3(5.9f, 2.2f - riseDistance, -12.0f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
-			model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
+			model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90? a la derecha (eje Y)
 			glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 			imac.Draw(lightingShader);
 
@@ -1866,7 +1838,7 @@ int main()
 			model = glm::mat4(1);
 			model = glm::scale(model, glm::vec3(1.15f, 1.15f, 1.15f));
 			model = glm::translate(model, glm::vec3(3.3f, 2.2f - riseDistance, -12.0f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
-			model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
+			model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90? a la derecha (eje Y)
 			glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 			imac.Draw(lightingShader);
 
@@ -1876,7 +1848,7 @@ int main()
 			model = glm::mat4(1);
 			model = glm::scale(model, glm::vec3(1.15f, 1.15f, 1.15f));
 			model = glm::translate(model, glm::vec3(11.0f, 2.2f - riseDistance, -6.7f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
-			model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
+			model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90? a la derecha (eje Y)
 			glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 			imac.Draw(lightingShader);
 
@@ -1884,7 +1856,7 @@ int main()
 			model = glm::mat4(1);
 			model = glm::scale(model, glm::vec3(1.15f, 1.15f, 1.15f));
 			model = glm::translate(model, glm::vec3(8.4f, 2.2f - riseDistance, -6.7f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
-			model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
+			model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90? a la derecha (eje Y)
 			glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 			imac.Draw(lightingShader);
 
@@ -1892,7 +1864,7 @@ int main()
 			model = glm::mat4(1);
 			model = glm::scale(model, glm::vec3(1.15f, 1.15f, 1.15f));
 			model = glm::translate(model, glm::vec3(5.9f, 2.2f - riseDistance, -6.7f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
-			model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
+			model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90? a la derecha (eje Y)
 			glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 			imac.Draw(lightingShader);
 
@@ -1900,7 +1872,7 @@ int main()
 			model = glm::mat4(1);
 			model = glm::scale(model, glm::vec3(1.15f, 1.15f, 1.15f));
 			model = glm::translate(model, glm::vec3(3.3f, 2.2f - riseDistance, -6.7f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
-			model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
+			model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90? a la derecha (eje Y)
 			glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 			imac.Draw(lightingShader);
 
@@ -1910,7 +1882,7 @@ int main()
 			model = glm::mat4(1);
 			model = glm::scale(model, glm::vec3(1.15f, 1.15f, 1.15f));
 			model = glm::translate(model, glm::vec3(11.0f, 2.2f - riseDistance, -1.3f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
-			model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
+			model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90? a la derecha (eje Y)
 			glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 			imac.Draw(lightingShader);
 
@@ -1918,7 +1890,7 @@ int main()
 			model = glm::mat4(1);
 			model = glm::scale(model, glm::vec3(1.15f, 1.15f, 1.15f));
 			model = glm::translate(model, glm::vec3(8.4f, 2.2f - riseDistance, -1.3f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
-			model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
+			model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90? a la derecha (eje Y)
 			glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 			imac.Draw(lightingShader);
 
@@ -1926,7 +1898,7 @@ int main()
 			model = glm::mat4(1);
 			model = glm::scale(model, glm::vec3(1.15f, 1.15f, 1.15f));
 			model = glm::translate(model, glm::vec3(5.9f, 2.2f - riseDistance, -1.3f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
-			model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
+			model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90? a la derecha (eje Y)
 			glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 			imac.Draw(lightingShader);
 
@@ -1934,7 +1906,7 @@ int main()
 			model = glm::mat4(1);
 			model = glm::scale(model, glm::vec3(1.15f, 1.15f, 1.15f));
 			model = glm::translate(model, glm::vec3(3.3f, 2.2f - riseDistance, -1.3f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
-			model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
+			model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90? a la derecha (eje Y)
 			glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 			imac.Draw(lightingShader);
 
@@ -1944,7 +1916,7 @@ int main()
 			model = glm::mat4(1);
 			model = glm::scale(model, glm::vec3(1.15f, 1.15f, 1.15f));
 			model = glm::translate(model, glm::vec3(11.2f, 2.2f - riseDistance, 4.3f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
-			model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
+			model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90? a la derecha (eje Y)
 			glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 			imac.Draw(lightingShader);
 
@@ -1952,7 +1924,7 @@ int main()
 			model = glm::mat4(1);
 			model = glm::scale(model, glm::vec3(1.15f, 1.15f, 1.15f));
 			model = glm::translate(model, glm::vec3(9.2f, 2.2f - riseDistance, 4.3f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
-			model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
+			model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90? a la derecha (eje Y)
 			glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 			imac.Draw(lightingShader);
 
@@ -1960,7 +1932,7 @@ int main()
 			model = glm::mat4(1);
 			model = glm::scale(model, glm::vec3(1.15f, 1.15f, 1.15f));
 			model = glm::translate(model, glm::vec3(7.2f, 2.2f - riseDistance, 4.3f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
-			model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
+			model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90? a la derecha (eje Y)
 			glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 			imac.Draw(lightingShader);
 
@@ -1968,7 +1940,7 @@ int main()
 			model = glm::mat4(1);
 			model = glm::scale(model, glm::vec3(1.15f, 1.15f, 1.15f));
 			model = glm::translate(model, glm::vec3(5.2f, 2.2f - riseDistance, 4.3f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
-			model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
+			model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90? a la derecha (eje Y)
 			glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 			imac.Draw(lightingShader);
 
@@ -1976,7 +1948,7 @@ int main()
 			model = glm::mat4(1);
 			model = glm::scale(model, glm::vec3(1.15f, 1.15f, 1.15f));
 			model = glm::translate(model, glm::vec3(3.2f, 2.2f - riseDistance, 4.3f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
-			model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
+			model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90? a la derecha (eje Y)
 			glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 			imac.Draw(lightingShader);
 
@@ -1986,7 +1958,7 @@ int main()
 			model = glm::mat4(1);
 			model = glm::scale(model, glm::vec3(1.15f, 1.15f, 1.15f));
 			model = glm::translate(model, glm::vec3(11.2f, 2.2f - riseDistance, 9.7f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
-			model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
+			model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90? a la derecha (eje Y)
 			glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 			imac.Draw(lightingShader);
 
@@ -1994,7 +1966,7 @@ int main()
 			model = glm::mat4(1);
 			model = glm::scale(model, glm::vec3(1.15f, 1.15f, 1.15f));
 			model = glm::translate(model, glm::vec3(9.2f, 2.2f - riseDistance, 9.7f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
-			model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
+			model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90? a la derecha (eje Y)
 			glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 			imac.Draw(lightingShader);
 
@@ -2002,7 +1974,7 @@ int main()
 			model = glm::mat4(1);
 			model = glm::scale(model, glm::vec3(1.15f, 1.15f, 1.15f));
 			model = glm::translate(model, glm::vec3(7.2f, 2.2f - riseDistance, 9.7f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
-			model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
+			model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90? a la derecha (eje Y)
 			glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 			imac.Draw(lightingShader);
 
@@ -2010,7 +1982,7 @@ int main()
 			model = glm::mat4(1);
 			model = glm::scale(model, glm::vec3(1.15f, 1.15f, 1.15f));
 			model = glm::translate(model, glm::vec3(5.2f, 2.2f - riseDistance, 9.7f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
-			model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
+			model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90? a la derecha (eje Y)
 			glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 			imac.Draw(lightingShader);
 
@@ -2018,7 +1990,7 @@ int main()
 			model = glm::mat4(1);
 			model = glm::scale(model, glm::vec3(1.15f, 1.15f, 1.15f));
 			model = glm::translate(model, glm::vec3(3.2f, 2.2f - riseDistance, 9.7f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
-			model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
+			model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90? a la derecha (eje Y)
 			glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 			imac.Draw(lightingShader);
 
@@ -2028,7 +2000,7 @@ int main()
 			model = glm::mat4(1);
 			model = glm::scale(model, glm::vec3(1.15f, 1.15f, 1.15f));
 			model = glm::translate(model, glm::vec3(11.2f, 2.2f - riseDistance, 15.1f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
-			model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
+			model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90? a la derecha (eje Y)
 			glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 			imac.Draw(lightingShader);
 
@@ -2036,7 +2008,7 @@ int main()
 			model = glm::mat4(1);
 			model = glm::scale(model, glm::vec3(1.15f, 1.15f, 1.15f));
 			model = glm::translate(model, glm::vec3(9.2f, 2.2f - riseDistance, 15.1f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
-			model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
+			model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90? a la derecha (eje Y)
 			glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 			imac.Draw(lightingShader);
 
@@ -2044,7 +2016,7 @@ int main()
 			model = glm::mat4(1);
 			model = glm::scale(model, glm::vec3(1.15f, 1.15f, 1.15f));
 			model = glm::translate(model, glm::vec3(7.2f, 2.2f - riseDistance, 15.1f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
-			model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
+			model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90? a la derecha (eje Y)
 			glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 			imac.Draw(lightingShader);
 
@@ -2052,7 +2024,7 @@ int main()
 			model = glm::mat4(1);
 			model = glm::scale(model, glm::vec3(1.15f, 1.15f, 1.15f));
 			model = glm::translate(model, glm::vec3(5.2f, 2.2f - riseDistance, 15.1f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
-			model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
+			model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90? a la derecha (eje Y)
 			glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 			imac.Draw(lightingShader);
 
@@ -2060,7 +2032,7 @@ int main()
 			model = glm::mat4(1);
 			model = glm::scale(model, glm::vec3(1.15f, 1.15f, 1.15f));
 			model = glm::translate(model, glm::vec3(3.2f, 2.2f - riseDistance, 15.1f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
-			model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
+			model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90? a la derecha (eje Y)
 			glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 			imac.Draw(lightingShader);
 
@@ -2073,7 +2045,7 @@ int main()
 			model = glm::mat4(1);
 			model = glm::scale(model, glm::vec3(1.15f, 1.15f, 1.15f));
 			model = glm::translate(model, glm::vec3(-11.0f, 2.2f - riseDistance, -17.7f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
-			model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
+			model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90? a la derecha (eje Y)
 			glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 			imac.Draw(lightingShader);
 
@@ -2081,7 +2053,7 @@ int main()
 			model = glm::mat4(1);
 			model = glm::scale(model, glm::vec3(1.15f, 1.15f, 1.15f));
 			model = glm::translate(model, glm::vec3(-8.4f, 2.2f - riseDistance, -17.7f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
-			model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
+			model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90? a la derecha (eje Y)
 			glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 			imac.Draw(lightingShader);
 
@@ -2089,7 +2061,7 @@ int main()
 			model = glm::mat4(1);
 			model = glm::scale(model, glm::vec3(1.15f, 1.15f, 1.15f));
 			model = glm::translate(model, glm::vec3(-5.9f, 2.2f - riseDistance, -17.7f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
-			model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
+			model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90? a la derecha (eje Y)
 			glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 			imac.Draw(lightingShader);
 
@@ -2097,7 +2069,7 @@ int main()
 			model = glm::mat4(1);
 			model = glm::scale(model, glm::vec3(1.15f, 1.15f, 1.15f));
 			model = glm::translate(model, glm::vec3(-3.3f, 2.2f - riseDistance, -17.7f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
-			model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
+			model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90? a la derecha (eje Y)
 			glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 			imac.Draw(lightingShader);
 
@@ -2108,7 +2080,7 @@ int main()
 			model = glm::mat4(1);
 			model = glm::scale(model, glm::vec3(1.15f, 1.15f, 1.15f));
 			model = glm::translate(model, glm::vec3(-11.0f, 2.2f - riseDistance, -12.0f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
-			model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
+			model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90? a la derecha (eje Y)
 			glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 			imac.Draw(lightingShader);
 
@@ -2116,7 +2088,7 @@ int main()
 			model = glm::mat4(1);
 			model = glm::scale(model, glm::vec3(1.15f, 1.15f, 1.15f));
 			model = glm::translate(model, glm::vec3(-8.4f, 2.2f - riseDistance, -12.0f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
-			model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
+			model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90? a la derecha (eje Y)
 			glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 			imac.Draw(lightingShader);
 
@@ -2124,7 +2096,7 @@ int main()
 			model = glm::mat4(1);
 			model = glm::scale(model, glm::vec3(1.15f, 1.15f, 1.15f));
 			model = glm::translate(model, glm::vec3(-5.9f, 2.2f - riseDistance, -12.0f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
-			model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
+			model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90? a la derecha (eje Y)
 			glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 			imac.Draw(lightingShader);
 
@@ -2132,7 +2104,7 @@ int main()
 			model = glm::mat4(1);
 			model = glm::scale(model, glm::vec3(1.15f, 1.15f, 1.15f));
 			model = glm::translate(model, glm::vec3(-3.3f, 2.2f - riseDistance, -12.0f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
-			model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
+			model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90? a la derecha (eje Y)
 			glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 			imac.Draw(lightingShader);
 
@@ -2142,7 +2114,7 @@ int main()
 			model = glm::mat4(1);
 			model = glm::scale(model, glm::vec3(1.15f, 1.15f, 1.15f));
 			model = glm::translate(model, glm::vec3(-11.0f, 2.2f - riseDistance, -6.7f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
-			model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
+			model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90? a la derecha (eje Y)
 			glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 			imac.Draw(lightingShader);
 
@@ -2150,7 +2122,7 @@ int main()
 			model = glm::mat4(1);
 			model = glm::scale(model, glm::vec3(1.15f, 1.15f, 1.15f));
 			model = glm::translate(model, glm::vec3(-8.4f, 2.2f - riseDistance, -6.7f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
-			model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
+			model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90? a la derecha (eje Y)
 			glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 			imac.Draw(lightingShader);
 
@@ -2158,7 +2130,7 @@ int main()
 			model = glm::mat4(1);
 			model = glm::scale(model, glm::vec3(1.15f, 1.15f, 1.15f));
 			model = glm::translate(model, glm::vec3(-5.9f, 2.2f - riseDistance, -6.7f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
-			model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
+			model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90? a la derecha (eje Y)
 			glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 			imac.Draw(lightingShader);
 
@@ -2166,7 +2138,7 @@ int main()
 			model = glm::mat4(1);
 			model = glm::scale(model, glm::vec3(1.15f, 1.15f, 1.15f));
 			model = glm::translate(model, glm::vec3(-3.3f, 2.2f - riseDistance, -6.7f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
-			model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
+			model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90? a la derecha (eje Y)
 			glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 			imac.Draw(lightingShader);
 
@@ -2176,7 +2148,7 @@ int main()
 			model = glm::mat4(1);
 			model = glm::scale(model, glm::vec3(1.15f, 1.15f, 1.15f));
 			model = glm::translate(model, glm::vec3(-11.0f, 2.2f - riseDistance, -1.3f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
-			model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
+			model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90? a la derecha (eje Y)
 			glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 			imac.Draw(lightingShader);
 
@@ -2184,7 +2156,7 @@ int main()
 			model = glm::mat4(1);
 			model = glm::scale(model, glm::vec3(1.15f, 1.15f, 1.15f));
 			model = glm::translate(model, glm::vec3(-8.4f, 2.2f - riseDistance, -1.3f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
-			model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
+			model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90? a la derecha (eje Y)
 			glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 			imac.Draw(lightingShader);
 
@@ -2192,7 +2164,7 @@ int main()
 			model = glm::mat4(1);
 			model = glm::scale(model, glm::vec3(1.15f, 1.15f, 1.15f));
 			model = glm::translate(model, glm::vec3(-5.9f, 2.2f - riseDistance, -1.3f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
-			model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
+			model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90? a la derecha (eje Y)
 			glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 			imac.Draw(lightingShader);
 
@@ -2200,7 +2172,7 @@ int main()
 			model = glm::mat4(1);
 			model = glm::scale(model, glm::vec3(1.15f, 1.15f, 1.15f));
 			model = glm::translate(model, glm::vec3(-3.3f, 2.2f - riseDistance, -1.3f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
-			model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
+			model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90? a la derecha (eje Y)
 			glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 			imac.Draw(lightingShader);
 
@@ -2210,7 +2182,7 @@ int main()
 			model = glm::mat4(1);
 			model = glm::scale(model, glm::vec3(1.15f, 1.15f, 1.15f));
 			model = glm::translate(model, glm::vec3(-11.2f, 2.2f - riseDistance, 4.3f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
-			model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
+			model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90? a la derecha (eje Y)
 			glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 			imac.Draw(lightingShader);
 
@@ -2218,7 +2190,7 @@ int main()
 			model = glm::mat4(1);
 			model = glm::scale(model, glm::vec3(1.15f, 1.15f, 1.15f));
 			model = glm::translate(model, glm::vec3(-9.2f, 2.2f - riseDistance, 4.3f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
-			model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
+			model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90? a la derecha (eje Y)
 			glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 			imac.Draw(lightingShader);
 
@@ -2226,7 +2198,7 @@ int main()
 			model = glm::mat4(1);
 			model = glm::scale(model, glm::vec3(1.15f, 1.15f, 1.15f));
 			model = glm::translate(model, glm::vec3(-7.2f, 2.2f - riseDistance, 4.3f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
-			model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
+			model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90? a la derecha (eje Y)
 			glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 			imac.Draw(lightingShader);
 
@@ -2234,7 +2206,7 @@ int main()
 			model = glm::mat4(1);
 			model = glm::scale(model, glm::vec3(1.15f, 1.15f, 1.15f));
 			model = glm::translate(model, glm::vec3(-5.2f, 2.2f - riseDistance, 4.3f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
-			model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
+			model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90? a la derecha (eje Y)
 			glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 			imac.Draw(lightingShader);
 
@@ -2242,7 +2214,7 @@ int main()
 			model = glm::mat4(1);
 			model = glm::scale(model, glm::vec3(1.15f, 1.15f, 1.15f));
 			model = glm::translate(model, glm::vec3(-3.2f, 2.2f - riseDistance, 4.3f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
-			model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
+			model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90? a la derecha (eje Y)
 			glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 			imac.Draw(lightingShader);
 
@@ -2252,7 +2224,7 @@ int main()
 			model = glm::mat4(1);
 			model = glm::scale(model, glm::vec3(1.15f, 1.15f, 1.15f));
 			model = glm::translate(model, glm::vec3(-11.2f, 2.2f - riseDistance, 9.7f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
-			model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
+			model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90? a la derecha (eje Y)
 			glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 			imac.Draw(lightingShader);
 
@@ -2260,7 +2232,7 @@ int main()
 			model = glm::mat4(1);
 			model = glm::scale(model, glm::vec3(1.15f, 1.15f, 1.15f));
 			model = glm::translate(model, glm::vec3(-9.2f, 2.2f - riseDistance, 9.7f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
-			model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
+			model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90? a la derecha (eje Y)
 			glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 			imac.Draw(lightingShader);
 
@@ -2268,7 +2240,7 @@ int main()
 			model = glm::mat4(1);
 			model = glm::scale(model, glm::vec3(1.15f, 1.15f, 1.15f));
 			model = glm::translate(model, glm::vec3(-7.2f, 2.2f - riseDistance, 9.7f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
-			model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
+			model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90? a la derecha (eje Y)
 			glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 			imac.Draw(lightingShader);
 
@@ -2276,7 +2248,7 @@ int main()
 			model = glm::mat4(1);
 			model = glm::scale(model, glm::vec3(1.15f, 1.15f, 1.15f));
 			model = glm::translate(model, glm::vec3(-5.2f, 2.2f - riseDistance, 9.7f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
-			model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
+			model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90? a la derecha (eje Y)
 			glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 			imac.Draw(lightingShader);
 
@@ -2284,7 +2256,7 @@ int main()
 			model = glm::mat4(1);
 			model = glm::scale(model, glm::vec3(1.15f, 1.15f, 1.15f));
 			model = glm::translate(model, glm::vec3(-3.2f, 2.2f - riseDistance, 9.7f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
-			model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
+			model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90? a la derecha (eje Y)
 			glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 			imac.Draw(lightingShader);
 
@@ -2294,7 +2266,7 @@ int main()
 			model = glm::mat4(1);
 			model = glm::scale(model, glm::vec3(1.15f, 1.15f, 1.15f));
 			model = glm::translate(model, glm::vec3(-11.2f, 2.2f - riseDistance, 15.1f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
-			model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
+			model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90? a la derecha (eje Y)
 			glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 			imac.Draw(lightingShader);
 
@@ -2302,7 +2274,7 @@ int main()
 			model = glm::mat4(1);
 			model = glm::scale(model, glm::vec3(1.15f, 1.15f, 1.15f));
 			model = glm::translate(model, glm::vec3(-9.2f, 2.2f - riseDistance, 15.1f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
-			model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
+			model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90? a la derecha (eje Y)
 			glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 			imac.Draw(lightingShader);
 
@@ -2310,7 +2282,7 @@ int main()
 			model = glm::mat4(1);
 			model = glm::scale(model, glm::vec3(1.15f, 1.15f, 1.15f));
 			model = glm::translate(model, glm::vec3(-7.2f, 2.2f - riseDistance, 15.1f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
-			model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
+			model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90? a la derecha (eje Y)
 			glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 			imac.Draw(lightingShader);
 
@@ -2318,7 +2290,7 @@ int main()
 			model = glm::mat4(1);
 			model = glm::scale(model, glm::vec3(1.15f, 1.15f, 1.15f));
 			model = glm::translate(model, glm::vec3(-5.2f, 2.2f - riseDistance, 15.1f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
-			model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
+			model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90? a la derecha (eje Y)
 			glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 			imac.Draw(lightingShader);
 
@@ -2326,7 +2298,7 @@ int main()
 			model = glm::mat4(1);
 			model = glm::scale(model, glm::vec3(1.15f, 1.15f, 1.15f));
 			model = glm::translate(model, glm::vec3(-3.2f, 2.2f - riseDistance, 15.1f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
-			model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
+			model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90? a la derecha (eje Y)
 			glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 			imac.Draw(lightingShader);
 
@@ -2334,38 +2306,38 @@ int main()
 			view = camera.GetViewMatrix();
 			model = glm::mat4(1);
 			model = glm::scale(model, glm::vec3(27.0f, 27.0f, 27.0f));
-			model = glm::translate(model, glm::vec3(-0.48f, 0.22f - riseDistance, 0.88f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
-			model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
+			model = glm::translate(model, glm::vec3(-0.48f, 0.22f, 0.88f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+			model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90? a la derecha (eje Y)
 			glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 			logo.Draw(lightingShader);
 
 			view = camera.GetViewMatrix();
 			model = glm::mat4(1);
 			model = glm::scale(model, glm::vec3(27.0f, 27.0f, 27.0f));
-			model = glm::translate(model, glm::vec3(0.56f, 0.22f - riseDistance, 0.87f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
-			model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
+			model = glm::translate(model, glm::vec3(0.56f, 0.22f, 0.87f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+			model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90? a la derecha (eje Y)
 			glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 			logo.Draw(lightingShader);
 
 			view = camera.GetViewMatrix();
 			model = glm::mat4(1);
 			model = glm::scale(model, glm::vec3(27.0f, 27.0f, 27.9f));
-			model = glm::translate(model, glm::vec3(-0.45f, 0.22f - riseDistance, -0.95f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
-			//model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
+			model = glm::translate(model, glm::vec3(-0.45f, 0.22f, -0.95f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+			//model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90? a la derecha (eje Y)
 			glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 			logo.Draw(lightingShader);
 
 			view = camera.GetViewMatrix();
 			model = glm::mat4(1);
 			model = glm::scale(model, glm::vec3(27.0f, 27.0f, -27.0f));
-			model = glm::translate(model, glm::vec3(0.56f, 0.22f - riseDistance, 0.968f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
-			//model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90° a la derecha (eje Y)
+			model = glm::translate(model, glm::vec3(0.56f, 0.22f, 0.968f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+			//model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90? a la derecha (eje Y)
 			glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 			logo.Draw(lightingShader);
 
 		}
 
-		///////////////////////////////////////////////////////////////////////////Salón Nueevoooo////////////////////////////////////////////////////////////////////////////////////////////////////
+		///////////////////////////////////////////////////////////////////////////Sal?n Nueevoooo////////////////////////////////////////////////////////////////////////////////////////////////////
 		view = camera.GetViewMatrix();
 		model = glm::mat4(1);
 		model = glm::scale(model, glm::vec3(5.0f, 5.0f, 5.0f));
@@ -2374,24 +2346,12 @@ int main()
 		nuevosalon.Draw(lightingShader);
 
 
-
-		////////////////////////////////////////////////////////////////////////////////////Modelo del Dron////////////////////////////////////////////////////////////////////////////////////////////
-		model = glm::mat4(1);
-		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		glUniform1i(glGetUniformLocation(lightingShader.Program, "transparency"), 0);
-		model = glm::mat4(1);
-		model = glm::translate(model, dronPos); // Aplicar posición actual
-		model = glm::scale(model, glm::vec3(0.8f));
-		model = glm::rotate(model, glm::radians(rotBall), glm::vec3(0.0f, 1.0f, 0.0f)); // Rotación en Y
-		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		dron.Draw(lightingShader);
-		glBindVertexArray(0);
-
-		//ANIMACION DEL ESTUDIANTE
 		//
-		//
-		//
-		//
+	//ANIMACION DEL ESTUDIANTE
+	//
+	//
+	//
+	//
 		view = camera.GetViewMatrix();
 		model = glm::mat4(1);
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
@@ -2427,6 +2387,7 @@ int main()
 		model = glm::rotate(model, glm::radians(pierI), glm::vec3(1.0f, 0.0f, 0.0f));
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));;
 		piernaI.Draw(lightingShader);
+
 
 
 
@@ -2536,38 +2497,6 @@ void KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mode
 {
 
 
-	/*if (key == GLFW_KEY_3 && action == GLFW_PRESS) {
-		animateFall = !animateFall;
-	}*/
-
-	if (key == GLFW_KEY_T && action == GLFW_PRESS) { // Tecla R para activar
-		animateRise = !animateRise;
-		if (animateRise) {
-			// Resetear valores iniciales
-			riseDistance = 2.0f;
-			rotationRiseAngle = 0.0f;
-		}
-	}
-
-	if (key == GLFW_KEY_3 && action == GLFW_PRESS) {
-		//animateFall = true;
-		//animationPaused = !animationPaused; // Iniciar/reanudar animación
-		if (!animacionActiva) {
-			animacionActiva = true;
-			faseAnimacion = 1;
-			showlava = false; // Oculta la lava para revelar la animación
-		}
-	}
-
-	if (key == GLFW_KEY_R && action == GLFW_PRESS) {
-		// Reiniciar valores
-		animateFall = false;
-		animationPaused = true;
-		fallDistance = 0.0f;
-		rotationAngle = 0.0f;
-	}
-
-
 	if (key == GLFW_KEY_1 && action == GLFW_PRESS) {
 		show = !show; // Toggle para mostrar solo sillas
 	}
@@ -2576,9 +2505,6 @@ void KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mode
 		shownew = !shownew; // Toggle para mostrar solo sillas
 	}
 
-	if (key == GLFW_KEY_4 && action == GLFW_PRESS) {
-		showlava = !showlava; // Toggle para mostrar solo la lava
-	}
 
 	if (GLFW_KEY_ESCAPE == key && GLFW_PRESS == action)
 	{
@@ -2616,88 +2542,70 @@ void KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mode
 		AnimBall = !AnimBall;
 
 	}
-	if (key == GLFW_KEY_M && action == GLFW_PRESS) {
-		sinusoidalMode = !sinusoidalMode;
-		if (sinusoidalMode) {
-			// Configurar el primer segmento
-			currentWaypoint = 0;
-			segmentStart = waypoints[currentWaypoint];
-			int nextWP = (currentWaypoint + 1) % 4;
-			segmentEnd = waypoints[nextWP];
-			segmentDir = glm::normalize(segmentEnd - segmentStart);
-			segmentLength = glm::distance(segmentStart, segmentEnd);
-			segmentProgress = 0.0f;
-			sineTime = 0.0f;
-			dronPos = segmentStart;
-		}
-		else {
-			currentWaypoint = 0;
-			dronPos = waypoints[0]; // Reiniciar al inicio
-		}
-	}
 
-	// INICIALIZACIÓN DEL MOVIMIENTO DE SILLAS (al presionar 'B')
+
+	// INICIALIZACI?N DEL MOVIMIENTO DE SILLAS (al presionar 'B')
 // ===========================================================
 // Este bloque configura todas las posiciones, rotaciones y trayectorias iniciales para las sillas. Agrupa las sillas
-// en diferentes zonas del pasillo y escritorios según su índice.
+// en diferentes zonas del pasillo y escritorios seg?n su ?ndice.
 
 	if (keys[GLFW_KEY_B] && !sillaActiva) {
 		showsilla = true;
-		sillaActiva = true;  // Se activa el sistema de animación
+		sillaActiva = true;  // Se activa el sistema de animaci?n
 
 		for (int i = 0; i < numSillas; i++) {
-			// --------- Cálculo de fila y columna ---------
+			// --------- C?lculo de fila y columna ---------
 			int fila = i / sillasPorFila;
 			int columna = i % sillasPorFila;
 
-			// --------- Configuración de posición y rotación inicial ---------
+			// --------- Configuraci?n de posici?n y rotaci?n inicial ---------
 
 			// Posiciones iniciales: todas las sillas entran desde la izquierda,
 			// separadas ligeramente por columnas
 			posicionesIniciales[i] = glm::vec3(-23.7f + columna * 0.25f, -1.2f, 20.2f);
 
-			// Desplazamiento relativo inicial (sin movimiento aún)
+			// Desplazamiento relativo inicial (sin movimiento a?n)
 			sillaPosArr[i] = glm::vec3(0.0f);
 
-			// Rotaciones iniciales (sin giro aún)
+			// Rotaciones iniciales (sin giro a?n)
 			sillaRotArr[i] = 0.0f;
 			rotSillaArr[i] = 0.0f;
 
 			// Inicializamos el primer movimiento de la primera silla
 			sillaAnimArr[0] = 1;
 
-			// --------- Destinos y objetivos de rotación ---------
+			// --------- Destinos y objetivos de rotaci?n ---------
 
 			// Destino intermedio: llegar al pasillo central (eje X = 0.0f)
 			destinoIntermedio[i] = glm::vec3(0.0f, -1.2f, posicionesIniciales[i].z);
 
-			// Giro hacia el pasillo (90° a la izquierda)
+			// Giro hacia el pasillo (90? a la izquierda)
 			rotacionObjetivo[i] = 90.0f;
 
 			// Avance final en Z hasta el fondo del pasillo (-23.0f)
 			destinoFinalAvance[i] = glm::vec3(destinoIntermedio[i].x, -1.2f, -23.0f);
 
-			// Rotación final después del avance por el pasillo
+			// Rotaci?n final despu?s del avance por el pasillo
 			rotacionFinalAjuste[i] = 180.0f;
 
-			// Rotación lateral final al posicionarse
+			// Rotaci?n lateral final al posicionarse
 			rotacionPostFinal[i] = 270.0f;
 
 			// ===========================================================
-			// AGRUPAMIENTO DE SILLAS EN DIFERENTES ZONAS DEL SALÓN
+			// AGRUPAMIENTO DE SILLAS EN DIFERENTES ZONAS DEL SAL?N
 			// ===========================================================
-			// Cada grupo corresponde a un escritorio o posición distinta
+			// Cada grupo corresponde a un escritorio o posici?n distinta
 			// y se acomoda a la izquierda o derecha del pasillo.
 			// ===========================================================
 
 			if (i < 4) {
-				// ?? Grupo 1 - izquierda (fondo del salón)
+				// ?? Grupo 1 - izquierda (fondo del sal?n)
 				posicionesFinales[i] = glm::vec3(-12.9f + i * 3.0f, -1.2f, -23.0f);
 				rotacionFinalAjuste[i] = 180.0f;
 				rotacionPostFinal[i] = 270.0f;
 			}
 			else if (i >= 4 && i < 8) {
-				// Grupo 1 - derecha (fondo del salón)
+				// Grupo 1 - derecha (fondo del sal?n)
 				posicionesFinales[i] = glm::vec3(12.9f - (i - 4) * 3.0f, -1.2f, -23.0f);
 				rotacionFinalAjuste[i] = 0.0f;
 				rotacionPostFinal[i] = -90.0f;
@@ -2780,8 +2688,14 @@ void KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mode
 		sillaAnimArr[0] = 1;
 	}
 
+	//
 	//ANIMACION DEL ESTUDIANTE
-	if (keys[GLFW_KEY_B])
+	//
+	//
+	//
+	//
+
+	if (keys[GLFW_KEY_7])
 	{
 		Anima = 1;
 
@@ -2790,280 +2704,6 @@ void KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mode
 }
 
 void Animation() {
-
-	// --------- ANIMACIÓN DE LA SILLA EN ORDEN ----------
-	if (sillaActiva) {
-		for (int i = 0; i < numSillas; i++) {
-			switch (sillaAnimArr[i]) {
-
-			case 0: // Espera secuencial
-				if (i == 0 || sillaAnimArr[i - 1] >= 2)
-					sillaAnimArr[i] = 1;
-				break;
-
-			case 1: // Movimiento en X hacia el pasillo
-				if (sillaPosArr[i].x < destinoIntermedio[i].x - posicionesIniciales[i].x)
-					sillaPosArr[i].x += 0.18f;
-				else
-					sillaAnimArr[i] = 2;
-				break;
-
-			case 2: // Primer giro (todos hacia 90°)
-				if (sillaRotArr[i] < rotacionObjetivo[i])
-					sillaRotArr[i] += 0.55f;
-				else {
-					sillaRotArr[i] = rotacionObjetivo[i];
-					sillaAnimArr[i] = 3;
-				}
-				break;
-
-			case 3:
-				if (sillaPosArr[i].z > posicionesFinales[i].z - posicionesIniciales[i].z)
-					sillaPosArr[i].z -= 0.18f;
-				else {
-					sillaPosArr[i].z = posicionesFinales[i].z - posicionesIniciales[i].z;
-					sillaRotArr[i] = 90.0f;
-					sillaAnimArr[i] = 4;
-				}
-				break;
-
-			case 4:
-			{
-				// Grupos de la izquierda: índices múltiplos de 8 (0, 8, 16, 24, ...)
-				if (i % 8 < 4) { // Solo las 4 sillas de la izquierda por grupo
-					int grupoBase = (i / 8) * 8; // Inicio del grupo actual
-					if (i == grupoBase || sillaAnimArr[i - 1] >= 6) {
-						sillaAnimArr[i] = 40; // Primer giro lateral
-					}
-				}
-				else {
-					// Grupo derecho
-					if (sillaRotArr[i] > rotacionFinalAjuste[i] + 0.1f)
-						sillaRotArr[i] -= 0.4f;
-					else {
-						sillaRotArr[i] = rotacionFinalAjuste[i];
-						sillaAnimArr[i] = 40;
-					}
-				}
-				break;
-			}
-
-			case 40:
-			{
-				if (i % 8 < 4) {
-					// Grupo izquierdo: 90° ? 180°
-					if (sillaRotArr[i] < rotacionFinalAjuste[i])
-						sillaRotArr[i] += 0.4f;
-					else {
-						sillaRotArr[i] = rotacionFinalAjuste[i];
-						sillaAnimArr[i] = 41;
-					}
-				}
-				else {
-					// Grupo derecho: 90° ? 0°
-					if (sillaRotArr[i] > rotacionFinalAjuste[i] + 0.1f)
-						sillaRotArr[i] -= 0.4f;
-					else {
-						sillaRotArr[i] = rotacionFinalAjuste[i];
-						sillaAnimArr[i] = 41;
-					}
-				}
-				break;
-			}
-
-			case 41:
-			{
-				float destinoX = posicionesFinales[i].x - posicionesIniciales[i].x;
-
-				if ((i % 8 < 4 && sillaPosArr[i].x > destinoX) || (i % 8 >= 4 && sillaPosArr[i].x < destinoX)) {
-					sillaPosArr[i].x += (i % 8 < 4 ? -0.06f : 0.06f);
-				}
-				else {
-					sillaPosArr[i].x = destinoX;
-					sillaAnimArr[i] = 42;
-				}
-				break;
-			}
-
-			case 42:
-			{
-				if (sillaRotArr[i] < rotacionPostFinal[i] - 0.1f)
-					sillaRotArr[i] += 0.4f;
-				else if (sillaRotArr[i] > rotacionPostFinal[i] + 0.1f)
-					sillaRotArr[i] -= 0.4f;
-				else {
-					sillaRotArr[i] = rotacionPostFinal[i];
-					sillaAnimArr[i] = 43;
-				}
-				break;
-			}
-
-			case 5:
-				if (i < 4) {
-					float destinoX = posicionesFinales[i].x - posicionesIniciales[i].x;
-
-					if (sillaPosArr[i].x > destinoX + 0.01f)
-						sillaPosArr[i].x -= 0.03f;  // Reduce lento
-					else {
-						sillaPosArr[i].x = destinoX;
-						sillaAnimArr[i] = 6;
-					}
-				}
-				break;
-
-			case 6:
-			{
-				float diff = rotacionPostFinal[i] - sillaRotArr[i];
-
-				if (fabs(diff) > 0.5f) {
-					if (diff > 0)
-						sillaRotArr[i] += 0.55f;
-					else
-						sillaRotArr[i] -= 0.55f;
-				}
-				else {
-					sillaRotArr[i] = rotacionPostFinal[i];
-					sillaAnimArr[i] = 7;
-				}
-				break;
-			}
-
-
-			case 7:
-				break;
-
-			case 10:
-				if ((i >= 4 && i < 8) || (i >= 12 && i < 16) || (i >= 20 && i < 24) || (i >= 28 && i < 32) || (i >= 36 && i < 40) || (i >= 44 && i < 48) || (i >= 52 && i < 56)) {
-					float destinoX = posicionesFinales[i].x - posicionesIniciales[i].x;
-
-					if (sillaPosArr[i].x < destinoX)
-						sillaPosArr[i].x += 0.18f;
-					else {
-						sillaPosArr[i].x = destinoX;
-						sillaAnimArr[i] = 11;
-					}
-				}
-				break;
-
-			case 11: // Giro lateral final (grupo derecho)
-			{
-				float diff = rotacionPostFinal[i] - sillaRotArr[i]; //
-
-				if (fabs(diff) > 0.5f) {
-					if (diff > 0)
-						sillaRotArr[i] += 0.55f;
-					else
-						sillaRotArr[i] -= 0.55f;
-				}
-				else {
-					sillaRotArr[i] = rotacionPostFinal[i];
-					sillaAnimArr[i] = 12; // Finalizado
-				}
-				break;
-			}
-
-			case 12:
-				// Animación final completa
-				break;
-			}
-
-		}
-	}
-
-
-
-
-	if (faseAnimacion == 1) { // Fase de caída
-		if (fallDistance < 5.0f) {
-			fallDistance += fallSpeed * deltaTime;
-			rotationAngle += rotationSpeed * deltaTime;
-			showlava = true; // Lava visible
-		}
-		else {
-			faseAnimacion = 2; // Iniciar fase 2
-			showlava = false;  // Ocultar lava
-		}
-	}
-	else if (faseAnimacion == 2) { // Fase de ascenso
-		if (riseDistance > 0.0f) {
-			riseDistance -= riseSpeed * deltaTime;
-			rotationRiseAngle += rotationRiseSpeed * deltaTime;
-		}
-		else {
-			animateRise = false;
-			// ¡Mantener faseAnimacion en 2 para ocultar modelos viejos!
-		}
-	}
-	///////////////////////////////////////
-	if (animateRise) {
-		if (riseDistance > 0.0f) {
-			float delta = riseSpeed * deltaTime;
-			riseDistance -= delta;
-			rotationRiseAngle += rotationRiseSpeed * deltaTime; // Ángulo actualizado
-		}
-		else {
-			riseDistance = 0.0f;
-			animateRise = false;
-		}
-	}
-
-	if (!animationPaused && animateFall) { // Solo animar si no está en pausa
-		fallDistance += fallSpeed * deltaTime;
-		rotationAngle += rotationSpeed * deltaTime;
-	}
-
-	if (AnimBall) {
-		if (sinusoidalMode) {
-			// Movimiento sinusoidal siguiendo waypoints
-			segmentProgress += speed * deltaTime;
-
-			// Cambiar de segmento si es necesario
-			while (segmentProgress > segmentLength) {
-				segmentProgress -= segmentLength;
-				currentWaypoint = (currentWaypoint + 1) % 4;
-				segmentStart = waypoints[currentWaypoint];
-				int nextWP = (currentWaypoint + 1) % 4;
-				segmentEnd = waypoints[nextWP];
-				segmentDir = glm::normalize(segmentEnd - segmentStart);
-				segmentLength = glm::distance(segmentStart, segmentEnd);
-			}
-
-			// Calcular posición base en el segmento
-			glm::vec3 basePos = segmentStart + segmentDir * segmentProgress;
-
-			// Calcular dirección perpendicular al segmento
-			glm::vec3 perp = glm::cross(segmentDir, glm::vec3(0.0f, 1.0f, 0.0f));
-			perp = glm::normalize(perp);
-
-			// Aplicar oscilación sinusoidal
-			float sineValue = sin(sineTime * sineFrequency) * sineAmplitude;
-			dronPos = basePos + perp * sineValue;
-
-			// Actualizar rotación basada en la dirección del segmento
-			float angle = atan2(segmentDir.x, segmentDir.z);
-			rotBall = glm::degrees(angle);
-
-			// Actualizar tiempo para la onda
-			sineTime += deltaTime;
-
-		}
-		else {
-			// Movimiento rectangular original
-			glm::vec3 target = waypoints[currentWaypoint];
-			glm::vec3 direction = target - dronPos;
-			float distanceToTarget = glm::length(direction);
-
-			if (distanceToTarget > 0.1f) {
-				direction = glm::normalize(direction);
-				dronPos += direction * speed * deltaTime;
-				float angle = atan2(direction.x, direction.z);
-				rotBall = glm::degrees(angle);
-			}
-			else {
-				currentWaypoint = (currentWaypoint + 1) % 4;
-			}
-		}
-	}
 
 	if (Anima == 1) {
 
@@ -3374,6 +3014,190 @@ void Animation() {
 		rot = 0.0f;
 
 	}
+
+	// --------- ANIMACI?N DE LA SILLA EN ORDEN ----------
+	if (sillaActiva) {
+		for (int i = 0; i < numSillas; i++) {
+			switch (sillaAnimArr[i]) {
+
+			case 0: // Espera secuencial
+				if (i == 0 || sillaAnimArr[i - 1] >= 2)
+					sillaAnimArr[i] = 1;
+				break;
+
+			case 1: // Movimiento en X hacia el pasillo
+				if (sillaPosArr[i].x < destinoIntermedio[i].x - posicionesIniciales[i].x)
+					sillaPosArr[i].x += 0.18f;
+				else
+					sillaAnimArr[i] = 2;
+				break;
+
+			case 2: // Primer giro (todos hacia 90?)
+				if (sillaRotArr[i] < rotacionObjetivo[i])
+					sillaRotArr[i] += 0.55f;
+				else {
+					sillaRotArr[i] = rotacionObjetivo[i];
+					sillaAnimArr[i] = 3;
+				}
+				break;
+
+			case 3:
+				if (sillaPosArr[i].z > posicionesFinales[i].z - posicionesIniciales[i].z)
+					sillaPosArr[i].z -= 0.18f;
+				else {
+					sillaPosArr[i].z = posicionesFinales[i].z - posicionesIniciales[i].z;
+					sillaRotArr[i] = 90.0f;
+					sillaAnimArr[i] = 4;
+				}
+				break;
+
+			case 4:
+			{
+				// Grupos de la izquierda: ?ndices m?ltiplos de 8 (0, 8, 16, 24, ...)
+				if (i % 8 < 4) { // Solo las 4 sillas de la izquierda por grupo
+					int grupoBase = (i / 8) * 8; // Inicio del grupo actual
+					if (i == grupoBase || sillaAnimArr[i - 1] >= 6) {
+						sillaAnimArr[i] = 40; // Primer giro lateral
+					}
+				}
+				else {
+					// Grupo derecho
+					if (sillaRotArr[i] > rotacionFinalAjuste[i] + 0.1f)
+						sillaRotArr[i] -= 0.4f;
+					else {
+						sillaRotArr[i] = rotacionFinalAjuste[i];
+						sillaAnimArr[i] = 40;
+					}
+				}
+				break;
+			}
+
+			case 40:
+			{
+				if (i % 8 < 4) {
+					// Grupo izquierdo: 90? ? 180?
+					if (sillaRotArr[i] < rotacionFinalAjuste[i])
+						sillaRotArr[i] += 0.4f;
+					else {
+						sillaRotArr[i] = rotacionFinalAjuste[i];
+						sillaAnimArr[i] = 41;
+					}
+				}
+				else {
+					// Grupo derecho: 90? ? 0?
+					if (sillaRotArr[i] > rotacionFinalAjuste[i] + 0.1f)
+						sillaRotArr[i] -= 0.4f;
+					else {
+						sillaRotArr[i] = rotacionFinalAjuste[i];
+						sillaAnimArr[i] = 41;
+					}
+				}
+				break;
+			}
+
+			case 41:
+			{
+				float destinoX = posicionesFinales[i].x - posicionesIniciales[i].x;
+
+				if ((i % 8 < 4 && sillaPosArr[i].x > destinoX) || (i % 8 >= 4 && sillaPosArr[i].x < destinoX)) {
+					sillaPosArr[i].x += (i % 8 < 4 ? -0.06f : 0.06f);
+				}
+				else {
+					sillaPosArr[i].x = destinoX;
+					sillaAnimArr[i] = 42;
+				}
+				break;
+			}
+
+			case 42:
+			{
+				if (sillaRotArr[i] < rotacionPostFinal[i] - 0.1f)
+					sillaRotArr[i] += 0.4f;
+				else if (sillaRotArr[i] > rotacionPostFinal[i] + 0.1f)
+					sillaRotArr[i] -= 0.4f;
+				else {
+					sillaRotArr[i] = rotacionPostFinal[i];
+					sillaAnimArr[i] = 43;
+				}
+				break;
+			}
+
+			case 5:
+				if (i < 4) {
+					float destinoX = posicionesFinales[i].x - posicionesIniciales[i].x;
+
+					if (sillaPosArr[i].x > destinoX + 0.01f)
+						sillaPosArr[i].x -= 0.03f;  // Reduce lento
+					else {
+						sillaPosArr[i].x = destinoX;
+						sillaAnimArr[i] = 6;
+					}
+				}
+				break;
+
+			case 6:
+			{
+				float diff = rotacionPostFinal[i] - sillaRotArr[i];
+
+				if (fabs(diff) > 0.5f) {
+					if (diff > 0)
+						sillaRotArr[i] += 0.55f;
+					else
+						sillaRotArr[i] -= 0.55f;
+				}
+				else {
+					sillaRotArr[i] = rotacionPostFinal[i];
+					sillaAnimArr[i] = 7;
+				}
+				break;
+			}
+
+
+			case 7:
+				break;
+
+			case 10:
+				if ((i >= 4 && i < 8) || (i >= 12 && i < 16) || (i >= 20 && i < 24) || (i >= 28 && i < 32) || (i >= 36 && i < 40) || (i >= 44 && i < 48) || (i >= 52 && i < 56)) {
+					float destinoX = posicionesFinales[i].x - posicionesIniciales[i].x;
+
+					if (sillaPosArr[i].x < destinoX)
+						sillaPosArr[i].x += 0.18f;
+					else {
+						sillaPosArr[i].x = destinoX;
+						sillaAnimArr[i] = 11;
+					}
+				}
+				break;
+
+			case 11: // Giro lateral final (grupo derecho)
+			{
+				float diff = rotacionPostFinal[i] - sillaRotArr[i]; //
+
+				if (fabs(diff) > 0.5f) {
+					if (diff > 0)
+						sillaRotArr[i] += 0.55f;
+					else
+						sillaRotArr[i] -= 0.55f;
+				}
+				else {
+					sillaRotArr[i] = rotacionPostFinal[i];
+					sillaAnimArr[i] = 12; // Finalizado
+				}
+				break;
+			}
+
+			case 12:
+				// Animaci?n final completa
+				break;
+			}
+
+		}
+	}
+
+
+
+
+
 
 
 }
