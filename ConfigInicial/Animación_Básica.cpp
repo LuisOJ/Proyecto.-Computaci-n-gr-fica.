@@ -182,6 +182,103 @@ float body = 90.0f;
 bool step = false;
 
 
+////////////Animacion por Key Frames
+float roticon;
+float posicon;
+#define MAX_FRAMES 15
+int i_max_steps = 100;
+int i_curr_steps = 0;
+typedef struct _frame {
+	float roticon;
+	float posicon;
+
+	float roticonINC;
+	float posiconINC;
+
+
+}FRAME;
+FRAME KeyFrame[MAX_FRAMES];
+int FrameIndex = 0;			//En qu  lugar de la l nea de tiempo me encuentro al guardar los datos
+bool play = false;			//Si se est  reproduciendo la animaci n
+int playIndex = 0;			//En qu  lugar de la l nea de tiempo me encuentro al estar reproduciendo la animaci n
+
+void SaveAnimation(const char* filename = "Animacion.txt") {
+	std::ofstream file(filename);
+	if (!file.is_open()) {
+		std::cerr << "Error al abrir el archivo para guardar." << std::endl;
+		return;
+	}
+
+	for (int i = 0; i < FrameIndex; i++) {
+		file << KeyFrame[i].roticon << " "
+			<< KeyFrame[i].posicon << "\n";
+	}
+	file.close();
+	std::cout << "Animacion guardada correctamente." << std::endl;
+}
+
+void LoadAnimation(const char* filename = "Animacion.txt") {
+	std::ifstream file(filename);
+	if (!file.is_open()) {
+		std::cerr << "Error al abrir el archivo para cargar." << std::endl;
+		return;
+	}
+
+	FrameIndex = 0;
+	while (FrameIndex < MAX_FRAMES &&
+		file >> KeyFrame[FrameIndex].roticon
+		>> KeyFrame[FrameIndex].posicon)
+	{
+		FrameIndex++;
+	}
+}
+
+void PrintAnimation(const char* filename = "Animacion.txt") {
+	std::ifstream file(filename);
+	if (!file.is_open()) {
+		std::cerr << "Error al abrir el archivo para imprimir." << std::endl;
+		return;
+	}
+
+	std::string line;
+	std::cout << "Contenido del archivo " << filename << ":\n";
+	while (std::getline(file, line)) {
+		std::cout << line << std::endl;
+	}
+	file.close();
+}
+
+void saveFrame(void)
+{
+
+	printf("frameindex %d\n", FrameIndex);
+
+	KeyFrame[FrameIndex].posicon = posicon;
+	KeyFrame[FrameIndex].roticon = roticon;
+
+
+	FrameIndex++;
+}
+
+void resetElements(void)
+{
+
+	posicon = KeyFrame[0].posicon;
+	roticon = KeyFrame[0].roticon;
+
+
+
+}
+void interpolation(void)
+{
+
+
+	KeyFrame[playIndex].posiconINC = (KeyFrame[playIndex + 1].posicon - KeyFrame[playIndex].posicon) / i_max_steps;
+	KeyFrame[playIndex].roticonINC = (KeyFrame[playIndex + 1].roticon - KeyFrame[playIndex].roticon) / i_max_steps;
+}
+
+
+
 // Deltatime
 GLfloat deltaTime = 0.0f;	// Time between current frame and last frame
 GLfloat lastFrame = 0.0f;  	// Time of last frame
@@ -198,7 +295,7 @@ int main()
 	glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);*/
 
 	// Create a GLFWwindow object that we can use for GLFW's functions
-	GLFWwindow* window = glfwCreateWindow(WIDTH, HEIGHT, "Proyecto de Laboratorio. Sala B", nullptr, nullptr);
+	GLFWwindow* window = glfwCreateWindow(WIDTH, HEIGHT, "Proyecto de Laboratorio. Sala B. Equipo 4.", nullptr, nullptr);
 
 	if (nullptr == window)
 	{
@@ -288,6 +385,10 @@ int main()
 
 	glm::mat4 projection = glm::perspective(camera.GetZoom(), (GLfloat)SCREEN_WIDTH / (GLfloat)SCREEN_HEIGHT, 0.1f, 100.0f);
 
+
+	LoadAnimation(); //Carga la animacion por medio del archivo previamente guardado
+	PrintAnimation(); //Imprime en terminar los valores del archivo
+	resetElements(); // Resetear los elementos a los primeros keyframes cargados
 	// Game loop
 	while (!glfwWindowShouldClose(window))
 	{
@@ -2306,32 +2407,32 @@ int main()
 			view = camera.GetViewMatrix();
 			model = glm::mat4(1);
 			model = glm::scale(model, glm::vec3(27.0f, 27.0f, 27.0f));
-			model = glm::translate(model, glm::vec3(-0.48f, 0.22f, 0.88f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
-			model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90? a la derecha (eje Y)
+			model = glm::translate(model, glm::vec3(-0.48f, 0.22f, 0.88f - posicon)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+			model = glm::rotate(model, glm::radians(180.0f + roticon), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90? a la derecha (eje Y)
 			glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 			logo.Draw(lightingShader);
 
 			view = camera.GetViewMatrix();
 			model = glm::mat4(1);
 			model = glm::scale(model, glm::vec3(27.0f, 27.0f, 27.0f));
-			model = glm::translate(model, glm::vec3(0.56f, 0.22f, 0.87f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
-			model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90? a la derecha (eje Y)
+			model = glm::translate(model, glm::vec3(0.56f, 0.22f, 0.87f - posicon)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+			model = glm::rotate(model, glm::radians(180.0f + roticon), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90? a la derecha (eje Y)
 			glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 			logo.Draw(lightingShader);
 
 			view = camera.GetViewMatrix();
 			model = glm::mat4(1);
 			model = glm::scale(model, glm::vec3(27.0f, 27.0f, 27.9f));
-			model = glm::translate(model, glm::vec3(-0.45f, 0.22f, -0.95f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
-			//model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90? a la derecha (eje Y)
+			model = glm::translate(model, glm::vec3(-0.45f, 0.22f, -0.95f + posicon)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+			model = glm::rotate(model, glm::radians(roticon), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90? a la derecha (eje Y)
 			glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 			logo.Draw(lightingShader);
 
 			view = camera.GetViewMatrix();
 			model = glm::mat4(1);
 			model = glm::scale(model, glm::vec3(27.0f, 27.0f, -27.0f));
-			model = glm::translate(model, glm::vec3(0.56f, 0.22f, 0.968f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
-			//model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90? a la derecha (eje Y)
+			model = glm::translate(model, glm::vec3(0.49f, 0.22f, 0.968f - posicon)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+			model = glm::rotate(model, glm::radians(roticon), glm::vec3(0.0f, 1.0f, 0.0f)); // Giro de 90? a la derecha (eje Y)
 			glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 			logo.Draw(lightingShader);
 
@@ -2465,21 +2566,20 @@ void DoMovement()
 
 	if (keys[GLFW_KEY_T])
 	{
-		pointLightPositions[0].x += 0.01f;
+		roticon += 0.1f;
 	}
 	if (keys[GLFW_KEY_G])
 	{
-		pointLightPositions[0].x -= 0.01f;
+		roticon -= 0.1f;
 	}
 
 	if (keys[GLFW_KEY_Y])
 	{
-		pointLightPositions[0].y += 0.01f;
+		posicon += 0.1;
 	}
-
 	if (keys[GLFW_KEY_H])
 	{
-		pointLightPositions[0].y -= 0.01f;
+		posicon -= 0.1;
 	}
 	if (keys[GLFW_KEY_U])
 	{
@@ -2495,6 +2595,51 @@ void DoMovement()
 // Is called whenever a key is pressed/released via GLFW
 void KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mode)
 {
+
+	if (keys[GLFW_KEY_B])
+	{
+		if (shownew) {
+
+			if (play == false && (FrameIndex > 1))
+			{
+
+				resetElements();
+				//First Interpolation				
+				interpolation();
+
+				play = true;
+				playIndex = 0;
+				i_curr_steps = 0;
+			}
+			else
+			{
+
+				play = false;
+			}
+		}
+
+
+	}
+
+
+	if (keys[GLFW_KEY_K])
+	{
+		if (FrameIndex < MAX_FRAMES)
+		{
+			saveFrame(); //Almacena cada frame
+		}
+
+	}
+
+	if (key == GLFW_KEY_Q && GLFW_PRESS == action) {
+		SaveAnimation();  // Guarda la animaci n en "Animacion.txt"
+	}
+
+	if (key == GLFW_KEY_R && GLFW_PRESS == action) {
+		LoadAnimation(); //Carga la animaci n por medio del archivo previamente guardado
+		PrintAnimation(); //Imprime en terminar los valores del archivo
+		resetElements(); // Resetear los elementos a los primeros keyframes cargados
+	}
 
 
 	if (key == GLFW_KEY_1 && action == GLFW_PRESS) {
@@ -2704,6 +2849,42 @@ void KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mode
 }
 
 void Animation() {
+
+	if (play)
+	{
+		if (i_curr_steps >= i_max_steps) //end of animation between frames?
+		{
+			playIndex++;
+			if (playIndex > FrameIndex - 2)	//end of total animation?
+			{
+
+				playIndex = 0;
+				play = false;
+				printf("termina anim\n");
+
+
+			}
+			else //Next frame interpolations
+			{
+				i_curr_steps = 0; //Reset counter
+				//Interpolation
+				interpolation();
+			}
+		}
+		else
+		{
+			//Draw animation
+			posicon += KeyFrame[playIndex].posiconINC;
+			roticon += KeyFrame[playIndex].roticonINC;
+
+
+			i_curr_steps++;
+
+		}
+
+	}
+
+
 
 	if (Anima == 1) {
 
@@ -3187,7 +3368,7 @@ void Animation() {
 			}
 
 			case 12:
-				// Animaci?n final completa
+				// Animacion final completa
 				break;
 			}
 
