@@ -24,6 +24,9 @@
 #include "Camera.h"
 #include "Model.h"
 
+//// SKYBOX
+#include "Texture.h"
+
 
 //--------------------------------------------------------------------------
 //-----------------------------Movimientos de sillas------------------------
@@ -298,6 +301,23 @@ void interpolation(void)
 	KeyFrame[playIndex].roticonINC = (KeyFrame[playIndex + 1].roticon - KeyFrame[playIndex].roticon) / i_max_steps;
 }
 
+//// ANIMACION PARED
+glm::vec3 canonPos(-26.0f, -1.0f, 20.0f);
+glm::vec3 movBala(0.0f, 0.0f, -2.57423f);
+glm::vec3 fragPared1(0.0f, 0.0f, 0.0f);
+glm::vec3 fragPared2(0.0f, 0.0f, 0.0f);
+glm::vec3 fragPared3(0.0f, 0.0f, 0.0f);
+glm::vec3 fragPared4(0.0f, 0.0f, 0.0f);
+glm::vec3 fragPared5(0.0f, 0.0f, 0.0f);
+glm::vec3 fragPared6(0.0f, 0.0f, 0.0f);
+glm::vec3 fragPared7(0.0f, 0.0f, 0.0f);
+glm::vec3 fragPared8(0.0f, 0.0f, 0.0f);
+glm::vec3 fragPared9(0.0f, 0.0f, 0.0f);
+glm::vec3 fragPared10(0.0f, 0.0f, 0.0f);
+float rotcanon = 90.0f;
+float canon = 0.0f;
+int   CanonWall = 0;
+float Sboom = 0.0f;
 
 
 
@@ -356,6 +376,11 @@ int main()
 	Shader lightingShader("Shader/lighting.vs", "Shader/lighting.frag");
 	Shader lampShader("Shader/lamp.vs", "Shader/lamp.frag");
 
+	
+//// SKYBOX
+	Shader skyboxShader("Shader/SkyBox.vs", "Shader/SkyBox.frag");
+
+
 	//models
 	Model Piso((char*)"Models/piso.obj");
 	Model dron((char*)"Models/dron/model.obj");
@@ -381,18 +406,122 @@ int main()
 	Model pieI((char*)"Models/persona/L_Foot.obj");
 	Model pieD((char*)"Models/persona/R_Foot.obj");
 
+	//// ANIMACION PARED
+	//Animaci n paredes
+	Model Prueba((char*)"Models/anim_explosion/todo.obj");
+	Model Bala((char*)"Models/anim_explosion/Bala.obj");
+	Model Boom((char*)"Models/anim_explosion/Boom.obj");
+	Model P1((char*)"Models/nuevosalon/P1.obj");
+	Model P2((char*)"Models/nuevosalon/P2.obj");
+	Model P3((char*)"Models/nuevosalon/P3.obj");
+	Model P4((char*)"Models/nuevosalon/P4.obj");
+	Model P5((char*)"Models/nuevosalon/P5.obj");
+	Model P6((char*)"Models/nuevosalon/P6.obj");
+	Model P7((char*)"Models/nuevosalon/P7.obj");
+	Model P8((char*)"Models/nuevosalon/P8.obj");
+	Model P9((char*)"Models/nuevosalon/P9.obj");
+	Model P10((char*)"Models/nuevosalon/P10.obj");
 
+	//// SKYBOX
+//
+//
+//
+//
 
+	GLfloat skyboxVertices[] = {
+		// Positions
+		-1.0f,  1.0f, -1.0f,
+		-1.0f, -1.0f, -1.0f,
+		1.0f, -1.0f, -1.0f,
+		1.0f, -1.0f, -1.0f,
+		1.0f,  1.0f, -1.0f,
+		-1.0f,  1.0f, -1.0f,
 
+		-1.0f, -1.0f,  1.0f,
+		-1.0f, -1.0f, -1.0f,
+		-1.0f,  1.0f, -1.0f,
+		-1.0f,  1.0f, -1.0f,
+		-1.0f,  1.0f,  1.0f,
+		-1.0f, -1.0f,  1.0f,
 
+		1.0f, -1.0f, -1.0f,
+		1.0f, -1.0f,  1.0f,
+		1.0f,  1.0f,  1.0f,
+		1.0f,  1.0f,  1.0f,
+		1.0f,  1.0f, -1.0f,
+		1.0f, -1.0f, -1.0f,
+
+		-1.0f, -1.0f,  1.0f,
+		-1.0f,  1.0f,  1.0f,
+		1.0f,  1.0f,  1.0f,
+		1.0f,  1.0f,  1.0f,
+		1.0f, -1.0f,  1.0f,
+		-1.0f, -1.0f,  1.0f,
+
+		-1.0f,  1.0f, -1.0f,
+		1.0f,  1.0f, -1.0f,
+		1.0f,  1.0f,  1.0f,
+		1.0f,  1.0f,  1.0f,
+		-1.0f,  1.0f,  1.0f,
+		-1.0f,  1.0f, -1.0f,
+
+		-1.0f, -1.0f, -1.0f,
+		-1.0f, -1.0f,  1.0f,
+		1.0f, -1.0f, -1.0f,
+		1.0f, -1.0f, -1.0f,
+		-1.0f, -1.0f,  1.0f,
+		1.0f, -1.0f,  1.0f
+	};
+
+	//
+//
+//
+//
+//// SKYBOX
+//
+//
+//
+//
+
+	GLuint indices[] =
+	{  // Note that we start from 0!
+		0,1,2,3,
+		4,5,6,7,
+		8,9,10,11,
+		12,13,14,15,
+		16,17,18,19,
+		20,21,22,23,
+		24,25,26,27,
+		28,29,30,31,
+		32,33,34,35
+	};
+
+	//
+//
+//
+//
+//// SKYBOX
+//
+//
+//
+//
 
 	// First, set the container's VAO (and VBO)
-	GLuint VBO, VAO;
+	GLuint VBO, VAO, EBO;
 	glGenVertexArrays(1, &VAO);
 	glGenBuffers(1, &VBO);
+	glGenBuffers(1, &EBO);
+
+
 	glBindVertexArray(VAO);
+
 	glBindBuffer(GL_ARRAY_BUFFER, VBO);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
+
+
 	// Position attribute
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(GLfloat), (GLvoid*)0);
 	glEnableVertexAttribArray(0);
@@ -404,6 +533,51 @@ int main()
 	lightingShader.Use();
 	glUniform1i(glGetUniformLocation(lightingShader.Program, "Material.difuse"), 0);
 	glUniform1i(glGetUniformLocation(lightingShader.Program, "Material.specular"), 1);
+
+
+	//
+//
+//
+//
+//// SKYBOX
+//
+//
+//
+//
+
+	//SkyBox
+
+	GLuint skyboxVBO, skyboxVAO;
+	glGenVertexArrays(1, &skyboxVAO);
+	glGenBuffers(1, &skyboxVBO);
+	glBindVertexArray(skyboxVAO);
+	glBindBuffer(GL_ARRAY_BUFFER, skyboxVBO);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(skyboxVertices), &skyboxVertices, GL_STATIC_DRAW);
+	glEnableVertexAttribArray(0);
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat), (GLvoid*)0);
+
+	//
+//
+//
+//
+//// SKYBOX
+//
+//
+//
+//
+
+	//Load textures
+	vector < const GLchar*> faces;
+	faces.push_back("SkyBox2/right.jpg");
+	faces.push_back("SkyBox2/left.jpg");
+	faces.push_back("SkyBox2/top.jpg");
+	faces.push_back("SkyBox2/bottom.jpg");
+	faces.push_back("SkyBox2/back.jpg");
+	faces.push_back("SkyBox2/front.jpg");
+
+	GLuint cubemapTexture = TextureLoading::LoadCubemap(faces);
+
+
 
 	glm::mat4 projection = glm::perspective(camera.GetZoom(), (GLfloat)SCREEN_WIDTH / (GLfloat)SCREEN_HEIGHT, 0.1f, 100.0f);
 
@@ -447,6 +621,7 @@ int main()
 		glUniform3f(viewPosLoc, camera.GetPosition().x, camera.GetPosition().y, camera.GetPosition().z);
 
 		glm::mat4 modelTemp = glm::mat4(1.0f); //Temp
+		glm::mat4 modelTemp2 = glm::mat4(1.0f); //Temp
 
 
 		// Directional light
@@ -2490,11 +2665,75 @@ int main()
 		dron.Draw(lightingShader);
 		glBindVertexArray(0);
 
+		//// ANIMACION PARED
+		view = camera.GetViewMatrix();
+		model = glm::mat4(1);
+		model = glm::scale(model, glm::vec3(5.0f, 5.0f, 5.0f));
+		model = glm::translate(model, glm::vec3(15.1f, -0.1f, 14.7f)); // Ajusta X,Y,Z   ////// Posicion correctya en x
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		nuevosalon.Draw(lightingShader);
+		// P1
+		view = camera.GetViewMatrix();
+		model = glm::mat4(1);
+		model = glm::translate(model, glm::vec3(fragPared1));
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		P1.Draw(lightingShader);
+		// P2
+		view = camera.GetViewMatrix();
+		model = glm::mat4(1);
+		model = glm::translate(model, glm::vec3(fragPared2));
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		P2.Draw(lightingShader);
+		// P3
+		view = camera.GetViewMatrix();
+		model = glm::mat4(1);
+		model = glm::translate(model, glm::vec3(fragPared3));
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		P3.Draw(lightingShader);
+		// P4
+		view = camera.GetViewMatrix();
+		model = glm::mat4(1);
+		model = glm::translate(model, glm::vec3(fragPared4));
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		P4.Draw(lightingShader);
+		// P5
+		view = camera.GetViewMatrix();
+		model = glm::mat4(1);
+		model = glm::translate(model, glm::vec3(fragPared5));
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		P5.Draw(lightingShader);
+		// P6
+		view = camera.GetViewMatrix();
+		model = glm::mat4(1);
+		model = glm::translate(model, glm::vec3(fragPared6));
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		P6.Draw(lightingShader);
+		// P7
+		view = camera.GetViewMatrix();
+		model = glm::mat4(1);
+		model = glm::translate(model, glm::vec3(fragPared7));
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		P7.Draw(lightingShader);
+		// P8
+		view = camera.GetViewMatrix();
+		model = glm::mat4(1);
+		model = glm::translate(model, glm::vec3(fragPared8));
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		P8.Draw(lightingShader);
+		// P9
+		view = camera.GetViewMatrix();
+		model = glm::mat4(1);
+		model = glm::translate(model, glm::vec3(fragPared9));
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		P9.Draw(lightingShader);
+		// P10
+		view = camera.GetViewMatrix();
+		model = glm::mat4(1);
+		model = glm::translate(model, glm::vec3(fragPared10));
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		P10.Draw(lightingShader);
+
 		//ANIMACION DEL ESTUDIANTE
-		//
-		//
-		//
-		//
 		view = camera.GetViewMatrix();
 		model = glm::mat4(1);
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
@@ -2531,6 +2770,38 @@ int main()
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));;
 		piernaI.Draw(lightingShader);
 
+		
+		//// ANIMACION PARED
+		//Ca on
+		view = camera.GetViewMatrix();
+		model = glm::mat4(1);
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		glUniform1i(glGetUniformLocation(lightingShader.Program, "transparency"), 0);
+
+
+		modelTemp2 = model = glm::translate(model, canonPos);
+		model = glm::rotate(model, glm::radians(canon), glm::vec3(0.0f, 1.0f, 0.0f));
+		modelTemp2 = model = glm::rotate(model, glm::radians(rotcanon), glm::vec3(0.0f, 1.0f, 0.0f));
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		Prueba.Draw(lightingShader);
+		//Bala
+		model = modelTemp2;
+		model = glm::translate(model, movBala);
+		//model = glm::rotate(model, glm::radians(pierI), glm::vec3(1.0f, 0.0f, 0.0f));
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));;
+		Bala.Draw(lightingShader);
+
+		//Boom
+		view = camera.GetViewMatrix();
+		model = glm::mat4(1);
+		model = glm::scale(model, glm::vec3(Sboom, Sboom, 1.0));
+		model = glm::translate(model, glm::vec3(0.0f, -0.5f, -17.0f));
+		model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		Boom.Draw(lightingShader);
+
+
+
 
 
 		// Also draw the lamp object, again binding the appropriate shader
@@ -2558,12 +2829,32 @@ int main()
 
 		glBindVertexArray(0);
 
+		//// SKYBOX
+		//Draw Sky
+		glDepthFunc(GL_LEQUAL);
+		skyboxShader.Use();
+		view = glm::mat4(glm::mat3(camera.GetViewMatrix()));
+		glUniformMatrix4fv(glGetUniformLocation(skyboxShader.Program, "view"), 1, GL_FALSE, glm::value_ptr(view));
+		glUniformMatrix4fv(glGetUniformLocation(skyboxShader.Program, "projection"), 1, GL_FALSE, glm::value_ptr(projection));
+
+		glBindVertexArray(skyboxVAO);
+		glActiveTexture(GL_TEXTURE1);
+		glBindTexture(GL_TEXTURE_CUBE_MAP, cubemapTexture);
+		glDrawArrays(GL_TRIANGLES, 0, 36);
+		glBindVertexArray(0);
+		glDepthFunc(GL_LESS);
 
 
 		// Swap the screen buffers
 		glfwSwapBuffers(window);
 	}
 
+	//// SKYBOX
+	glDeleteVertexArrays(1, &VAO);
+	glDeleteBuffers(1, &VBO);
+	glDeleteBuffers(1, &EBO);
+	glDeleteVertexArrays(1, &skyboxVAO);
+	glDeleteBuffers(1, &skyboxVAO);
 
 	// Terminate GLFW, clearing any resources allocated by GLFW.
 	glfwTerminate();
@@ -2913,6 +3204,14 @@ void KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mode
 		Anima = 1;
 
 	}
+
+	//// ANIMACION PARED
+	if (keys[GLFW_KEY_8])
+	{
+		CanonWall = 1;
+
+	}
+
 
 }
 
@@ -3536,6 +3835,148 @@ void Animation() {
 		rot = 0.0f;
 
 	}
+
+	//// ANIMACION PARED
+	if (CanonWall == 1) {
+
+		canonPos.x += 0.01;
+
+		if (canonPos.x >= -0.1f) {
+
+			CanonWall = 2;
+
+		}
+
+	}
+
+	else if (CanonWall == 2) {
+
+		canon += 0.1;
+
+		if (canon >= 90.0f) {
+
+			CanonWall = 3;
+
+		}
+
+	}
+
+	else if (CanonWall == 3) {
+
+		canonPos.z -= 0.01;
+
+		if (canonPos.z <= 8.0f) {
+
+			CanonWall = 4;
+
+		}
+
+	}
+
+	else if (CanonWall == 4) {
+
+		movBala.z += 0.05;
+		canonPos.z = 9;
+
+		if (movBala.z >= 35.0f) {
+
+			CanonWall = 5;
+
+		}
+
+	}
+
+	else if (CanonWall == 5) {
+
+		Sboom += 0.005;
+		canonPos.y -= 0.2;
+
+		if (Sboom >= 3.0f) {
+
+			CanonWall = 7;
+
+		}
+
+	}
+
+	else if (CanonWall == 6) {
+		Sboom -= 0.005;
+
+
+		if (Sboom <= 0.0f) {
+			CanonWall = 7;
+		}
+	}
+
+	else if (CanonWall == 7) {
+
+
+		Sboom -= 0.002;
+
+		fragPared1.z -= 0.003;
+		fragPared2.z -= 0.020;
+		fragPared3.z -= 0.030;
+		fragPared4.z -= 0.025;
+		fragPared5.z -= 0.008;
+		fragPared6.z -= 0.012;
+		fragPared7.z -= 0.05;
+		fragPared8.z -= 0.015;
+		fragPared9.z -= 0.001;
+		fragPared10.z -= 0.008;
+
+		fragPared1.y += 0.005;
+		fragPared2.y -= 0.005;
+		fragPared3.y += 0.005;
+		fragPared4.y -= 0.005;
+		fragPared5.y -= 0.005;
+		fragPared6.y -= 0.005;
+		fragPared8.y -= 0.005;
+		fragPared9.y -= 0.005;
+		fragPared10.y += 0.005;
+
+
+		if (Sboom <= 0.0f) {
+			CanonWall = 8;
+		}
+
+	}
+
+	else if (CanonWall == 8) {
+
+		canonPos.x = -26.0;
+		canonPos.y = -1.0f;
+		canonPos.z = 20.0f;
+		movBala.z = -2.57423f;
+		fragPared1.y = 0.0f;
+		fragPared2.y = 0.0f;
+		fragPared3.y = 0.0f;
+		fragPared4.y = 0.0f;
+		fragPared5.y = 0.0f;
+		fragPared6.y = 0.0f;
+		fragPared7.y = 0.0f;
+		fragPared8.y = 0.0f;
+		fragPared9.y = 0.0f;
+		fragPared10.y = 0.0f;
+
+		fragPared1.z = 0.0f;
+		fragPared2.z = 0.0f;
+		fragPared3.z = 0.0f;
+		fragPared4.z = 0.0f;
+		fragPared5.z = 0.0f;
+		fragPared6.z = 0.0f;
+		fragPared7.z = 0.0f;
+		fragPared8.z = 0.0f;
+		fragPared9.z = 0.0f;
+		fragPared10.z = 0.0f;
+
+		rotcanon = 90.0f;
+		canon = 0.0f;
+		CanonWall = 0;
+
+
+	}
+
+
 
 
 }
