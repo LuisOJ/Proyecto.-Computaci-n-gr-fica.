@@ -2928,7 +2928,7 @@ void DoMovement()
 // Is called whenever a key is pressed/released via GLFW
 void KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mode)
 {
-	if (keys[GLFW_KEY_3])
+	if (keys[GLFW_KEY_0])
 	{
 		if (faseAnimacion) {
 
@@ -3199,7 +3199,7 @@ void KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mode
 	}
 
 	//ANIMACION DEL ESTUDIANTE
-	if (keys[GLFW_KEY_B])
+	if (keys[GLFW_KEY_9])
 	{
 		Anima = 1;
 
